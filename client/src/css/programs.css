@@ -1,0 +1,45 @@
+.program-container {
+  margin: 80px 0px;
+}
+
+.program-img {
+  width: 100%;
+}
+
+.program-text {
+  text-align: left;
+  /* padding-top: 3%; */
+  padding-left: 3%;
+  padding-right: 3%;
+}
+
+.program-text h1 {
+  margin-bottom: 15px;
+  font-size: 45px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.program-text p {
+  font-size: 18px;
+}
+
+.infant {
+  color: red;
+}
+
+.twoYear {
+  color: orange;
+}
+
+.preschool {
+  color: #faf02a;
+}
+
+.special {
+  color: green;
+}
+
+.school {
+  color: blue;
+}

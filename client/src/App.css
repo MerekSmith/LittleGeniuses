@@ -1,0 +1,208 @@
+/* .card-form {
+  opacity: 0.9;
+} */
+
+.latest-profiles-img {
+  width: 40px;
+  height: 40px;
+}
+
+.form-control::placeholder {
+  color: #bbb !important;
+}
+
+.d-block {
+  width: 100%;
+  filter: brightness(70%);
+}
+
+/* the right is set to 0 to remove the default bootstrap css */
+.carousel-caption {
+  width: 50%;
+  top: 25%;
+  text-align: left;
+}
+
+.carousel-caption h1 {
+  font-size: 50px;
+}
+
+.carousel-caption p {
+  font-size: 20px;
+}
+
+/* styling for caption buttons */
+.carousel-caption a {
+  margin-top: 15px;
+}
+
+/*////////////// Navbar //////////////////*/
+.navbar {
+  height: 110px;
+}
+
+.navbar-brand {
+  width: 12%;
+}
+
+.nav-logo {
+  width: 100%;
+}
+
+.navbar-text {
+  display: block;
+  padding: 0;
+  text-align: right;
+}
+
+@media only screen and (max-width: 920px) {
+  /* Landing */
+  .carousel-caption h1 {
+    font-size: 35px;
+  }
+
+  .carousel-caption p {
+    font-size: 15px;
+  }
+
+  /* styling for caption buttons */
+  .carousel-caption a {
+    margin-top: 15px;
+  }
+
+  /* Navbar  */
+  .navbar-brand {
+    width: 100px;
+    /* margin-right: 0; */
+  }
+
+  ul.ml-auto {
+    margin: 8px 0 8px 0;
+    padding: 0;
+  }
+
+  .nav-link {
+    font-size: 12px;
+  }
+
+  .navbar-text {
+    font-size: 12px;
+  }
+}
+
+@media only screen and (max-width: 640px) {
+  /* Landing */
+  .carousel-caption {
+    width: 50%;
+    top: 15%;
+  }
+
+  .carousel-caption h1 {
+    font-size: 30px;
+  }
+
+  .carousel-caption p {
+    font-size: 15px;
+  }
+
+  /* styling for caption buttons */
+  .carousel-caption a {
+    margin-top: 10px;
+  }
+
+  /*////////////// Navbar //////////////////*/
+  .navbar {
+    height: 90px;
+  }
+}
+
+@media only screen and (max-width: 575px) {
+  /* Landing */
+  .carousel-caption {
+    width: 70%;
+    top: 15%;
+  }
+
+  .carousel-caption h1 {
+    font-size: 25px;
+  }
+
+  .carousel-caption p {
+    font-size: 12px;
+  }
+
+  /* Navbar */
+  .navbar-brand {
+    width: 100px;
+    /* margin-right: 0; */
+  }
+
+  ul.ml-auto {
+    margin: 8px 0 8px 0;
+    padding: 0;
+  }
+
+  .nav-link {
+    font-size: 14px;
+  }
+
+  .navbar-text {
+    font-size: 14px;
+    padding-right: 5px;
+    text-decoration: underline;
+  }
+}
+
+@media only screen and (max-width: 450px) {
+  /* Landing */
+  .carousel-caption {
+    width: 70%;
+    top: 15%;
+  }
+
+  .carousel-caption h1 {
+    font-size: 20px;
+  }
+
+  .carousel-caption p {
+    font-size: 10px;
+  }
+
+  .navbar-text {
+    /* padding-right: 5px; */
+  }
+}
+
+/* // Small devices (landscape phones, 576px and up) */
+@media (min-width: 576px) {
+}
+
+/* // Medium devices (tablets, 768px and up) */
+@media (min-width: 768px) {
+}
+
+/* // Large devices (desktops, 992px and up) */
+@media only screen and (min-width: 992px) {
+  .d-block {
+    height: calc(100vh - 110px);
+  }
+}
+
+/* // Extra large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) {
+  .navbar {
+    padding: 0px 120px;
+  }
+}
+
+@media (min-width: 1400px) {
+  .container {
+    max-width: 1360px;
+  }
+}
+
+/* @media (min-width: 1600px) {
+  .container {
+    max-width: 1400px;
+  }
+} */

@@ -1,0 +1,68 @@
+.teachers-heading {
+  text-align: center;
+  margin: 30px 0px;
+}
+
+.teachers {
+  padding: 0px 100px;
+}
+
+.teacher-info {
+  min-height: 500px;
+  text-align: center;
+  margin-bottom: 25px;
+}
+
+.teacher-img {
+  width: 100%;
+  max-height: 40%;
+}
+
+.teacher-name {
+  margin: 10px 0px;
+}
+
+.parallax {
+  /* Create the parallax scrolling effect */
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
+  background-position-y: 0px;
+}
+
+.staff-bg {
+  /* The image used */
+  background-image: url("../img/Staff/staff.jpg");
+
+  /* Set a specific height */
+  min-height: 500px;
+  opacity: 0.9;
+  margin: 0 -5%;
+}
+
+.parallax-caption {
+  position: absolute;
+  /* left: 0; */
+  bottom: 25%;
+  text-align: left;
+  color: white;
+  margin-left: 12%;
+  width: 45%;
+}
+
+.parallax-caption h1 {
+  font-size: 54px;
+  font-weight: 900;
+}
+
+.parallax-caption h4 {
+  /* font-size: 54px; */
+  font-weight: 600;
+}
+
+.parallax-caption p {
+  /* font-size: 54px; */
+  font-weight: 500;
+}

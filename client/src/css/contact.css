@@ -1,0 +1,16 @@
+.contact-address,
+.contact-info {
+  margin: 0px;
+}
+
+.contact-info {
+  text-decoration: underline;
+}
+
+#contact-form {
+  margin-top: 40px;
+}
+
+.send-button {
+  text-align: right;
+}

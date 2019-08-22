@@ -1,0 +1,10 @@
+.events-container {
+  text-align: center;
+}
+
+/* /////////// Calendar ////////////// */
+.calendar {
+  width: 80%;
+  height: 600px;
+  margin: 10px;
+}
