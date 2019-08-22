@@ -5,7 +5,11 @@ import blueBalloon from "../../img/Round Balloons/balloon_round_blue.png";
 
 function TryUs() {
   return (
-    <div className='tryus-container'>
+    <div
+      className='tryus-container'
+      data-aos='fade-up'
+      data-aos-duration='2000'
+    >
       <img src={blueBalloon} className='tryus-balloon' alt='balloon' />
       <div className='balloon-text'>
         <h1>Want to try us for FREE?</h1>

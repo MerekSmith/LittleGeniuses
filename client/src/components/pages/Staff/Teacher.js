@@ -4,7 +4,13 @@ import { Col, Image } from "react-bootstrap";
 function Teacher(props) {
   const { image, name, bio } = props;
   return (
-    <Col xs={12} md={4} className='teacher-info'>
+    <Col
+      xs={12}
+      md={4}
+      className='teacher-info'
+      data-aos='zoom-in-up'
+      data-aos-duration='1500'
+    >
       <Image
         rounded
         src={image}

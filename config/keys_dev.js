@@ -3,4 +3,4 @@ module.exports = {
   secretOrKey: "SECRET"
 };
 
-// googleCalendarAPIKey: "AIzaSyDN-CyjblvYMSyKEL4WNFAeNDohL4VtfXY"
+// mongodb+srv://Merek:RPlRhNgp54X2i70P@little-geniuses-crhar.mongodb.net/test?retryWrites=true&w=majority
