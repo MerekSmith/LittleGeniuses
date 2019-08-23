@@ -2,6 +2,12 @@
   opacity: 0.9;
 } */
 
+.page-header {
+  text-align: center;
+  font-size: 54px;
+  font-weight: 800;
+}
+
 .latest-profiles-img {
   width: 40px;
   height: 40px;
@@ -200,9 +206,3 @@
     max-width: 1360px;
   }
 }
-
-/* @media (min-width: 1600px) {
-  .container {
-    max-width: 1400px;
-  }
-} */

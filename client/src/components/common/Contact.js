@@ -7,7 +7,7 @@ import "../../css/contact.css";
 
 function Contact() {
   return (
-    <div>
+    <div className='contact-container'>
       <Row>
         <Col md={5} xs={12}>
           <Map />

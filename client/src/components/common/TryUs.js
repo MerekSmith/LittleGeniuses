@@ -14,9 +14,9 @@ function TryUs() {
       <div className='balloon-text'>
         <h1>Want to try us for FREE?</h1>
         <h4>Valid from 8am - 12pm</h4>
-        <Link className='btn btn-secondary btn-lg balloon-btn' to='/contact'>
+        <a className='btn btn-secondary btn-lg balloon-btn' href='#contact'>
           Contact Us!
-        </Link>
+        </a>
       </div>
     </div>
   );

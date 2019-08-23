@@ -11,7 +11,7 @@ import toy from "../../img/Carousel/toy.jpg";
 class Landing extends Component {
   componentDidMount() {
     if (this.props.auth.isAuthenticated) {
-      this.props.history.push("/dashboard");
+      this.props.history.push("/");
     }
   }
 
@@ -28,7 +28,10 @@ class Landing extends Component {
                 Check out our exciting, educational programs developed
                 specifically for each age group.
               </p>
-              <Link to='/' className='btn btn-outline-light btn-lg caption-btn'>
+              <Link
+                to='/programs/#contact'
+                className='btn btn-outline-light btn-lg caption-btn'
+              >
                 Programs
               </Link>
             </Carousel.Caption>

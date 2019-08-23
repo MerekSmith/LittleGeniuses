@@ -6,9 +6,10 @@ import { GET_ERRORS, SET_CURRENT_USER } from "./types";
 
 // Register User
 export const registerUser = (userData, history) => dispatch => {
+  console.log("register hit", userData);
   axios
     .post("/api/users/register", userData)
-    .then(res => history.push("/login"))
+    .then(res => history.push("/admin"))
     .catch(err =>
       dispatch({
         type: GET_ERRORS,

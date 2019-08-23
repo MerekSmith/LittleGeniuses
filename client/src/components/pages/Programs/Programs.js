@@ -1,6 +1,9 @@
 import React, { Component } from "react";
+import ScrollableAnchor from "react-scrollable-anchor";
+
 import Program from "../Programs/Program";
 import TryUs from "../../common/TryUs";
+import Contact from "../../common/Contact";
 
 import infant from "../../../img/Programs/program1.webp";
 import twoYear from "../../../img/Programs/program2.webp";
@@ -77,22 +80,29 @@ class Programs extends Component {
 
   render() {
     return (
-      <div>
-        <h1 className='page-header'>Programs</h1>
+      <div className='programs-container'>
         <TryUs />
-        {programs.map((program, index) => {
-          return (
-            <Program
-              programIndex={index}
-              screenWidth={this.state.screenWidth}
-              image={program.image}
-              header={program.header}
-              description={program.description}
-              programClass={program.programClass}
-              key={index}
-            />
-          );
-        })}
+        <h1 className='page-header'>Our Programs</h1>
+        <div className='programs'>
+          {programs.map((program, index) => {
+            return (
+              <Program
+                programIndex={index}
+                screenWidth={this.state.screenWidth}
+                image={program.image}
+                header={program.header}
+                description={program.description}
+                programClass={program.programClass}
+                key={index}
+              />
+            );
+          })}
+        </div>
+        <ScrollableAnchor id={"contact"}>
+          <div>
+            <Contact />
+          </div>
+        </ScrollableAnchor>
       </div>
     );
   }

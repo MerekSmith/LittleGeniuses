@@ -6,7 +6,7 @@ class Events extends Component {
   render() {
     return (
       <div className='events-container'>
-        <h1>Upcoming Events</h1>
+        <h1 className='page-header'>Upcoming Events</h1>
         <Row>
           <Col>
             <Calendar />

@@ -10,7 +10,6 @@ class Register extends Component {
     super();
 
     this.state = {
-      name: "",
       email: "",
       password: "",
       password2: "",
@@ -20,7 +19,7 @@ class Register extends Component {
 
   componentDidMount() {
     if (this.props.auth.isAuthenticated) {
-      this.props.history.push("/dashboard");
+      this.props.history.push("/");
     }
   }
 
@@ -38,7 +37,6 @@ class Register extends Component {
     e.preventDefault();
 
     const newUser = {
-      name: this.state.name,
       email: this.state.email,
       password: this.state.password,
       password2: this.state.password2
@@ -56,18 +54,9 @@ class Register extends Component {
           <div className='row'>
             <div className='col-md-8 m-auto'>
               <h1 className='display-4 text-center'>Sign Up</h1>
-              <p className='lead text-center'>
-                Create your DevConnector account
-              </p>
+              <p className='lead text-center'>Create an admin account</p>
               {/* Can use "noValidate" in the form tag to remove HTML5 warnings on form */}
               <form onSubmit={this.onSubmit}>
-                <TextFieldGroup
-                  placeholder='Name'
-                  name='name'
-                  value={this.state.name}
-                  onChange={this.onChange}
-                  error={errors.name}
-                />
                 <TextFieldGroup
                   placeholder='Email Address'
                   name='email'

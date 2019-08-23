@@ -1,7 +1,7 @@
 {
-  "name": "devconnector",
+  "name": "littlegeniuses",
   "version": "1.0.0",
-  "description": "Social Network for Developers",
+  "description": "Website for Little Geniuses Daycare of Midvale",
   "main": "server.js",
   "scripts": {
     "client-install": "npm install --prefix client",
