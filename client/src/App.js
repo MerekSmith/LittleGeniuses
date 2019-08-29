@@ -10,25 +10,27 @@ import { Provider } from "react-redux";
 import store from "./store";
 
 import Navbar from "./components/layout/Navbar";
-import Landing from "./components/layout/Landing";
+import Landing from "./components/layout/Landing/Landing";
 import Register from "./components/auth/register";
 import Login from "./components/auth/login";
 import Programs from "./components/pages/Programs/Programs";
 import Events from "./components/pages/Events";
 import Testimonials from "./components/pages/Testimonials";
 import Staff from "./components/pages/Staff/Staff";
-import Facility from "./components/pages/Facility";
+import Facility from "./components/pages/Facility/Facility";
 import ContactUs from "./components/pages/ContactUs";
 import NotFound from "./components/not-found/NotFound";
 
 // CSS Imports
 import AOS from "aos/dist/aos";
 import "aos/dist/aos.css";
+import "animate.css";
 import "./App.css";
 import "./css/events.css";
 import "./css/tryus.css";
 import "./css/programs.css";
 import "./css/staff.css";
+import "./css/facility.css";
 
 AOS.init();
 

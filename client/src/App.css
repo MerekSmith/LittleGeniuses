@@ -42,6 +42,101 @@
   margin-top: 15px;
 }
 
+.caption-btn:hover {
+  background-color: #00b0ef;
+}
+
+.content {
+  margin: 50px auto;
+  width: 50%;
+  text-align: center;
+}
+
+.program-balloons {
+  max-width: 1400px;
+  width: 85%;
+  text-align: center;
+  margin: auto;
+}
+
+.drop-in {
+  margin: 50px auto;
+  width: 90%;
+}
+
+.drop-in-img {
+  min-width: 240px;
+  width: 100%;
+  max-height: 280px;
+  min-height: 180px;
+  margin: auto;
+}
+
+.drop-in-text {
+  margin: auto 0;
+  padding-top: 20px;
+}
+
+.color-text-box1 {
+  background-color: #00b0ef;
+  /* text-align: center; */
+  color: white;
+  /* width: 100%; */
+  min-height: 300px;
+}
+
+.text-container {
+  width: 60%;
+  margin: auto;
+  text-align: center;
+}
+
+.text-container h1 {
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+
+.tryus-landing-container {
+  margin: 50px auto;
+}
+
+.tryus-landing-img {
+  height: 500px;
+  margin: auto;
+}
+
+.tryus-landing {
+  margin: auto 0;
+}
+
+.tryus-landing .tryus-container {
+  margin-bottom: 0; /* This cancels out the css normally assigned with the TryUs component */
+}
+
+.parallax {
+  /* Create the parallax scrolling effect */
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
+  background-position-y: 0px;
+}
+
+.landing-bg {
+  /* The image used for parallax */
+  background-image: url("./img/Landing/mom-with-daycare-children.jpg");
+
+  /* Set a specific height */
+  min-height: 500px;
+  /* opacity: 0.9; */
+  /* margin: 0 -5%; */
+}
+
+.landing-contact {
+  margin: 100px 0;
+}
+
 /*////////////// Navbar //////////////////*/
 .navbar {
   height: 110px;
@@ -190,12 +285,16 @@
 /* // Large devices (desktops, 992px and up) */
 @media only screen and (min-width: 992px) {
   .d-block {
-    height: calc(100vh - 110px);
+    height: 600px;
   }
 }
 
 /* // Extra large devices (large desktops, 1200px and up) */
 @media (min-width: 1200px) {
+  .d-block {
+    height: 700px;
+  }
+
   .navbar {
     padding: 0px 120px;
   }
