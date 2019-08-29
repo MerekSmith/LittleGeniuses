@@ -10,10 +10,10 @@ import Balloon from "../../common/Balloon";
 import TryUs from "../../common/TryUs";
 import Contact from "../../common/Contact";
 
-import greenBalloon from "../../../img/Round Balloons/balloon_round_green.png";
-import redBalloon from "../../../img/Round Balloons/balloon_round_red.png";
-import purpleBalloon from "../../../img/Round Balloons/balloon_round_purple.png";
 import orangeBalloon from "../../../img/Round Balloons/balloon_round_orange.png";
+import redBalloon from "../../../img/Round Balloons/balloon_round_red.png";
+import greenBalloon from "../../../img/Round Balloons/balloon_round_green.png";
+import purpleBalloon from "../../../img/Round Balloons/balloon_round_purple.png";
 import dressup from "../../../img/Landing/dressup.webp";
 
 import dropIn from "../../../img/Landing/dropin.webp";
@@ -94,7 +94,7 @@ class Landing extends Component {
             </Col>
           </Row>
           <Row className='tryus-landing-container justify-content-md-center'>
-            <Col md={4}>
+            <Col md={4} className='tryus-landing-img-container'>
               <Image rounded src={dressup} className='tryus-landing-img' />
             </Col>
             <Col md={4} className='tryus-landing'>

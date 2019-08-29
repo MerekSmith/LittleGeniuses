@@ -6,60 +6,67 @@ function FacilitySlides() {
   return (
     <Carousel autoPlay>
       <div>
-        <img src='http://lorempixel.com/output/cats-q-c-640-480-1.jpg' />
+        <img
+          src='http://lorempixel.com/output/cats-q-c-640-480-1.jpg'
+          alt='image1'
+        />
         <p className='legend'>Legend 1</p>
       </div>
       <div>
-        <img src='http://lorempixel.com/output/cats-q-c-640-480-2.jpg' />
+        <img
+          src='http://lorempixel.com/output/cats-q-c-640-480-2.jpg'
+          alt='image2'
+        />
         <p className='legend'>Legend 2</p>
       </div>
       <div>
-        <img src='http://lorempixel.com/output/cats-q-c-640-480-3.jpg' />
+        <img
+          src='http://lorempixel.com/output/cats-q-c-640-480-3.jpg'
+          alt='image3'
+        />
         <p className='legend'>Legend 3</p>
       </div>
       <div>
-        <img src='http://lorempixel.com/output/cats-q-c-640-480-4.jpg' />
+        <img
+          src='http://lorempixel.com/output/cats-q-c-640-480-4.jpg'
+          alt='image4'
+        />
         <p className='legend'>Legend 4</p>
       </div>
       <div>
-        <img src='http://lorempixel.com/output/cats-q-c-640-480-5.jpg' />
+        <img
+          src='http://lorempixel.com/output/cats-q-c-640-480-5.jpg'
+          alt='image5'
+        />
         <p className='legend'>Legend 5</p>
       </div>
       <div>
-        <img src='http://lorempixel.com/output/cats-q-c-640-480-6.jpg' />
+        <img
+          src='http://lorempixel.com/output/cats-q-c-640-480-6.jpg'
+          alt='image6'
+        />
         <p className='legend'>Legend 6</p>
       </div>
       <div>
-        <img src='http://lorempixel.com/output/cats-q-c-640-480-7.jpg' />
+        <img
+          src='http://lorempixel.com/output/cats-q-c-640-480-7.jpg'
+          alt='image7'
+        />
         <p className='legend'>Legend 7</p>
       </div>
       <div>
-        <img src='http://lorempixel.com/output/cats-q-c-640-480-8.jpg' />
+        <img
+          src='http://lorempixel.com/output/cats-q-c-640-480-8.jpg'
+          alt='image8'
+        />
         <p className='legend'>Legend 8</p>
       </div>
       <div>
-        <img src='http://lorempixel.com/output/cats-q-c-640-480-9.jpg' />
+        <img
+          src='http://lorempixel.com/output/cats-q-c-640-480-9.jpg'
+          alt='image9'
+        />
         <p className='legend'>Legend 9</p>
-      </div>
-      <div>
-        <img src='http://lorempixel.com/output/cats-q-c-640-480-10.jpg' />
-        <p className='legend'>Legend 10</p>
-      </div>
-      <div>
-        <img src='http://lorempixel.com/output/cats-q-c-640-480-11.jpg' />
-        <p className='legend'>Legend 11</p>
-      </div>
-      <div>
-        <img src='http://lorempixel.com/output/cats-q-c-640-480-12.jpg' />
-        <p className='legend'>Legend 12</p>
-      </div>
-      <div>
-        <img src='http://lorempixel.com/output/cats-q-c-640-480-13.jpg' />
-        <p className='legend'>Legend 13</p>
-      </div>
-      <div>
-        <img src='http://lorempixel.com/output/cats-q-c-640-480-14.jpg' />
-        <p className='legend'>Legend 14</p>
       </div>
     </Carousel>
   );

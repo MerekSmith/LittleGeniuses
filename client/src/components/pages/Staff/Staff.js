@@ -6,7 +6,7 @@ function Staff() {
     <div>
       <div className='parallax staff-bg'>
         <div className='parallax-caption'>
-          <h1>Our Staff</h1>
+          <h1 className='page-header'>Our Staff</h1>
           <h4>
             At Little Geniuses our Teachers are warm, sensitive and responsive
           </h4>

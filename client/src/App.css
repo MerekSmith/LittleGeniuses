@@ -100,13 +100,18 @@
   margin: 50px auto;
 }
 
+.tryus-landing-img-container {
+  text-align: center;
+  min-width: 405px;
+}
+
 .tryus-landing-img {
-  height: 500px;
-  margin: auto;
+  width: 375px;
 }
 
 .tryus-landing {
   margin: auto 0;
+  min-width: 435px;
 }
 
 .tryus-landing .tryus-container {
