@@ -28,7 +28,7 @@ class Landing extends Component {
   render() {
     return (
       <div className='landing'>
-        <CarouselSlides />
+        {/* <CarouselSlides /> */}
         <div className='container'>
           <div className='content'>
             <h3>Every child is unique, like a finger print.</h3>
