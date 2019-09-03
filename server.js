@@ -52,8 +52,12 @@ const port = process.env.PORT || 5000;
 app.listen(port, () => console.log(`Server running on port ${port}`));
 
 // email contact form sending
-app.post("/send", (req, res) => {
-  sendEmail(req, res).catch(err => res.json(err));
+app.post("/send", async (req, res) => {
+  sendEmail(req, res).catch(err => {
+    err.error = true;
+    err.mailSent = false;
+    res.json(err);
+  });
 });
 
 const sendEmail = async (req, res) => {

@@ -26,6 +26,7 @@ import AOS from "aos/dist/aos";
 import "aos/dist/aos.css";
 import "animate.css";
 import "./App.css";
+import "./css/navbar.css";
 import "./css/events.css";
 import "./css/tryus.css";
 import "./css/programs.css";

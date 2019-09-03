@@ -142,27 +142,7 @@
   margin: 100px 0;
 }
 
-/*////////////// Navbar //////////////////*/
-.navbar {
-  height: 110px;
-}
-
-.navbar-brand {
-  width: 12%;
-}
-
-.nav-logo {
-  width: 100%;
-}
-
-.navbar-text {
-  display: block;
-  padding: 0;
-  text-align: right;
-}
-
 @media only screen and (max-width: 920px) {
-  /* Landing */
   .carousel-caption h1 {
     font-size: 35px;
   }
@@ -174,25 +154,6 @@
   /* styling for caption buttons */
   .carousel-caption a {
     margin-top: 15px;
-  }
-
-  /* Navbar  */
-  .navbar-brand {
-    width: 100px;
-    /* margin-right: 0; */
-  }
-
-  ul.ml-auto {
-    margin: 8px 0 8px 0;
-    padding: 0;
-  }
-
-  .nav-link {
-    font-size: 12px;
-  }
-
-  .navbar-text {
-    font-size: 12px;
   }
 }
 
@@ -215,11 +176,6 @@
   .carousel-caption a {
     margin-top: 10px;
   }
-
-  /*////////////// Navbar //////////////////*/
-  .navbar {
-    height: 90px;
-  }
 }
 
 @media only screen and (max-width: 575px) {
@@ -236,27 +192,6 @@
   .carousel-caption p {
     font-size: 12px;
   }
-
-  /* Navbar */
-  .navbar-brand {
-    width: 100px;
-    /* margin-right: 0; */
-  }
-
-  ul.ml-auto {
-    margin: 8px 0 8px 0;
-    padding: 0;
-  }
-
-  .nav-link {
-    font-size: 14px;
-  }
-
-  .navbar-text {
-    font-size: 14px;
-    padding-right: 5px;
-    text-decoration: underline;
-  }
 }
 
 @media only screen and (max-width: 450px) {
@@ -272,10 +207,6 @@
 
   .carousel-caption p {
     font-size: 10px;
-  }
-
-  .navbar-text {
-    /* padding-right: 5px; */
   }
 }
 
@@ -298,10 +229,6 @@
 @media (min-width: 1200px) {
   .d-block {
     height: 700px;
-  }
-
-  .navbar {
-    padding: 0px 120px;
   }
 }
 

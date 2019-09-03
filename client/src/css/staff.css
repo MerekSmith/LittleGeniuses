@@ -22,18 +22,8 @@
   margin: 10px 0px;
 }
 
-.parallax {
-  /* Create the parallax scrolling effect */
-  background-attachment: fixed;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-  position: relative;
-  background-position-y: 0px;
-}
-
 .staff-bg {
-  /* The image used */
+  /* The image used for parallax */
   background-image: url("../img/Staff/staff.jpg");
 
   /* Set a specific height */

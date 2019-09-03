@@ -11,6 +11,7 @@ class ContactForm extends Component {
       phone: "",
       address: "",
       message: "",
+      submitted: false,
       mailSent: false,
       error: null
     };
@@ -19,38 +20,47 @@ class ContactForm extends Component {
   handleFormSubmit = event => {
     event.preventDefault();
 
+    // Send post request to node server to submit mail request.
     axios
       .post("/send", this.state)
       .then(res => {
         const { mailSent } = res.data;
-        if (res.data.err) {
-          console.log(res.data.err);
-          this.setState({ error: true });
+        if (mailSent === false) {
+          this.setState({ error: true, submitted: true });
         }
-        if (mailSent) {
-          this.setState({
-            mailSent,
-            name: "",
-            email: "",
-            phone: "",
-            address: "",
-            message: ""
-          });
-        }
+
+        this.setState({
+          mailSent,
+          submitted: true,
+          name: "",
+          email: "",
+          phone: "",
+          address: "",
+          message: ""
+        });
       })
       .catch(error => {
-        console.log(error);
-        this.setState({ error: true });
+        console.log("catch", error);
+        this.setState({ error: true, submitted: true });
       });
   };
 
   render() {
+    const { submitted, error } = this.state;
+
     return (
       <div>
-        {this.state.mailSent ? (
-          <h2 className='message-sucess animated lightSpeedIn'>
-            Your message has been sent!
-          </h2>
+        {submitted ? (
+          !error ? (
+            <h2 className='message-sucess animated lightSpeedIn'>
+              Your message has been sent!
+            </h2>
+          ) : (
+            <h2 className='error animated bounceInRight'>
+              Sorry we had some problems. Please try again later or directly
+              call or email us.
+            </h2>
+          )
         ) : (
           <form id='contact-form' onSubmit={e => this.handleFormSubmit(e)}>
             <div className='controls'>
