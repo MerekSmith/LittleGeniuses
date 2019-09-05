@@ -102,7 +102,7 @@
 
 .tryus-landing-img-container {
   text-align: center;
-  min-width: 405px;
+  max-width: 405px;
 }
 
 .tryus-landing-img {
@@ -111,7 +111,7 @@
 
 .tryus-landing {
   margin: auto 0;
-  min-width: 435px;
+  max-width: 435px;
 }
 
 .tryus-landing .tryus-container {
@@ -154,6 +154,18 @@
   /* styling for caption buttons */
   .carousel-caption a {
     margin-top: 15px;
+  }
+
+  .tryus-landing-img-container {
+    margin: auto;
+  }
+
+  .tryus-landing-img {
+    margin-bottom: 50px;
+  }
+
+  .tryus-landing {
+    margin: auto;
   }
 }
 
@@ -198,7 +210,7 @@
   /* Landing */
   .carousel-caption {
     width: 70%;
-    top: 15%;
+    top: 5%;
   }
 
   .carousel-caption h1 {
@@ -207,6 +219,19 @@
 
   .carousel-caption p {
     font-size: 10px;
+  }
+
+  .tryus-landing-img-container {
+    max-width: 405px;
+  }
+
+  .tryus-landing-img {
+    width: 100%;
+    margin-bottom: 20px;
+  }
+
+  .tryus-landing {
+    max-width: 435px;
   }
 }
 
