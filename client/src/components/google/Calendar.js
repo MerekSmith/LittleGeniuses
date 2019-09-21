@@ -1,15 +1,54 @@
 import React from "react";
+import FullCalendar from "@fullcalendar/react";
+// import { Calendar } from "@fullcalendar/core";
+import dayGridPlugin from "@fullcalendar/daygrid";
+import timeGridPlugin from "@fullcalendar/timegrid";
+import listPlugin from "@fullcalendar/list";
+import googleCalendarPlugin from "@fullcalendar/google-calendar";
 
-function Calendar() {
-  return (
-    <div>
-      <iframe
-        src='https://calendar.google.com/calendar/b/1/embed?height=600&amp;wkst=1&amp;bgcolor=%23ffffff&amp;ctz=America%2FDenver&amp;src=dHBuOWdqbWlncjd1c3RqaGU5NXI4Z3BycmNAZ3JvdXAuY2FsZW5kYXIuZ29vZ2xlLmNvbQ&amp;src=Z3Znc2U4a3BqZ2JyNWVrZzhsdmFxaW9vZjhAZ3JvdXAuY2FsZW5kYXIuZ29vZ2xlLmNvbQ&amp;src=ZW4udXNhI2hvbGlkYXlAZ3JvdXAudi5jYWxlbmRhci5nb29nbGUuY29t&amp;color=%237986CB&amp;color=%23F6BF26&amp;color=%230B8043&amp;title=Events%20at%20Little%20Geniuses&amp;showTabs=1&amp;showNav=1&amp;showDate=1&amp;showCalendars=1&amp;showTz=1'
-        className='calendar'
-        title='calendar'
+import "../../css/main.scss"; // webpack must be configured to do this
+
+class Calendar extends React.Component {
+  render() {
+    return (
+      <FullCalendar
+        defaultView='dayGridMonth'
+        header={{
+          left: "prev,next, today",
+          center: "title",
+          right: "dayGridMonth,timeGridWeek,listWeek, listYear"
+        }}
+        plugins={[
+          dayGridPlugin,
+          listPlugin,
+          timeGridPlugin,
+          googleCalendarPlugin
+        ]}
+        weekends={false}
+        googleCalendarApiKey='AIzaSyA_UMSFWJbiTaMScNMbNvTk7I5ti4EuXHE'
+        eventSources={[
+          {
+            googleCalendarId: "littlegeniusesmidvale@gmail.com",
+            className: "learning-center"
+          },
+          {
+            googleCalendarId:
+              "tpn9gjmigr7ustjhe95r8gprrc@group.calendar.google.com",
+            className: "summer-non-graders"
+          },
+          {
+            googleCalendarId:
+              "gvgse8kpjgbr5ekg8lvaqioof8@group.calendar.google.com",
+            className: "summer-graders"
+          }
+        ]}
+        eventClick={arg => {
+          // prevents the redirect to google calendar from clicking an event.
+          arg.jsEvent.preventDefault();
+        }}
       />
-    </div>
-  );
+    );
+  }
 }
 
 export default Calendar;

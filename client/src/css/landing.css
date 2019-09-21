@@ -48,11 +48,11 @@
 
 .content {
   margin: 50px auto;
-  width: 50%;
+  width: 60%;
   text-align: center;
 }
 
-.program-balloons {
+.programs-balloons {
   max-width: 1400px;
   width: 85%;
   text-align: center;
@@ -62,6 +62,11 @@
 .drop-in {
   margin: 50px auto;
   width: 90%;
+}
+
+.drop-in-img-container {
+  min-width: 350px;
+  margin: auto 0;
 }
 
 .drop-in-img {
@@ -130,7 +135,7 @@
 
 .landing-bg {
   /* The image used for parallax */
-  background-image: url("./img/Landing/mom-with-daycare-children.jpg");
+  background-image: url("../img/Landing/mom-with-daycare-children.jpg");
 
   /* Set a specific height */
   min-height: 500px;
@@ -241,6 +246,9 @@
 
 /* // Medium devices (tablets, 768px and up) */
 @media (min-width: 768px) {
+  .text-container {
+    margin: auto 0;
+  }
 }
 
 /* // Large devices (desktops, 992px and up) */

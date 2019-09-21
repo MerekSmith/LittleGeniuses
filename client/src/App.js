@@ -25,13 +25,14 @@ import NotFound from "./components/not-found/NotFound";
 import AOS from "aos/dist/aos";
 import "aos/dist/aos.css";
 import "animate.css";
-import "./App.css";
+import "./css/landing.css";
 import "./css/navbar.css";
 import "./css/events.css";
 import "./css/tryus.css";
 import "./css/programs.css";
 import "./css/staff.css";
 import "./css/facility.css";
+import "./css/custom_calendar.css";
 
 AOS.init();
 

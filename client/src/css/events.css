@@ -3,8 +3,45 @@
 }
 
 /* /////////// Calendar ////////////// */
-.calendar {
+.calendar-container {
   width: 80%;
   height: 600px;
-  margin: 10px;
+  margin: 40px auto;
+}
+
+/* Daycare calendar event stylings, does not transfer over from google directly. */
+.learning-center {
+  background-color: #039be5;
+  border: 1px solid #039be5;
+  /* color: white; */
+}
+
+.summer-non-graders {
+  background-color: #7986cb;
+  border: 1px solid #7986cb;
+}
+
+.summer-graders {
+  background-color: #f6bf26;
+  border: 1px solid #f6bf26;
+}
+
+/* Fixes list view text color */
+.fc-list-item > td,
+.fc-list-item > td > a {
+  color: black;
+  text-decoration: none !important;
+}
+
+.fc-button {
+  background-color: #039be5;
+}
+
+.fc-button-active {
+  background-color: grey !important;
+}
+
+.fc-widget-header {
+  background-color: #c6c7c9 !important;
+  /* border: 1px solid black !important; */
 }

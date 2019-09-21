@@ -55,6 +55,24 @@
   margin-top: 10px;
 }
 
+.tryus-programs-row {
+}
+
+.tryus-programs-container {
+}
+
+.tryus-programs-img-container {
+  margin: auto 0;
+}
+
+.tryus-programs-img {
+  width: 100%;
+}
+
+.tryus-programs {
+  max-width: 430px;
+}
+
 @media only screen and (max-width: 450px) {
   .tryus-balloon {
     width: 300px;
@@ -76,5 +94,11 @@
 
   .tryus-balloon-btn {
     width: 60%;
+  }
+}
+
+@media only screen and (max-width: 990px) {
+  .tryus-programs {
+    margin: auto;
   }
 }

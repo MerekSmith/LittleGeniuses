@@ -14,9 +14,9 @@ import orangeBalloon from "../../../img/Round Balloons/balloon_round_orange.png"
 import redBalloon from "../../../img/Round Balloons/balloon_round_red.png";
 import greenBalloon from "../../../img/Round Balloons/balloon_round_green.png";
 import purpleBalloon from "../../../img/Round Balloons/balloon_round_purple.png";
-import dressup from "../../../img/Landing/dressup.webp";
+import dressup from "../../../img/Landing/dressup.jpg";
 
-import dropIn from "../../../img/Landing/dropin.webp";
+import dropIn from "../../../img/Landing/dropin.jpg";
 
 class Landing extends Component {
   componentDidMount() {
@@ -72,8 +72,13 @@ class Landing extends Component {
             </Col>
           </Row>
           <Row className='drop-in justify-content-md-center'>
-            <Col md={5} style={{ textAlign: "right" }}>
-              <Image rounded src={dropIn} className='drop-in-img' />
+            <Col md={5} className='drop-in-img-container'>
+              <Image
+                rounded
+                src={dropIn}
+                className='drop-in-img'
+                alt='Drop In'
+              />
             </Col>
             <Col md={5} className='drop-in-text'>
               <h1>DROP INS WELCOME</h1>
@@ -95,7 +100,12 @@ class Landing extends Component {
           </Row>
           <Row className='tryus-landing-container justify-content-md-center'>
             <Col md={4} className='tryus-landing-img-container'>
-              <Image rounded src={dressup} className='tryus-landing-img' />
+              <Image
+                rounded
+                src={dressup}
+                className='tryus-landing-img'
+                alt='Try Us'
+              />
             </Col>
             <Col md={4} className='tryus-landing'>
               <TryUs />

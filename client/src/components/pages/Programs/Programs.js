@@ -1,15 +1,17 @@
 import React, { Component } from "react";
 import ScrollableAnchor from "react-scrollable-anchor";
+import { Row, Col, Image } from "react-bootstrap";
 
 import Program from "../Programs/Program";
 import TryUs from "../../common/TryUs";
 import Contact from "../../common/Contact";
 
-import infant from "../../../img/Programs/program1.webp";
-import twoYear from "../../../img/Programs/program2.webp";
-import preschool from "../../../img/Programs/program3.webp";
-import special from "../../../img/Programs/program4.webp";
-import school from "../../../img/Programs/program5.webp";
+import infant from "../../../img/Programs/program1.jpg";
+import twoYear from "../../../img/Programs/program2.jpg";
+import preschool from "../../../img/Programs/program3.jpg";
+import special from "../../../img/Programs/program4.jpg";
+import school from "../../../img/Programs/program5.jpg";
+import girlWithBear from "../../../img/Programs/girl with bear.jpg";
 
 // Description must be an array, even if just one part, to create line breaks when displayed.
 const programs = [
@@ -81,7 +83,19 @@ class Programs extends Component {
   render() {
     return (
       <div className='programs-container'>
-        <TryUs />
+        <Row className='tryus-programs-row justify-content-md-center'>
+          <Col md={5} className='tryus-programs-img-container'>
+            <Image
+              rounded
+              src={girlWithBear}
+              className='tryus-programs-img'
+              alt='Try Us'
+            />
+          </Col>
+          <Col md={4} className='tryus-programs'>
+            <TryUs />
+          </Col>
+        </Row>
         <h1 className='page-header'>Our Programs</h1>
         <div className='programs'>
           {programs.map((program, index) => {

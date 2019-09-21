@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { logoutUser } from "../../actions/authActions";
-import logo from "../../img/logo.webp";
+import logo from "../../img/logo.jpg";
 
 class Navbar extends Component {
   constructor(props) {
