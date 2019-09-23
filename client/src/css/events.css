@@ -26,6 +26,7 @@
   border: 1px solid #f6bf26;
 }
 
+/*/////////// These update default styling from FullCalendar. //////////////*/
 /* Fixes list view text color */
 .fc-list-item > td,
 .fc-list-item > td > a {
@@ -44,4 +45,29 @@
 .fc-widget-header {
   background-color: #c6c7c9 !important;
   /* border: 1px solid black !important; */
+}
+
+.fc-other-month {
+  background-color: lightgrey;
+}
+
+.fc-day-number {
+  font-weight: bold;
+}
+
+@media only screen and (max-width: 575px) {
+  .fc-header-toolbar {
+    display: block;
+    text-align: center;
+  }
+
+  .fc-center {
+    margin: 10px 0;
+  }
+}
+
+@media only screen and (max-width: 770px) {
+  .calendar-container {
+    width: 100%;
+  }
 }

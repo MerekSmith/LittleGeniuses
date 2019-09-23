@@ -11,42 +11,44 @@ import "../../css/main.scss"; // webpack must be configured to do this
 class Calendar extends React.Component {
   render() {
     return (
-      <FullCalendar
-        defaultView='dayGridMonth'
-        header={{
-          left: "prev,next, today",
-          center: "title",
-          right: "dayGridMonth,timeGridWeek,listWeek, listYear"
-        }}
-        plugins={[
-          dayGridPlugin,
-          listPlugin,
-          timeGridPlugin,
-          googleCalendarPlugin
-        ]}
-        weekends={false}
-        googleCalendarApiKey='AIzaSyA_UMSFWJbiTaMScNMbNvTk7I5ti4EuXHE'
-        eventSources={[
-          {
-            googleCalendarId: "littlegeniusesmidvale@gmail.com",
-            className: "learning-center"
-          },
-          {
-            googleCalendarId:
-              "tpn9gjmigr7ustjhe95r8gprrc@group.calendar.google.com",
-            className: "summer-non-graders"
-          },
-          {
-            googleCalendarId:
-              "gvgse8kpjgbr5ekg8lvaqioof8@group.calendar.google.com",
-            className: "summer-graders"
-          }
-        ]}
-        eventClick={arg => {
-          // prevents the redirect to google calendar from clicking an event.
-          arg.jsEvent.preventDefault();
-        }}
-      />
+      <div className='calendar'>
+        <FullCalendar
+          defaultView='dayGridMonth'
+          header={{
+            left: "prev,next, today",
+            center: "title",
+            right: "dayGridMonth,listWeek, listYear"
+          }}
+          plugins={[
+            dayGridPlugin,
+            listPlugin,
+            timeGridPlugin,
+            googleCalendarPlugin
+          ]}
+          weekends={false}
+          googleCalendarApiKey='AIzaSyA_UMSFWJbiTaMScNMbNvTk7I5ti4EuXHE'
+          eventSources={[
+            {
+              googleCalendarId: "littlegeniusesmidvale@gmail.com",
+              className: "learning-center"
+            },
+            {
+              googleCalendarId:
+                "tpn9gjmigr7ustjhe95r8gprrc@group.calendar.google.com",
+              className: "summer-non-graders"
+            },
+            {
+              googleCalendarId:
+                "gvgse8kpjgbr5ekg8lvaqioof8@group.calendar.google.com",
+              className: "summer-graders"
+            }
+          ]}
+          eventClick={arg => {
+            // prevents the redirect to google calendar from clicking an event.
+            arg.jsEvent.preventDefault();
+          }}
+        />
+      </div>
     );
   }
 }
