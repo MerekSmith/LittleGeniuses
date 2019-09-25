@@ -29,16 +29,31 @@
 }
 
 .reviews-container > .page-header {
-  margin-bottom: 30px;
+  margin: 0;
+}
+
+.reviews-container > .leave-review {
+  font-weight: bold;
+  margin-bottom: 40px;
+  text-align: center;
+}
+
+.leave-review-link {
+  color: black;
+  text-decoration: underline;
+}
+
+.leave-review-link:hover {
+  color: black;
 }
 
 /*/////// For Review Component /////////*/
-.review-container:nth-child(2) {
-  border-top: #039be5 solid 3px;
+.review-container:nth-last-child(1) {
+  border-bottom: #039be5 solid 3px;
 }
 
 .review-container {
-  border-bottom: #039be5 solid 3px;
+  border-top: #039be5 solid 3px;
   padding: 20px 40px;
   margin: 0;
 }

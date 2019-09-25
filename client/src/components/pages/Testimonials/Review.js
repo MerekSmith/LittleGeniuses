@@ -16,7 +16,10 @@ export default function Review(props) {
   const starPercentage = rating * 0.2 * 100 + "%";
 
   return (
-    <Row className='review-container justify-content-md-center'>
+    <Row
+      className='review-container justify-content-md-center'
+      data-aos='fade-up'
+    >
       <Col xs={6} sm={6} lg={1} className='reviewer-image-container'>
         <img
           src={profile_photo_url}

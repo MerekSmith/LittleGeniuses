@@ -34,6 +34,13 @@ class Testimonials extends Component {
         </div>
         <div className='reviews-container'>
           <h1 className='page-header'>Testimonials</h1>
+          <h4 className='leave-review'>
+            Love Little Geniuses? Leave us a review{" "}
+            <a className='leave-review-link' href='https://goo.gl/izpgiC'>
+              here
+            </a>
+            !
+          </h4>
           {/* Only shows component if the reviews array has been filled from the API call. If not, it remains null. */}
           {reviews &&
             reviews.map((review, index) => {
