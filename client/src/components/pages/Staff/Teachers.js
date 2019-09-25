@@ -32,8 +32,8 @@ const teachers = [
 class Teachers extends Component {
   render() {
     return (
-      <div>
-        <h1 className='teachers-heading'>Meet Our Teachers</h1>
+      <div className='teachers-container'>
+        <h1 className='page-header'>Meet Our Teachers</h1>
         <Row className='teachers'>
           {teachers.map(({ image, name, bio }, index) => {
             return <Teacher image={image} name={name} bio={bio} key={index} />;

@@ -1,0 +1,61 @@
+.parallax {
+  /* Create the parallax scrolling effect */
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
+  background-position-y: 0px;
+}
+
+/* //// Staff page ///// */
+.staff-parallax-caption {
+  position: absolute;
+  /* left: 0; */
+  bottom: 25%;
+  text-align: left;
+  color: white;
+  margin-left: 12%;
+  width: 45%;
+}
+
+.staff-parallax-caption h1 {
+  font-size: 54px;
+  font-weight: 900;
+}
+
+.staff-parallax-caption h4 {
+  /* font-size: 54px; */
+  font-weight: 600;
+}
+
+.staff-parallax-caption p {
+  /* font-size: 54px; */
+  font-weight: 500;
+}
+
+/* //// Testimonials page ///// */
+.testimonials-parallax-caption {
+  position: absolute;
+  /* left: 0; */
+  bottom: 25%;
+  text-align: left;
+  color: white;
+  margin-left: 12%;
+  width: 55%;
+}
+
+.testimonials-parallax-caption h1 {
+  font-size: 54px;
+  font-weight: 900;
+}
+
+.testimonials-parallax-caption h4 {
+  /* font-size: 54px; */
+  font-weight: 600;
+}
+
+.testimonials-parallax-caption p {
+  /* font-size: 54px; */
+  font-weight: 500;
+}

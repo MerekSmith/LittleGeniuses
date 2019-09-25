@@ -5,6 +5,7 @@ import { Carousel } from "react-bootstrap";
 import kids from "../../../img/Carousel/kids.png";
 import girl from "../../../img/Carousel/girl.jpg";
 import toy from "../../../img/Carousel/toy.jpg";
+import laughingKids from "../../../img/Testimonials/happy-kids.jpg";
 
 function CarouselSlides() {
   return (
@@ -44,7 +45,7 @@ function CarouselSlides() {
           </Carousel.Caption>
         </Carousel.Item>
         <Carousel.Item className='dark-overlay'>
-          <img className='d-block w-150' src={kids} alt='First slide' />
+          <img className='d-block w-150' src={laughingKids} alt='First slide' />
           <Carousel.Caption>
             <h1>
               Are you looking for childcare with a safe and secure environment?

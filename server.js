@@ -5,6 +5,7 @@ const passport = require("passport");
 const path = require("path");
 const nodemailer = require("nodemailer");
 
+const reviews = require("./routes/api/reviews");
 const users = require("./routes/api/users");
 const profile = require("./routes/api/profile");
 const posts = require("./routes/api/posts");
@@ -33,6 +34,7 @@ app.use(passport.initialize());
 require("./config/passport")(passport);
 
 // Use routes
+app.use("/reviews", reviews);
 app.use("/api/users", users);
 app.use("/api/profile", profile);
 app.use("/api/posts", posts);

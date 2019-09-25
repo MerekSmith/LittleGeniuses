@@ -13,7 +13,9 @@ function Contact() {
           <Map />
         </Col>
         <Col md={7} xs={12}>
-          <h2>Contact Us!</h2>
+          <h2 className='page-header' style={{ textAlign: "left" }}>
+            Contact Us!
+          </h2>
           <div className='contact-address-container'>
             <p className='contact-address'>7351 S 900 E</p>
             <p className='contact-address'>Midvale, UT 84047</p>

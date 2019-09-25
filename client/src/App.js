@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import jwt_decode from "jwt-decode";
 import setAuthToken from "./utils/setAuthToken";
+import { getReviews } from "./actions/reviewsActions";
 import { setCurrentUser, logoutUser } from "./actions/authActions";
 import { clearCurrentProfile } from "./actions/profileActions";
 import { configureAnchors } from "react-scrollable-anchor";
@@ -15,7 +16,7 @@ import Register from "./components/auth/register";
 import Login from "./components/auth/login";
 import Programs from "./components/pages/Programs/Programs";
 import Events from "./components/pages/Events";
-import Testimonials from "./components/pages/Testimonials";
+import Testimonials from "./components/pages/Testimonials/Testimonials";
 import Staff from "./components/pages/Staff/Staff";
 import Facility from "./components/pages/Facility/Facility";
 import ContactUs from "./components/pages/ContactUs";
@@ -25,6 +26,7 @@ import NotFound from "./components/not-found/NotFound";
 import AOS from "aos/dist/aos";
 import "aos/dist/aos.css";
 import "animate.css";
+import "./css/parallax.css";
 import "./css/landing.css";
 import "./css/navbar.css";
 import "./css/events.css";
@@ -32,9 +34,13 @@ import "./css/tryus.css";
 import "./css/programs.css";
 import "./css/staff.css";
 import "./css/facility.css";
+import "./css/testimonials.css";
 import "./css/custom_calendar.css";
 
 AOS.init();
+
+// This calls the redux action which makes an API call to the server which makes an API call to Google Places ID to get review data. Once completed, this is passed back into the redux state under reviews.
+store.dispatch(getReviews());
 
 configureAnchors({
   offset: -20,

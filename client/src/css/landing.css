@@ -124,16 +124,6 @@
   margin-bottom: 0; /* This cancels out the css normally assigned with the TryUs component */
 }
 
-.parallax {
-  /* Create the parallax scrolling effect */
-  background-attachment: fixed;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-  position: relative;
-  background-position-y: 0px;
-}
-
 .landing-bg {
   /* The image used for parallax */
   background-image: url("../img/Landing/mom-with-daycare-children.jpg");
