@@ -116,9 +116,37 @@
 }
 
 @media only screen and (max-width: 575px) {
+  .testimonials-parallax-caption > .page-header {
+    font-size: 45px;
+  }
+
+  .second-header {
+    font-size: 30px;
+  }
+
+  .testimonials-parallax-caption h4 {
+    font-size: 25px;
+  }
+
+  .main-stars-container > .stars-outer,
+  .main-stars-container > .stars-inner {
+    font-size: 30px;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .testimonials-parallax-caption {
+    bottom: 20%;
+    max-height: 400px;
+  }
 }
 
 @media only screen and (max-width: 992px) {
+  .testimonials-parallax-caption {
+    width: 85%;
+    margin-left: 6%;
+  }
+
   .review-container {
     padding: 20px 0;
   }
