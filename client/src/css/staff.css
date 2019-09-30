@@ -34,3 +34,29 @@
   min-height: 500px;
   margin: 0 -5%;
 }
+
+@media only screen and (max-width: 640px) {
+  .staff-parallax-caption {
+    bottom: 25%;
+    margin-left: 5%;
+    width: 90%;
+  }
+
+  .staff-parallax-caption > h1 {
+    text-align: left;
+  }
+
+  .teachers {
+    padding: 0 20px;
+  }
+
+  .teacher-info {
+    min-height: 0;
+  }
+}
+
+@media only screen and (max-width: 475px) {
+  .staff-parallax-caption {
+    bottom: 20%;
+  }
+}

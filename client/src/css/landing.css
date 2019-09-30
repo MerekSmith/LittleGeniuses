@@ -66,8 +66,8 @@
 }
 
 .drop-in-img-container {
-  min-width: 350px;
   margin: auto 0;
+  padding: 0;
 }
 
 .drop-in-img {
@@ -184,6 +184,15 @@
   .carousel-caption a {
     margin-top: 10px;
   }
+
+  .text-container {
+    width: 90%;
+    margin: 10px auto;
+  }
+
+  div.content {
+    width: 90%;
+  }
 }
 
 @media only screen and (max-width: 575px) {
@@ -239,6 +248,10 @@
 @media (min-width: 768px) {
   .text-container {
     margin: auto 0;
+  }
+
+  .drop-in-img-container {
+    min-width: 350px;
   }
 }
 

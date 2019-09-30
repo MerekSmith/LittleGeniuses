@@ -6,6 +6,7 @@ function Teacher(props) {
   return (
     <Col
       xs={12}
+      sm={6}
       md={4}
       className='teacher-info'
       data-aos='zoom-in-up'

@@ -8,7 +8,7 @@ class Events extends Component {
       <div className='events-container'>
         <h1 className='page-header'>Upcoming Events</h1>
         <div className='calendar-container'>
-          <CalendarComp className='calendar' />
+          <CalendarComp />
         </div>
       </div>
     );
