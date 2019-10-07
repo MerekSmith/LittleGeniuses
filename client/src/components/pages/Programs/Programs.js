@@ -136,7 +136,7 @@ class Programs extends Component {
           )}
         </div>
         <br />
-        <UploadForm />
+        <UploadForm getPrograms={this.props.getPrograms} />
         <br />
         <ScrollableAnchor id={"contact"}>
           <div>

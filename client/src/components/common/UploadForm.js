@@ -8,6 +8,7 @@ import {
   DialogContentText,
   DialogTitle
 } from "@material-ui/core";
+import axios from "axios";
 
 export default class UploadForm extends Component {
   constructor(props) {
@@ -18,7 +19,8 @@ export default class UploadForm extends Component {
       setOpen: "",
       header: "",
       description: "",
-      image: null
+      image: null,
+      textColor: ""
     };
   }
 
@@ -30,6 +32,16 @@ export default class UploadForm extends Component {
     this.setState({ open: false });
   };
 
+  handleCancel = () => {
+    this.setState({
+      open: false,
+      header: "",
+      description: "",
+      image: null,
+      textColor: ""
+    });
+  };
+
   handleChange = name => event => {
     this.setState({ [name]: event.target.value });
   };
@@ -38,8 +50,35 @@ export default class UploadForm extends Component {
     this.setState({ image: event.target.files[0] });
   };
 
+  handleSubmit = () => {
+    const { header, description, image, textColor } = this.state;
+
+    // Create formData to send over with post request. Needs to be in this format due to image.
+    let fd = new FormData();
+    fd.append("image", image);
+    fd.append("header", header);
+    fd.append("description", description);
+    fd.append("textColor", textColor);
+    // axios post request
+    axios
+      .post("api/programs", fd, {
+        // This extra argument gives access to upload progress.
+        onUploadProgress: progressEvent => {
+          console.log(
+            "Upload Progress: " +
+              Math.round((progressEvent.loaded / progressEvent.total) * 100) +
+              "%"
+          );
+        }
+      })
+      .then(res => {
+        this.props.getPrograms();
+        this.handleCancel();
+      });
+  };
+
   render() {
-    const { open, header, description } = this.state;
+    const { open, header, description, textColor } = this.state;
 
     return (
       <div>
@@ -102,12 +141,25 @@ export default class UploadForm extends Component {
                 rowsMax='4'
                 onChange={this.handleChange("description")}
               />
+              <TextField
+                required
+                margin='dense'
+                id='textColor'
+                label='Header Text Color'
+                name='textColor'
+                type='text'
+                value={textColor}
+                fullWidth
+                onChange={this.handleChange("textColor")}
+              />
             </DialogContent>
             <DialogActions>
-              <Button onClick={this.handleClose} color='primary'>
+              <Button onClick={this.handleCancel} color='primary'>
                 Cancel
               </Button>
-              <input type='submit' value='Submit' className='btn btn-primary' />
+              <Button onClick={this.handleSubmit} color='primary'>
+                Submit
+              </Button>
             </DialogActions>
           </form>
         </Dialog>
