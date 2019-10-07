@@ -4,11 +4,13 @@ import errorReducer from "./errorReducer";
 import profileReducer from "./profileReducer";
 import postReducer from "./postReducer";
 import reviewsReducer from "./reviewsReducer";
+import programsReducer from "./programsReducer";
 
 export default combineReducers({
   auth: authReducer,
   errors: errorReducer,
   profile: profileReducer,
   post: postReducer,
-  reviews: reviewsReducer
+  reviews: reviewsReducer,
+  programs: programsReducer
 });

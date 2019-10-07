@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import CalendarComp from "../google/Calendar";
-import { Row, Col } from "react-bootstrap";
 
 class Events extends Component {
   render() {

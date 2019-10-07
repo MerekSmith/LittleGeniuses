@@ -4,9 +4,14 @@ const bodyParser = require("body-parser");
 const passport = require("passport");
 const path = require("path");
 const nodemailer = require("nodemailer");
+// const crypto = require("crypto");
+// const multer = require("multer");
+// const GridFsStorage = require("multer-gridfs-storage");
+// const Grid = require("gridfs-stream");
 
 const reviews = require("./routes/api/reviews");
 const users = require("./routes/api/users");
+const programs = require("./routes/api/programs");
 const profile = require("./routes/api/profile");
 const posts = require("./routes/api/posts");
 
@@ -20,12 +25,47 @@ app.use(bodyParser.json());
 const db = require("./config/keys").mongoURI;
 
 // Connect to MongoDB
+// const conn = mongoose.createConnection(db, {
+//   useNewUrlParser: true
+// });
+
+// Original mongo connection
 mongoose
   .connect(db, {
     useNewUrlParser: true
   })
   .then(() => console.log("MongoDB Connected"))
   .catch(err => console.log(err));
+
+// Init gfs
+// let gfs;
+
+// conn.once("open", () => {
+//   // Init stream
+//   gfs = Grid(conn.db, mongoose.mongo);
+//   gfs.collection("uploads");
+// });
+
+// Create storage engine
+// const storage = new GridFsStorage({
+//   url: db,
+//   file: (req, file) => {
+//     return new Promise((resolve, reject) => {
+//       crypto.randomBytes(16, (err, buf) => {
+//         if (err) {
+//           return reject(err);
+//         }
+//         const filename = buf.toString('hex') + path.extname(file.originalname);
+//         const fileInfo = {
+//           filename: filename,
+//           bucketName: 'uploads'
+//         };
+//         resolve(fileInfo);
+//       });
+//     });
+//   }
+// });
+// const upload = multer({ storage });
 
 // Passport middleware
 app.use(passport.initialize());
@@ -34,11 +74,13 @@ app.use(passport.initialize());
 require("./config/passport")(passport);
 
 // Use routes
-app.use("/reviews", reviews);
+app.use("/api/reviews", reviews);
+app.use("/api/programs", programs);
 app.use("/api/users", users);
 app.use("/api/profile", profile);
 app.use("/api/posts", posts);
 
+app.use("/uploads", express.static("uploads"));
 // Serve static assets if in production
 if (process.env.NODE_ENV === "production") {
   // Set static folder
@@ -62,6 +104,7 @@ app.post("/send", async (req, res) => {
   });
 });
 
+// TODO: Move this to a seperate file.
 const sendEmail = async (req, res) => {
   const { name, email, phone, address, message } = req.body;
 

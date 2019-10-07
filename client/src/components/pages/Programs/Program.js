@@ -9,17 +9,17 @@ function Program(props) {
     image,
     header,
     description,
-    programClass
+    textColor
   } = props;
 
   const leftImgProgram = (
-    <ScrollableAnchor id={programClass}>
+    <ScrollableAnchor id={header}>
       <Row data-aos='fade-left' data-aos-duration='1500'>
         <Col md={6}>
           <Image rounded src={image} className='program-img' alt='program' />
         </Col>
         <Col md={6} className='program-text'>
-          <h1 className={programClass}>{header}</h1>
+          <h1 style={{ color: textColor }}>{header}</h1>
           {description.map((part, index) => {
             return <p key={index}>{part}</p>;
           })}
@@ -29,10 +29,10 @@ function Program(props) {
   );
 
   const rightImgProgram = (
-    <ScrollableAnchor id={programClass}>
+    <ScrollableAnchor id={header}>
       <Row data-aos='fade-right' data-aos-duration='1500'>
         <Col md={6} className='program-text'>
-          <h1 className={programClass}>{header}</h1>
+          <h1 style={{ color: textColor }}>{header}</h1>
           {description.map((part, index) => {
             return <p key={index}>{part}</p>;
           })}

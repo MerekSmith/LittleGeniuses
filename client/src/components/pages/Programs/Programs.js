@@ -1,10 +1,14 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
 import ScrollableAnchor from "react-scrollable-anchor";
 import { Row, Col, Image } from "react-bootstrap";
+import { getPrograms } from "../../../actions/programsActions";
 
 import Program from "../Programs/Program";
 import TryUs from "../../common/TryUs";
 import Contact from "../../common/Contact";
+import UploadForm from "../../common/UploadForm";
+import Loader from "../../common/Loader";
 
 import infant from "../../../img/Programs/program1.jpg";
 import twoYear from "../../../img/Programs/program2.jpg";
@@ -14,7 +18,7 @@ import school from "../../../img/Programs/program5.jpg";
 import girlWithBear from "../../../img/Programs/girl with bear.jpg";
 
 // Description must be an array, even if just one part, to create line breaks when displayed.
-const programs = [
+const programsArray = [
   {
     image: infant,
     header: "Infant & Toddler Class",
@@ -70,6 +74,9 @@ class Programs extends Component {
   // When the landing page component is loaded, the sizing event listener starts.
   componentDidMount() {
     window.addEventListener("resize", this.setscreenWidth);
+
+    this.props.getPrograms();
+    console.log("programs", this.props.programs);
   }
 
   setscreenWidth = () => {
@@ -81,6 +88,8 @@ class Programs extends Component {
   };
 
   render() {
+    const { programs, originURL } = this.props.programs;
+
     return (
       <div className='programs-container'>
         <Row className='tryus-programs-row justify-content-md-center'>
@@ -97,21 +106,38 @@ class Programs extends Component {
           </Col>
         </Row>
         <h1 className='page-header'>Our Programs</h1>
+        {/* {this.props.programs.programs ? (
+          <img
+            src={
+              "http://localhost:5000" +
+              this.props.programs.programs[0].imagePath
+            }
+            alt='img'
+          />
+        ) : null} */}
         <div className='programs'>
-          {programs.map((program, index) => {
-            return (
-              <Program
-                programIndex={index}
-                screenWidth={this.state.screenWidth}
-                image={program.image}
-                header={program.header}
-                description={program.description}
-                programClass={program.programClass}
-                key={index}
-              />
-            );
-          })}
+          {programs ? (
+            programs.map((program, index) => {
+              const { imagePath, header, description, textColor } = program;
+              return (
+                <Program
+                  programIndex={index}
+                  screenWidth={this.state.screenWidth}
+                  image={originURL + imagePath}
+                  header={header}
+                  description={description}
+                  textColor={textColor}
+                  key={index}
+                />
+              );
+            })
+          ) : (
+            <Loader />
+          )}
         </div>
+        <br />
+        <UploadForm />
+        <br />
         <ScrollableAnchor id={"contact"}>
           <div>
             <Contact />
@@ -122,4 +148,11 @@ class Programs extends Component {
   }
 }
 
-export default Programs;
+const mapStateToProps = state => ({
+  programs: state.programs
+});
+
+export default connect(
+  mapStateToProps,
+  { getPrograms }
+)(Programs);
