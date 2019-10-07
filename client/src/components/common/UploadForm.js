@@ -6,7 +6,8 @@ import {
   DialogActions,
   DialogContent,
   DialogContentText,
-  DialogTitle
+  DialogTitle,
+  Icon
 } from "@material-ui/core";
 import axios from "axios";
 
@@ -16,9 +17,8 @@ export default class UploadForm extends Component {
 
     this.state = {
       open: false,
-      setOpen: "",
       header: "",
-      description: "",
+      description: [""],
       image: null,
       textColor: ""
     };
@@ -36,32 +36,51 @@ export default class UploadForm extends Component {
     this.setState({
       open: false,
       header: "",
-      description: "",
+      description: [""],
       image: null,
       textColor: ""
     });
   };
 
-  handleChange = name => event => {
-    this.setState({ [name]: event.target.value });
+  handleChange = e => {
+    if (e.target.id === "description") {
+      const index = e.target.parentElement.parentElement.dataset.index;
+      let description = [...this.state.description];
+      description[index] = e.target.value;
+      this.setState({ description });
+    } else {
+      this.setState({ [e.target.name]: e.target.value });
+    }
   };
 
-  handleFileChange = event => {
-    this.setState({ image: event.target.files[0] });
+  // handleDescChange = this.setState()
+
+  handleFileChange = e => {
+    this.setState({ image: e.target.files[0] });
+  };
+
+  newDescLine = () => {
+    this.setState(({ description }) => ({
+      description: [...description, ""]
+    }));
   };
 
   handleSubmit = () => {
     const { header, description, image, textColor } = this.state;
-
+    console.log(description);
     // Create formData to send over with post request. Needs to be in this format due to image.
-    let fd = new FormData();
-    fd.append("image", image);
-    fd.append("header", header);
-    fd.append("description", description);
-    fd.append("textColor", textColor);
+    let program = new FormData();
+    program.append("image", image);
+    program.append("header", header);
+    // Loop through description array and append each index element.
+    for (let i = 0; i < description.length; i++) {
+      program.append("description", description[i]);
+    }
+    program.append("textColor", textColor);
+    console.log("program to send", program.description);
     // axios post request
     axios
-      .post("api/programs", fd, {
+      .post("api/programs", program, {
         // This extra argument gives access to upload progress.
         onUploadProgress: progressEvent => {
           console.log(
@@ -79,7 +98,7 @@ export default class UploadForm extends Component {
 
   render() {
     const { open, header, description, textColor } = this.state;
-
+    console.log(description);
     return (
       <div>
         <Button
@@ -87,24 +106,19 @@ export default class UploadForm extends Component {
           color='primary'
           onClick={this.handleClickOpen}
         >
-          Open form dialog
+          Create New Program
         </Button>
         <Dialog
           open={open}
           onClose={this.handleClose}
           aria-labelledby='form-dialog-title'
         >
-          <DialogTitle id='form-dialog-title'>Subscribe</DialogTitle>
-          <form
-            action='/api/programs'
-            method='POST'
-            encType='multipart/form-data'
-            autoComplete='off'
-          >
+          <DialogTitle id='form-dialog-title'>Create New Program</DialogTitle>
+          <form autoComplete='off'>
             <DialogContent>
               <DialogContentText>
-                To subscribe to this website, please enter your email address
-                here. We will send updates occasionally.
+                To create a new program, please provide an image, Header,
+                Description, and a color for the Header text.
               </DialogContentText>
               <TextField
                 autoFocus
@@ -126,20 +140,7 @@ export default class UploadForm extends Component {
                 type='text'
                 value={header}
                 fullWidth
-                onChange={this.handleChange("header")}
-              />
-              <TextField
-                required
-                margin='dense'
-                id='description'
-                label='Description'
-                name='description'
-                type='text'
-                value={description}
-                fullWidth
-                multiline
-                rowsMax='4'
-                onChange={this.handleChange("description")}
+                onChange={this.handleChange}
               />
               <TextField
                 required
@@ -150,8 +151,31 @@ export default class UploadForm extends Component {
                 type='text'
                 value={textColor}
                 fullWidth
-                onChange={this.handleChange("textColor")}
+                onChange={this.handleChange}
               />
+              {description.map((desc, index) => {
+                return (
+                  <TextField
+                    required
+                    margin='dense'
+                    id='description'
+                    data-index={index}
+                    label='Description'
+                    name='description'
+                    type='text'
+                    value={desc}
+                    fullWidth
+                    multiline
+                    rows='2'
+                    rowsMax='4'
+                    onChange={this.handleChange}
+                    key={index}
+                  />
+                );
+              })}
+              <Icon color='primary' onClick={this.newDescLine}>
+                add_circle
+              </Icon>
             </DialogContent>
             <DialogActions>
               <Button onClick={this.handleCancel} color='primary'>

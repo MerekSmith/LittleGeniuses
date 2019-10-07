@@ -63,14 +63,16 @@ router.post(
   // passport.authenticate("jwt", { session: false }),
   upload.single("image"),
   (req, res) => {
-    console.log("program post hit", req.file, req.body);
     const { header, description, textColor } = req.body;
-    const { path, mimetype, filename } = req.file;
-    console.log("path", path);
+    const { path } = req.file;
+
+    console.log(Array.isArray(description), description);
 
     const newProgram = new Program({
       header,
-      description: description.split(" ; "),
+      description: Array.isArray(description)
+        ? description
+        : description.split(" ; "),
       imagePath: "/" + path,
       textColor
     });
