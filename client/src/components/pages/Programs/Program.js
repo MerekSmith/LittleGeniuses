@@ -2,6 +2,8 @@ import React from "react";
 import { Row, Col, Image } from "react-bootstrap";
 import ScrollableAnchor from "react-scrollable-anchor";
 
+import EditIcons from "../../common/EditIcons";
+
 function Program(props) {
   const {
     programIndex,
@@ -9,47 +11,53 @@ function Program(props) {
     image,
     header,
     description,
-    textColor
+    textColor,
+    mongoId,
+    // Actions passed down from Programs component
+    addProgram,
+    getPrograms,
+    deleteProgram,
+    updateProgram
   } = props;
 
-  const leftImgProgram = (
-    <ScrollableAnchor id={header}>
-      <Row data-aos='fade-left' data-aos-duration='1500'>
-        <Col md={6}>
-          <Image rounded src={image} className='program-img' alt='program' />
-        </Col>
-        <Col md={6} className='program-text'>
-          <h1 style={{ color: textColor }}>{header}</h1>
-          {description.map((part, index) => {
-            return <p key={index}>{part}</p>;
-          })}
-        </Col>
-      </Row>
-    </ScrollableAnchor>
-  );
-
-  const rightImgProgram = (
-    <ScrollableAnchor id={header}>
-      <Row data-aos='fade-right' data-aos-duration='1500'>
-        <Col md={6} className='program-text'>
-          <h1 style={{ color: textColor }}>{header}</h1>
-          {description.map((part, index) => {
-            return <p key={index}>{part}</p>;
-          })}
-        </Col>
-        <Col md={6}>
-          <Image rounded src={image} className='program-img' alt='program' />
-        </Col>
-      </Row>
-    </ScrollableAnchor>
-  );
+  // This provides the order that the columns should appear in the program row. The program index will take in the index from the array of programs. If the index is even, it will get the img on the left. If odd, image will be on the right.
+  let textOrder = 1;
+  let imgOrder = 12;
+  if (programIndex % 2 === 0 || !screenWidth) {
+    textOrder = 12;
+    imgOrder = 1;
+  }
 
   return (
     <div className='program-container'>
-      {/* The program index will take in the index from the array of programs. If the index is even, it will get the img on the left. If odd, image will be on the right. */}
-      {programIndex % 2 === 0 || !screenWidth
-        ? leftImgProgram
-        : rightImgProgram}
+      <ScrollableAnchor id={header}>
+        <Row data-aos='fade-left' data-aos-duration='1500'>
+          <Col md={{ order: imgOrder }}>
+            <Image rounded src={image} className='program-img' alt='program' />
+          </Col>
+          <Col md={{ order: textOrder }} className='program-text'>
+            <h1 style={{ color: textColor }}>{header}</h1>
+            {description.map((part, index) => {
+              return <p key={index}>{part}</p>;
+            })}
+          </Col>
+          <EditIcons
+            program={{
+              header,
+              description,
+              textColor,
+              image,
+              programIndex,
+              mongoId
+            }}
+            // actions passed down from Programs
+            getPrograms={getPrograms}
+            addProgram={addProgram}
+            deleteProgram={deleteProgram}
+            updateProgram={updateProgram}
+          />
+        </Row>
+      </ScrollableAnchor>
     </div>
   );
 }

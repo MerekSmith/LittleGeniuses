@@ -66,8 +66,6 @@ router.post(
     const { header, description, textColor } = req.body;
     const { path } = req.file;
 
-    console.log(Array.isArray(description), description);
-
     const newProgram = new Program({
       header,
       description: Array.isArray(description)
@@ -81,6 +79,60 @@ router.post(
     // newProgram.image.contentType = mimetype;
 
     newProgram.save().then(program => res.json(program));
+  }
+);
+
+// @route 	DELETE api/programs/:id
+// @desc 		Delete a post
+// @access 	Private
+router.delete(
+  "/:id",
+  // passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    Program.findByIdAndDelete(req.params.id)
+      .then(program => {
+        res.json({ success: true });
+      })
+      .catch(err => {
+        res.status(404).json({ programnotfound: "this program doesn't exist" });
+      });
+  }
+);
+
+// @route 	PUT api/programs/:id
+// @desc 		Update a program
+// @access 	Private
+router.put(
+  "/:id",
+  // passport.authenticate("jwt", { session: false }),
+  upload.single("image"),
+  (req, res) => {
+    Program.findById(req.params.id).then(program => {
+      const { header, description, textColor } = req.body;
+      const { imagePath } = program;
+
+      let path;
+      if (typeof req.file !== "undefined") {
+        path = "/" + req.file.path;
+      } else {
+        path = imagePath;
+      }
+
+      program = {
+        header,
+        description: Array.isArray(description)
+          ? description
+          : description.split(" ; "),
+        imagePath: path,
+        textColor
+      };
+
+      Program.findOneAndUpdate(
+        { _id: req.params.id },
+        { $set: program },
+        { new: true }
+      ).then(program => res.json(program));
+    });
   }
 );
 

@@ -37,36 +37,6 @@ mongoose
   .then(() => console.log("MongoDB Connected"))
   .catch(err => console.log(err));
 
-// Init gfs
-// let gfs;
-
-// conn.once("open", () => {
-//   // Init stream
-//   gfs = Grid(conn.db, mongoose.mongo);
-//   gfs.collection("uploads");
-// });
-
-// Create storage engine
-// const storage = new GridFsStorage({
-//   url: db,
-//   file: (req, file) => {
-//     return new Promise((resolve, reject) => {
-//       crypto.randomBytes(16, (err, buf) => {
-//         if (err) {
-//           return reject(err);
-//         }
-//         const filename = buf.toString('hex') + path.extname(file.originalname);
-//         const fileInfo = {
-//           filename: filename,
-//           bucketName: 'uploads'
-//         };
-//         resolve(fileInfo);
-//       });
-//     });
-//   }
-// });
-// const upload = multer({ storage });
-
 // Passport middleware
 app.use(passport.initialize());
 

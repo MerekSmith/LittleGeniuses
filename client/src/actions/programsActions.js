@@ -1,5 +1,10 @@
 import axios from "axios";
-import { GET_PROGRAMS } from "./types";
+import {
+  GET_PROGRAMS,
+  ADD_PROGRAM,
+  UPDATE_PROGRAM,
+  DELETE_PROGRAM
+} from "./types";
 
 // Get reviews from google places API via the server side
 export const getPrograms = () => dispatch => {
@@ -17,4 +22,32 @@ export const getPrograms = () => dispatch => {
         payload: {}
       })
     );
+};
+
+export const addProgram = program => dispatch => {
+  axios.post("api/programs", program).then(res => {
+    dispatch({
+      type: ADD_PROGRAM,
+      payload: res.data
+    });
+  });
+};
+
+export const updateProgram = (id, program) => dispatch => {
+  axios.put(`/api/programs/${id}`, program).then(res => {
+    dispatch({
+      type: UPDATE_PROGRAM,
+      payload: res.data
+    });
+  });
+};
+
+export const deleteProgram = id => dispatch => {
+  console.log("delete hit");
+  axios.delete(`/api/programs/${id}`).then(res =>
+    dispatch({
+      type: DELETE_PROGRAM,
+      payload: id
+    })
+  );
 };

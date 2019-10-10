@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import jwt_decode from "jwt-decode";
 import setAuthToken from "./utils/setAuthToken";
 import { getReviews } from "./actions/reviewsActions";
+import { getPrograms } from "./actions/programsActions";
 import { setCurrentUser, logoutUser } from "./actions/authActions";
 import { clearCurrentProfile } from "./actions/profileActions";
 import { configureAnchors } from "react-scrollable-anchor";
@@ -41,6 +42,7 @@ AOS.init();
 
 // This calls the redux action which makes an API call to the server which makes an API call to Google Places ID to get review data. Once completed, this is passed back into the redux state under reviews.
 store.dispatch(getReviews());
+store.dispatch(getPrograms());
 
 configureAnchors({
   offset: -20,

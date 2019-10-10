@@ -9,11 +9,10 @@ import {
   DialogTitle,
   Icon
 } from "@material-ui/core";
-import { Edit, AddBox } from "@material-ui/icons";
+import { Edit } from "@material-ui/icons";
+import axios from "axios";
 
-// import axios from "axios";
-
-class UploadForm extends Component {
+export default class EditForm extends Component {
   constructor(props) {
     super(props);
 
@@ -22,34 +21,23 @@ class UploadForm extends Component {
       header: "",
       description: [""],
       image: null,
-      textColor: "",
-      editMode: false,
-      mongoId: ""
+      textColor: ""
     };
   }
 
   componentDidMount = () => {
-    // If editMode is true, it will set the state to the program that is selected so the fields are populated.
     const { editMode = false, program } = this.props;
-    console.log("program", program.header);
-    if (editMode) {
-      const {
-        header,
-        description,
-        textColor,
-        image,
-        programIndex,
-        mongoId
-      } = program;
+    const { header, description, textColor, image, programIndex } = program;
 
+    // If editMode is true, it will set the state to the program that is selected so the fields are populated.
+    if (editMode) {
       this.setState({
         header,
         description,
         textColor,
         imagePath: image,
         programIndex,
-        editMode,
-        mongoId
+        editMode
       });
     }
   };
@@ -63,20 +51,13 @@ class UploadForm extends Component {
   };
 
   handleCancel = () => {
-    // This is linked to the cancel button. Will clear out the form if using a new program form but will only close it if using the edit form.
-
-    if (this.state.editMode) {
-      this.handleClose();
-    } else {
-      this.setState({
-        open: false,
-        header: "",
-        description: [""],
-        image: null,
-        textColor: "",
-        mongoId: ""
-      });
-    }
+    this.setState({
+      open: false,
+      header: "",
+      description: [""],
+      image: null,
+      textColor: ""
+    });
   };
 
   handleChange = e => {
@@ -102,38 +83,37 @@ class UploadForm extends Component {
     }));
   };
 
-  handleSubmit = () => {
-    const {
-      header,
-      description,
-      image,
-      textColor,
-      editMode,
-      mongoId
-    } = this.state;
-    const { addProgram, getPrograms, updateProgram } = this.props;
+  handleSubmit = async () => {
+    const { header, description, image, textColor } = this.state;
 
     // Create formData to send over with post request. Needs to be in this format due to image.
     let program = new FormData();
     program.append("image", image);
     program.append("header", header);
-    program.append("textColor", textColor);
     // Loop through description array and append each index element.
     for (let i = 0; i < description.length; i++) {
       program.append("description", description[i]);
     }
+    program.append("textColor", textColor);
 
     // TODO: put axios actions in programsAction file. Add edit action and route.
-
-    if (editMode) {
-      // update program action request
-      updateProgram(mongoId, program);
-      this.handleClose();
-    } else {
-      // post program action request.
-      addProgram(program);
-      this.handleCancel();
-    }
+    // axios post request
+    await this.props.addProgram(program);
+    // axios
+    //   .post("api/programs", program, {
+    //     // This extra argument gives access to upload progress.
+    //     onUploadProgress: progressEvent => {
+    //       console.log(
+    //         "Upload Progress: " +
+    //           Math.round((progressEvent.loaded / progressEvent.total) * 100) +
+    //           "%"
+    //       );
+    //     }
+    //   })
+    //   .then(res => {
+    //     this.props.getPrograms();
+    //   });
+    this.handleCancel();
   };
 
   render() {
@@ -154,11 +134,13 @@ class UploadForm extends Component {
             onClick={this.handleClickOpen}
           />
         ) : (
-          <AddBox
-            className='add-icon'
-            fontSize='large'
+          <Button
+            variant='outlined'
+            color='primary'
             onClick={this.handleClickOpen}
-          />
+          >
+            Create New Program
+          </Button>
         )}
         <Dialog
           open={open}
@@ -243,5 +225,3 @@ class UploadForm extends Component {
     );
   }
 }
-
-export default UploadForm;

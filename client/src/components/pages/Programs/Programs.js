@@ -2,12 +2,16 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import ScrollableAnchor from "react-scrollable-anchor";
 import { Row, Col, Image } from "react-bootstrap";
-import { getPrograms } from "../../../actions/programsActions";
+import {
+  getPrograms,
+  addProgram,
+  deleteProgram,
+  updateProgram
+} from "../../../actions/programsActions";
 
 import Program from "../Programs/Program";
 import TryUs from "../../common/TryUs";
 import Contact from "../../common/Contact";
-import UploadForm from "../../common/UploadForm";
 import Loader from "../../common/Loader";
 
 // import infant from "../../../img/Programs/program1.jpg";
@@ -75,8 +79,7 @@ class Programs extends Component {
   componentDidMount() {
     window.addEventListener("resize", this.setscreenWidth);
 
-    this.props.getPrograms();
-    console.log("programs", this.props.programs);
+    // this.props.getPrograms();
   }
 
   setscreenWidth = () => {
@@ -109,7 +112,13 @@ class Programs extends Component {
         <div className='programs'>
           {programs ? (
             programs.map((program, index) => {
-              const { imagePath, header, description, textColor } = program;
+              const {
+                imagePath,
+                header,
+                description,
+                textColor,
+                _id
+              } = program;
               return (
                 <Program
                   programIndex={index}
@@ -119,6 +128,11 @@ class Programs extends Component {
                   description={description}
                   textColor={textColor}
                   key={index}
+                  mongoId={_id}
+                  getPrograms={this.props.getPrograms}
+                  addProgram={this.props.addProgram}
+                  deleteProgram={this.props.deleteProgram}
+                  updateProgram={this.props.updateProgram}
                 />
               );
             })
@@ -126,9 +140,6 @@ class Programs extends Component {
             <Loader />
           )}
         </div>
-        <br />
-        <UploadForm getPrograms={this.props.getPrograms} />
-        <br />
         <ScrollableAnchor id={"contact"}>
           <div>
             <Contact />
@@ -145,5 +156,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { getPrograms }
+  { getPrograms, addProgram, deleteProgram, updateProgram }
 )(Programs);

@@ -2,6 +2,9 @@ export const GET_ERRORS = "GET_ERRORS";
 export const SET_CURRENT_USER = "SET_CURRENT_USER";
 export const GET_REVIEWS = "GET_REVIEWS";
 export const GET_PROGRAMS = "GET_PROGRAMS";
+export const ADD_PROGRAM = "ADD_PROGRAM";
+export const UPDATE_PROGRAM = "UPDATE_PROGRAM";
+export const DELETE_PROGRAM = "DELETE_PROGRAM";
 
 // TODO: Remove these types.
 export const GET_PROFILE = "GET_PROFILE";
