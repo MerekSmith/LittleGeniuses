@@ -22,6 +22,10 @@ const ProgramSchema = new Schema({
   textColor: {
     type: String,
     required: true
+  },
+  order: {
+    type: Number,
+    required: true
   }
   // image: {
   //   data: Buffer,

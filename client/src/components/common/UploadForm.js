@@ -31,7 +31,7 @@ class UploadForm extends Component {
   componentDidMount = () => {
     // If editMode is true, it will set the state to the program that is selected so the fields are populated.
     const { editMode = false, program } = this.props;
-    console.log("program", program.header);
+
     if (editMode) {
       const {
         header,

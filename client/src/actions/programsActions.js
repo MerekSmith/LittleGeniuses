@@ -25,7 +25,7 @@ export const getPrograms = () => dispatch => {
 };
 
 export const addProgram = program => dispatch => {
-  axios.post("api/programs", program).then(res => {
+  axios.post("/api/programs", program).then(res => {
     dispatch({
       type: ADD_PROGRAM,
       payload: res.data

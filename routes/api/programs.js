@@ -35,6 +35,19 @@ const upload = multer({
   fileFilter
 });
 
+function move(array, from, to) {
+  if (to === from) return array;
+
+  var target = array[from];
+  var increment = to < from ? -1 : 1;
+
+  for (var k = from; k != to; k += increment) {
+    array[k] = array[k + increment];
+  }
+  array[to] = target;
+  return array;
+}
+
 // Load Programs Model
 const Program = require("../../models/Program");
 
@@ -46,10 +59,20 @@ router.get("/test", (req, res) => res.json({ msg: "Programs works" }));
 // @route 	GET api/programs
 // @desc 		Get all programs
 // @access 	Public
-router.get("/", (req, res) => {
+router.get("/", async (req, res) => {
   Program.find()
-    // .sort({ date: -1 })
-    .then(programs => res.json(programs))
+    .sort({ order: 1 })
+    .then(programs => {
+      programs.forEach(async (program, index) => {
+        // runs through each program and update order to be the same as index to refresh order count. This is needed since a program is removed and causes a gap.
+        await Program.findOneAndUpdate({ _id: program._id }, { order: index });
+      });
+      Program.find()
+        .sort({ order: 1 })
+        .then(programs => {
+          res.json(programs);
+        });
+    })
     .catch(err =>
       res.status(404).json({ noprogramsfound: "No programs found" })
     );
@@ -62,9 +85,10 @@ router.post(
   "/",
   // passport.authenticate("jwt", { session: false }),
   upload.single("image"),
-  (req, res) => {
+  async (req, res) => {
     const { header, description, textColor } = req.body;
     const { path } = req.file;
+    const order = await Program.find().countDocuments();
 
     const newProgram = new Program({
       header,
@@ -72,7 +96,8 @@ router.post(
         ? description
         : description.split(" ; "),
       imagePath: "/" + path,
-      textColor
+      textColor,
+      order
     });
 
     // newProgram.image.data = fs.readFileSync(path);
@@ -132,6 +157,33 @@ router.put(
         { $set: program },
         { new: true }
       ).then(program => res.json(program));
+    });
+  }
+);
+
+// @route 	PUT api/programs/move/:id
+// @desc 		Update a program
+// @access 	Private
+router.put(
+  "/order/:id",
+  // passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    const { orderMove } = req.body;
+    Program.findById(req.params.id).then(async program => {
+      const { _id, order } = program;
+      let newOrder;
+      let oldOrder = order;
+      if (orderMove === "up") {
+        newOrder = order - 1;
+      } else if (orderMove === "down") {
+        newOrder = order + 1;
+      }
+
+      await Program.findOneAndUpdate({ order: newOrder }, { order: oldOrder });
+
+      Program.findOneAndUpdate({ _id }, { order: newOrder }).then(program => {
+        res.json({ orderUpdated: "success" });
+      });
     });
   }
 );
