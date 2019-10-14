@@ -2,7 +2,7 @@ import React from "react";
 import { Row, Col, Image } from "react-bootstrap";
 import ScrollableAnchor from "react-scrollable-anchor";
 
-import EditIcons from "../../common/EditIcons";
+import EditProgramIcons from "../../common/EditProgramIcons";
 
 function Program(props) {
   const {
@@ -13,6 +13,8 @@ function Program(props) {
     description,
     textColor,
     mongoId,
+    isLastProgram,
+    isAuthenticated,
     // Actions passed down from Programs component
     addProgram,
     getPrograms,
@@ -41,21 +43,25 @@ function Program(props) {
               return <p key={index}>{part}</p>;
             })}
           </Col>
-          <EditIcons
-            program={{
-              header,
-              description,
-              textColor,
-              image,
-              programIndex,
-              mongoId
-            }}
-            // actions passed down from Programs
-            getPrograms={getPrograms}
-            addProgram={addProgram}
-            deleteProgram={deleteProgram}
-            updateProgram={updateProgram}
-          />
+          {/* Checks is user is authenticated, if so they can have access to view edit icons. */}
+          {isAuthenticated && (
+            <EditProgramIcons
+              program={{
+                header,
+                description,
+                textColor,
+                image,
+                programIndex,
+                mongoId
+              }}
+              isLastProgram={isLastProgram}
+              // actions passed down from Programs
+              getPrograms={getPrograms}
+              addProgram={addProgram}
+              deleteProgram={deleteProgram}
+              updateProgram={updateProgram}
+            />
+          )}
         </Row>
       </ScrollableAnchor>
     </div>

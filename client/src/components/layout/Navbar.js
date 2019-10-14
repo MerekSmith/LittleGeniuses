@@ -29,12 +29,11 @@ class Navbar extends Component {
 
   onLogoutClick = e => {
     e.preventDefault();
-    this.props.clearCurrentProfile();
     this.props.logoutUser();
   };
 
   render() {
-    const { isAuthenticated, user } = this.props.auth;
+    const { isAuthenticated } = this.props.auth;
     const { screenWidth } = this.state;
 
     const contactInfo = (
@@ -90,9 +89,9 @@ class Navbar extends Component {
               </li>
               {isAuthenticated ? (
                 <li className='nav-item'>
-                  <Link className='nav-link' to='/contact'>
-                    Contact Us
-                  </Link>
+                  <a href='#' className='nav-link' onClick={this.onLogoutClick}>
+                    Logout
+                  </a>
                 </li>
               ) : null}
             </ul>

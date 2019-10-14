@@ -2,11 +2,12 @@ import React, { Component } from "react";
 import { DeleteForever, ArrowUpward, ArrowDownward } from "@material-ui/icons";
 import axios from "axios";
 
-import UploadForm from "./UploadForm";
+import UploadProgramForm from "./UploadProgramForm";
 
-class EditIcons extends Component {
+class EditProgramIcons extends Component {
   handleDeleteClick = id => {
     this.props.deleteProgram(id);
+    this.props.getPrograms();
   };
 
   handleMoveUp = id => {
@@ -24,35 +25,48 @@ class EditIcons extends Component {
   };
 
   render() {
-    const { program, addProgram, getPrograms, updateProgram } = this.props;
+    const {
+      program,
+      isLastProgram,
+      addProgram,
+      getPrograms,
+      updateProgram
+    } = this.props;
     const { mongoId } = program;
+    const isFirstProgram = program.programIndex === 0;
 
     return (
       <div className='edit-icons rounded'>
         {/* Add upload form */}
-        <UploadForm
+        <UploadProgramForm
           program={program}
           addProgram={addProgram}
           getPrograms={getPrograms}
         />
         {/* Edit upload form */}
-        <UploadForm
+        <UploadProgramForm
           editMode={true}
           program={program}
           addProgram={addProgram}
           getPrograms={getPrograms}
           updateProgram={updateProgram}
         />
-        <ArrowUpward
-          className='move-up-icon'
-          fontSize='large'
-          onClick={() => this.handleMoveUp(mongoId)}
-        />
-        <ArrowDownward
-          className='move-down-icon'
-          fontSize='large'
-          onClick={() => this.handleMoveDown(mongoId)}
-        />
+        {/* Does not show up for the first program */}
+        {!isFirstProgram && (
+          <ArrowUpward
+            className='move-up-icon'
+            fontSize='large'
+            onClick={() => this.handleMoveUp(mongoId)}
+          />
+        )}
+        {/* Does not show up for the last program */}
+        {!isLastProgram && (
+          <ArrowDownward
+            className='move-down-icon'
+            fontSize='large'
+            onClick={() => this.handleMoveDown(mongoId)}
+          />
+        )}
         <DeleteForever
           className='delete-icon'
           fontSize='large'
@@ -63,4 +77,4 @@ class EditIcons extends Component {
   }
 }
 
-export default EditIcons;
+export default EditProgramIcons;

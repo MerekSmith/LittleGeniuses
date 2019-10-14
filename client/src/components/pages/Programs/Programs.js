@@ -78,8 +78,6 @@ class Programs extends Component {
   // When the landing page component is loaded, the sizing event listener starts.
   componentDidMount() {
     window.addEventListener("resize", this.setscreenWidth);
-
-    // this.props.getPrograms();
   }
 
   setscreenWidth = () => {
@@ -92,6 +90,7 @@ class Programs extends Component {
 
   render() {
     const { programs, originURL } = this.props.programs;
+    const { isAuthenticated } = this.props.auth;
 
     return (
       <div className='programs-container'>
@@ -119,6 +118,7 @@ class Programs extends Component {
                 textColor,
                 _id
               } = program;
+              const isLastProgram = index + 1 === programs.length;
               return (
                 <Program
                   programIndex={index}
@@ -129,10 +129,12 @@ class Programs extends Component {
                   textColor={textColor}
                   key={index}
                   mongoId={_id}
+                  isLastProgram={isLastProgram}
                   getPrograms={this.props.getPrograms}
                   addProgram={this.props.addProgram}
                   deleteProgram={this.props.deleteProgram}
                   updateProgram={this.props.updateProgram}
+                  isAuthenticated={isAuthenticated}
                 />
               );
             })
@@ -151,7 +153,8 @@ class Programs extends Component {
 }
 
 const mapStateToProps = state => ({
-  programs: state.programs
+  programs: state.programs,
+  auth: state.auth
 });
 
 export default connect(

@@ -83,7 +83,7 @@ router.get("/", async (req, res) => {
 // @access 	Private
 router.post(
   "/",
-  // passport.authenticate("jwt", { session: false }),
+  passport.authenticate("jwt", { session: false }),
   upload.single("image"),
   async (req, res) => {
     const { header, description, textColor } = req.body;
@@ -112,7 +112,7 @@ router.post(
 // @access 	Private
 router.delete(
   "/:id",
-  // passport.authenticate("jwt", { session: false }),
+  passport.authenticate("jwt", { session: false }),
   (req, res) => {
     Program.findByIdAndDelete(req.params.id)
       .then(program => {
@@ -129,7 +129,7 @@ router.delete(
 // @access 	Private
 router.put(
   "/:id",
-  // passport.authenticate("jwt", { session: false }),
+  passport.authenticate("jwt", { session: false }),
   upload.single("image"),
   (req, res) => {
     Program.findById(req.params.id).then(program => {
@@ -166,7 +166,7 @@ router.put(
 // @access 	Private
 router.put(
   "/order/:id",
-  // passport.authenticate("jwt", { session: false }),
+  passport.authenticate("jwt", { session: false }),
   (req, res) => {
     const { orderMove } = req.body;
     Program.findById(req.params.id).then(async program => {

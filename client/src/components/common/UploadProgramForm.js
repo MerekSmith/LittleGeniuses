@@ -9,10 +9,11 @@ import {
   DialogTitle,
   Icon
 } from "@material-ui/core";
-import { Edit } from "@material-ui/icons";
-import axios from "axios";
+import { Edit, AddBox } from "@material-ui/icons";
 
-export default class EditForm extends Component {
+// import axios from "axios";
+
+class UploadProgramForm extends Component {
   constructor(props) {
     super(props);
 
@@ -21,23 +22,34 @@ export default class EditForm extends Component {
       header: "",
       description: [""],
       image: null,
-      textColor: ""
+      textColor: "",
+      editMode: false,
+      mongoId: ""
     };
   }
 
   componentDidMount = () => {
     const { editMode = false, program } = this.props;
-    const { header, description, textColor, image, programIndex } = program;
 
     // If editMode is true, it will set the state to the program that is selected so the fields are populated.
     if (editMode) {
+      const {
+        header,
+        description,
+        textColor,
+        image,
+        programIndex,
+        mongoId
+      } = program;
+
       this.setState({
         header,
         description,
         textColor,
         imagePath: image,
         programIndex,
-        editMode
+        editMode,
+        mongoId
       });
     }
   };
@@ -51,13 +63,20 @@ export default class EditForm extends Component {
   };
 
   handleCancel = () => {
-    this.setState({
-      open: false,
-      header: "",
-      description: [""],
-      image: null,
-      textColor: ""
-    });
+    // This is linked to the cancel button. Will clear out the form if using a new program form but will only close it if using the edit form.
+
+    if (this.state.editMode) {
+      this.handleClose();
+    } else {
+      this.setState({
+        open: false,
+        header: "",
+        description: [""],
+        image: null,
+        textColor: "",
+        mongoId: ""
+      });
+    }
   };
 
   handleChange = e => {
@@ -71,8 +90,6 @@ export default class EditForm extends Component {
     }
   };
 
-  // handleDescChange = this.setState()
-
   handleFileChange = e => {
     this.setState({ image: e.target.files[0] });
   };
@@ -83,37 +100,47 @@ export default class EditForm extends Component {
     }));
   };
 
-  handleSubmit = async () => {
-    const { header, description, image, textColor } = this.state;
+  removeDescLine = () => {
+    // Remove last array index from description array.
+    if (this.state.description.length > 1) {
+      this.setState(({ description }) => ({
+        description: description.filter((desc, index) => {
+          return index !== description.length - 1;
+        })
+      }));
+    }
+  };
+
+  handleSubmit = () => {
+    const {
+      header,
+      description,
+      image,
+      textColor,
+      editMode,
+      mongoId
+    } = this.state;
+    const { addProgram, updateProgram } = this.props;
 
     // Create formData to send over with post request. Needs to be in this format due to image.
     let program = new FormData();
     program.append("image", image);
     program.append("header", header);
+    program.append("textColor", textColor);
     // Loop through description array and append each index element.
     for (let i = 0; i < description.length; i++) {
       program.append("description", description[i]);
     }
-    program.append("textColor", textColor);
 
-    // TODO: put axios actions in programsAction file. Add edit action and route.
-    // axios post request
-    await this.props.addProgram(program);
-    // axios
-    //   .post("api/programs", program, {
-    //     // This extra argument gives access to upload progress.
-    //     onUploadProgress: progressEvent => {
-    //       console.log(
-    //         "Upload Progress: " +
-    //           Math.round((progressEvent.loaded / progressEvent.total) * 100) +
-    //           "%"
-    //       );
-    //     }
-    //   })
-    //   .then(res => {
-    //     this.props.getPrograms();
-    //   });
-    this.handleCancel();
+    if (editMode) {
+      // update program action request
+      updateProgram(mongoId, program);
+      this.handleClose();
+    } else {
+      // post program action request.
+      addProgram(program);
+      this.handleCancel();
+    }
   };
 
   render() {
@@ -124,9 +151,11 @@ export default class EditForm extends Component {
       textColor,
       editMode = false
     } = this.state;
+    const isMultiLineDesc = description.length > 1;
 
     return (
       <div>
+        {/* This top portion determines if it is in edit mode and provides either the edit or addbox icon on the EditIcons component. */}
         {editMode ? (
           <Edit
             className='edit-icon'
@@ -134,13 +163,11 @@ export default class EditForm extends Component {
             onClick={this.handleClickOpen}
           />
         ) : (
-          <Button
-            variant='outlined'
-            color='primary'
+          <AddBox
+            className='add-icon'
+            fontSize='large'
             onClick={this.handleClickOpen}
-          >
-            Create New Program
-          </Button>
+          />
         )}
         <Dialog
           open={open}
@@ -210,6 +237,11 @@ export default class EditForm extends Component {
               <Icon color='primary' onClick={this.newDescLine}>
                 add_circle
               </Icon>
+              {isMultiLineDesc && (
+                <Icon color='primary' onClick={this.removeDescLine}>
+                  remove_circle
+                </Icon>
+              )}
             </DialogContent>
             <DialogActions>
               <Button onClick={this.handleCancel} color='primary'>
@@ -225,3 +257,5 @@ export default class EditForm extends Component {
     );
   }
 }
+
+export default UploadProgramForm;
