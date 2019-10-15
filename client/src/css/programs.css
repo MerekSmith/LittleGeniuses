@@ -47,32 +47,3 @@
 .school {
   color: #00b0ef;
 } */
-
-.edit-icons {
-  position: absolute;
-  top: 0;
-  right: 0;
-
-  background-color: rgb(208, 217, 224, 0.8);
-
-  display: flex;
-  flex-direction: column;
-}
-
-.edit-icon {
-  color: #00b0ef;
-  margin-bottom: 20px;
-}
-
-.edit-icon:hover {
-  color: #2c83c7;
-}
-
-.delete-icon {
-  color: red;
-  margin-top: 20px;
-}
-
-.delete-icon:hover {
-  color: #cf3340;
-}

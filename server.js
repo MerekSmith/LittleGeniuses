@@ -4,16 +4,11 @@ const bodyParser = require("body-parser");
 const passport = require("passport");
 const path = require("path");
 const nodemailer = require("nodemailer");
-// const crypto = require("crypto");
-// const multer = require("multer");
-// const GridFsStorage = require("multer-gridfs-storage");
-// const Grid = require("gridfs-stream");
 
 const reviews = require("./routes/api/reviews");
 const users = require("./routes/api/users");
 const programs = require("./routes/api/programs");
-const profile = require("./routes/api/profile");
-const posts = require("./routes/api/posts");
+const teachers = require("./routes/api/teachers");
 
 const app = express();
 
@@ -25,11 +20,6 @@ app.use(bodyParser.json());
 const db = require("./config/keys").mongoURI;
 
 // Connect to MongoDB
-// const conn = mongoose.createConnection(db, {
-//   useNewUrlParser: true
-// });
-
-// Original mongo connection
 mongoose
   .connect(db, {
     useNewUrlParser: true
@@ -44,11 +34,10 @@ app.use(passport.initialize());
 require("./config/passport")(passport);
 
 // Use routes
+app.use("/api/users", users);
 app.use("/api/reviews", reviews);
 app.use("/api/programs", programs);
-app.use("/api/users", users);
-app.use("/api/profile", profile);
-app.use("/api/posts", posts);
+app.use("/api/teachers", teachers);
 
 app.use("/uploads", express.static("uploads"));
 // Serve static assets if in production

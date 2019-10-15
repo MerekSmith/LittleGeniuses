@@ -5,7 +5,6 @@ import setAuthToken from "./utils/setAuthToken";
 import { getReviews } from "./actions/reviewsActions";
 import { getPrograms } from "./actions/programsActions";
 import { setCurrentUser, logoutUser } from "./actions/authActions";
-import { clearCurrentProfile } from "./actions/profileActions";
 import { configureAnchors } from "react-scrollable-anchor";
 
 import { Provider } from "react-redux";
@@ -33,16 +32,19 @@ import "./css/navbar.css";
 import "./css/events.css";
 import "./css/tryus.css";
 import "./css/programs.css";
+import "./css/editIcons.css";
 import "./css/staff.css";
 import "./css/facility.css";
 import "./css/testimonials.css";
 import "./css/custom_calendar.css";
+import { getTeachers } from "./actions/teachersActions";
 
 AOS.init();
 
 // This calls the redux action which makes an API call to the server which makes an API call to Google Places ID to get review data. Once completed, this is passed back into the redux state under reviews.
 store.dispatch(getReviews());
 store.dispatch(getPrograms());
+store.dispatch(getTeachers());
 
 configureAnchors({
   offset: -20,
@@ -64,10 +66,8 @@ if (localStorage.jwtToken) {
   if (decoded.exp < currentTime) {
     // Logout user
     store.dispatch(logoutUser());
-    // Clear current Profile
-    store.dispatch(clearCurrentProfile());
     // Redirect to login
-    window.location.href = "/login";
+    window.location.href = "/";
   }
 }
 

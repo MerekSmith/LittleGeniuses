@@ -39,8 +39,8 @@ function Program(props) {
           </Col>
           <Col md={{ order: textOrder }} className='program-text'>
             <h1 style={{ color: textColor }}>{header}</h1>
-            {description.map((part, index) => {
-              return <p key={index}>{part}</p>;
+            {description.map((descLine, index) => {
+              return <p key={index}>{descLine}</p>;
             })}
           </Col>
           {/* Checks is user is authenticated, if so they can have access to view edit icons. */}

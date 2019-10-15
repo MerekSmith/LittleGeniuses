@@ -1,20 +1,12 @@
 export const GET_ERRORS = "GET_ERRORS";
+export const CLEAR_ERRORS = "CLEAR_ERRORS";
 export const SET_CURRENT_USER = "SET_CURRENT_USER";
 export const GET_REVIEWS = "GET_REVIEWS";
 export const GET_PROGRAMS = "GET_PROGRAMS";
 export const ADD_PROGRAM = "ADD_PROGRAM";
 export const UPDATE_PROGRAM = "UPDATE_PROGRAM";
 export const DELETE_PROGRAM = "DELETE_PROGRAM";
-
-// TODO: Remove these types.
-export const GET_PROFILE = "GET_PROFILE";
-export const PROFILE_LOADING = "PROFILE_LOADING";
-export const PROFILE_NOT_FOUND = "PROFILE_NOT_FOUND";
-export const CLEAR_CURRENT_PROFILE = "CLEAR_CURRENT_PROFILE";
-export const GET_PROFILES = "GET_PROFILES";
-export const POST_LOADING = "POST_LOADING";
-export const GET_POSTS = "GET_POSTS";
-export const GET_POST = "GET_POST";
-export const ADD_POST = "ADD_POST";
-export const DELETE_POST = "DELETE_POST";
-export const CLEAR_ERRORS = "CLEAR_ERRORS";
+export const GET_TEACHERS = "GET_TEACHERS";
+export const ADD_TEACHER = "ADD_TEACHER";
+export const UPDATE_TEACHER = "UPDATE_TEACHER";
+export const DELETE_TEACHER = "DELETE_TEACHER";

@@ -1,8 +1,24 @@
 import React from "react";
 import { Col, Image } from "react-bootstrap";
 
+import EditTeacherIcons from "../../common/EditTeacherIcons";
+
 function Teacher(props) {
-  const { image, name, bio } = props;
+  const {
+    name,
+    position,
+    bio,
+    image,
+    order,
+    mongoId,
+    teacherIndex,
+    isLastTeacher,
+    isAuthenticated,
+    getTeachers,
+    addTeacher,
+    deleteTeacher,
+    updateTeacher
+  } = props;
   return (
     <Col
       xs={12}
@@ -12,14 +28,36 @@ function Teacher(props) {
       data-aos='zoom-in-up'
       data-aos-duration='1500'
     >
-      <Image
-        rounded
-        src={image}
-        alt='teacher picture'
-        className='teacher-img'
-      />
-      <h3 className='teacher-name'>{name}</h3>
-      <p className='teacher-bio'>{bio}</p>
+      <Image rounded src={image} alt={name} className='teacher-img' />
+      <h2 className='teacher-name'>{name}</h2>
+      <h5 className='teacher-position'>{position}</h5>
+      {bio.map((bioLine, index) => {
+        return (
+          <p className='teacher-bio' key={index}>
+            {bioLine}
+          </p>
+        );
+      })}
+
+      {isAuthenticated && (
+        <EditTeacherIcons
+          teacher={{
+            name,
+            position,
+            bio,
+            image,
+            order,
+            teacherIndex,
+            mongoId
+          }}
+          isLastTeacher={isLastTeacher}
+          // actions passed down from Teachers
+          getTeachers={getTeachers}
+          addTeacher={addTeacher}
+          deleteTeacher={deleteTeacher}
+          updateTeacher={updateTeacher}
+        />
+      )}
     </Col>
   );
 }

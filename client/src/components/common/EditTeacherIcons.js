@@ -2,66 +2,65 @@ import React, { Component } from "react";
 import { DeleteForever, ArrowUpward, ArrowDownward } from "@material-ui/icons";
 import axios from "axios";
 
-import UploadProgramForm from "./UploadProgramForm";
+import UploadTeacherForm from "./UploadTeacherForm";
 
-class EditProgramIcons extends Component {
+class EditTeacherIcons extends Component {
   handleDeleteClick = id => {
-    this.props.deleteProgram(id);
-    this.props.getPrograms();
+    this.props.deleteTeacher(id);
+    this.props.getTeachers();
   };
 
   handleMoveUp = id => {
     let moveDirection = { orderMove: "up" };
-    axios.put(`/api/programs/order/${id}`, moveDirection).then(res => {
-      this.props.getPrograms();
+    axios.put(`/api/teachers/order/${id}`, moveDirection).then(res => {
+      this.props.getTeachers();
     });
   };
 
   handleMoveDown = id => {
     let moveDirection = { orderMove: "down" };
-    axios.put(`/api/programs/order/${id}`, moveDirection).then(res => {
-      this.props.getPrograms();
+    axios.put(`/api/teachers/order/${id}`, moveDirection).then(res => {
+      this.props.getTeachers();
     });
   };
 
   render() {
     const {
-      program,
-      isLastProgram,
-      addProgram,
-      getPrograms,
-      updateProgram
+      teacher,
+      isLastTeacher,
+      addTeacher,
+      getTeachers,
+      updateTeacher
     } = this.props;
-    const { mongoId } = program;
-    const isFirstProgram = program.programIndex === 0;
+    const { mongoId, teacherIndex } = teacher;
+    const isFirstTeacher = teacherIndex === 0;
 
     return (
       <div className='edit-icons rounded'>
         {/* Add upload form */}
-        <UploadProgramForm
-          className='add-icon'
-          program={program}
-          addProgram={addProgram}
-          getPrograms={getPrograms}
+        <UploadTeacherForm
+          teacher={teacher}
+          addTeacher={addTeacher}
+          getTeachers={getTeachers}
         />
         {/* Edit upload form */}
-        <UploadProgramForm
+        <UploadTeacherForm
           editMode={true}
-          program={program}
-          addProgram={addProgram}
-          getPrograms={getPrograms}
-          updateProgram={updateProgram}
+          teacher={teacher}
+          addTeacher={addTeacher}
+          getTeachers={getTeachers}
+          updateTeacher={updateTeacher}
         />
-        {/* Does not show up for the first program */}
-        {!isFirstProgram && (
+        {/* Does not show up for the first teacher */}
+        {!isFirstTeacher && (
           <ArrowUpward
             className='move-up-icon'
             fontSize='large'
             onClick={() => this.handleMoveUp(mongoId)}
           />
         )}
-        {/* Does not show up for the last program */}
-        {!isLastProgram && (
+        {/* Does not show up for the last teacher */}
+        {!isLastTeacher && (
           <ArrowDownward
             className='move-down-icon'
             fontSize='large'
@@ -78,4 +77,4 @@ class EditProgramIcons extends Component {
   }
 }
 
-export default EditProgramIcons;
+export default EditTeacherIcons;

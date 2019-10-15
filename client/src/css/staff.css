@@ -6,10 +6,6 @@
   margin-bottom: 40px;
 }
 
-.teachers {
-  padding: 0px 100px;
-}
-
 .teacher-info {
   min-height: 500px;
   text-align: center;
@@ -18,7 +14,6 @@
 
 .teacher-img {
   width: 100%;
-  max-height: 40%;
 }
 
 .teacher-name {
@@ -35,7 +30,7 @@
   margin: 0 -5%;
 }
 
-@media only screen and (max-width: 640px) {
+@media only screen and (max-width: 768px) {
   .staff-parallax-caption {
     bottom: 25%;
     margin-left: 5%;
@@ -44,10 +39,6 @@
 
   .staff-parallax-caption > h1 {
     text-align: left;
-  }
-
-  .teachers {
-    padding: 0 20px;
   }
 
   .teacher-info {

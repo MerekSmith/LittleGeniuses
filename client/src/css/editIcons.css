@@ -1,0 +1,67 @@
+.edit-icons {
+  position: absolute;
+  top: 0;
+  right: 0;
+
+  background-color: rgb(208, 217, 224, 0.8);
+
+  display: flex;
+  flex-direction: column;
+}
+
+.add-icon:hover {
+  transition: all 0.2s ease-in-out;
+  transform: scale(1.3);
+}
+
+.edit-icon {
+  color: #00b0ef;
+  margin-bottom: 20px;
+}
+
+.edit-icon:hover {
+  color: #2c83c7;
+
+  transition: all 0.2s ease-in-out;
+  transform: scale(1.3);
+}
+
+.move-up-icon:hover {
+  transition: all 0.2s ease-in-out;
+  transform: scale(1.3);
+}
+
+.move-down-icon:hover {
+  transition: all 0.2s ease-in-out;
+  transform: scale(1.3);
+}
+
+.delete-icon {
+  color: red;
+  margin-top: 20px;
+}
+
+.delete-icon:hover {
+  color: #cf3340;
+
+  transition: all 0.2s ease-in-out;
+  transform: scale(1.3);
+}
+
+.add-bio-line-icon {
+  color: black;
+}
+
+.add-bio-line-icon:hover {
+  transition: all 0.2s ease-in-out;
+  transform: scale(1.3);
+}
+
+.remove-bio-line-icon {
+  color: red;
+}
+
+.remove-bio-line-icon:hover {
+  transition: all 0.2s ease-in-out;
+  transform: scale(1.3);
+}

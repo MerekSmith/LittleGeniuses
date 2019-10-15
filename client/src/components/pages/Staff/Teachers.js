@@ -1,47 +1,64 @@
 import React, { Component } from "react";
-import Teacher from "./Teacher";
+import { connect } from "react-redux";
 import { Row } from "react-bootstrap";
+import {
+  getTeachers,
+  addTeacher,
+  deleteTeacher,
+  updateTeacher
+} from "../../../actions/teachersActions.js";
 
-import teacher1 from "../../../img/teachers/teacher1.jpg";
-import teacher2 from "../../../img/teachers/teacher2.jpg";
-import teacher3 from "../../../img/teachers/teacher3.jpg";
-
-const teachers = [
-  { image: teacher2, name: "Gloria", bio: "Gloria is awesome!" },
-  { image: teacher2, name: "Dana", bio: "Dana is awesome too!" },
-  {
-    image: teacher1,
-    name: "Teacher",
-    bio:
-      "This is a placeholder for a teacher bio. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla a purus vitae leo condimentum iaculis et id neque. Nullam sodales nisi at lorem venenatis varius. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin interdum ultricies sapien. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin interdum ultricies sapien. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin interdum ultricies sapien."
-  },
-  {
-    image: teacher2,
-    name: "Teacher",
-    bio:
-      "This is a placeholder for a teacher bio. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla a purus vitae leo condimentum iaculis et id neque. Nullam sodales nisi at lorem venenatis varius. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin interdum ultricies sapien. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin interdum ultricies sapien."
-  },
-  {
-    image: teacher3,
-    name: "Teacher",
-    bio:
-      "This is a placeholder for a teacher bio. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla a purus vitae leo condimentum iaculis et id neque. Nullam sodales nisi at lorem venenatis varius. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin interdum ultricies sapien."
-  }
-];
+import Teacher from "./Teacher";
+import Loader from "../../common/Loader";
 
 class Teachers extends Component {
   render() {
+    const { teachers, originURL } = this.props.teachers;
+    const { isAuthenticated } = this.props.auth;
+
     return (
       <div className='teachers-container'>
         <h1 className='page-header'>Meet Our Teachers</h1>
-        <Row className='teachers'>
-          {teachers.map(({ image, name, bio }, index) => {
-            return <Teacher image={image} name={name} bio={bio} key={index} />;
-          })}
-        </Row>
+        {teachers ? (
+          <Row className='teachers'>
+            {teachers.map(
+              ({ name, position, bio, imagePath, order, _id }, index) => {
+                const isLastTeacher = index + 1 === teachers.length;
+                return (
+                  <Teacher
+                    image={originURL + imagePath}
+                    name={name}
+                    position={position}
+                    bio={bio}
+                    order={order}
+                    mongoId={_id}
+                    teacherIndex={index}
+                    key={index}
+                    isLastTeacher={isLastTeacher}
+                    getTeachers={this.props.getTeachers}
+                    addTeacher={this.props.addTeacher}
+                    deleteTeacher={this.props.deleteTeacher}
+                    updateTeacher={this.props.updateTeacher}
+                    isAuthenticated={isAuthenticated}
+                  />
+                );
+              }
+            )}
+          </Row>
+        ) : (
+          <Loader />
+        )}
       </div>
     );
   }
 }
 
-export default Teachers;
+const mapStateToProps = state => ({
+  teachers: state.teachers,
+  auth: state.auth
+});
+
+export default connect(
+  mapStateToProps,
+  { getTeachers, addTeacher, deleteTeacher, updateTeacher }
+)(Teachers);
