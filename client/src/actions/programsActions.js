@@ -31,6 +31,7 @@ export const addProgram = program => dispatch => {
       type: ADD_PROGRAM,
       payload: res.data
     });
+    alert("Program has been successfully added");
   });
 };
 
@@ -41,15 +42,17 @@ export const updateProgram = (id, program) => dispatch => {
       type: UPDATE_PROGRAM,
       payload: res.data
     });
+    alert("Program has been successfully updated");
   });
 };
 
 // remove a program from mongodb
 export const deleteProgram = id => dispatch => {
-  axios.delete(`/api/programs/${id}`).then(res =>
+  axios.delete(`/api/programs/${id}`).then(res => {
     dispatch({
       type: DELETE_PROGRAM,
       payload: id
-    })
-  );
+    });
+    alert("Program has been successfully deleted");
+  });
 };

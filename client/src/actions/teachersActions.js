@@ -30,6 +30,7 @@ export const addTeacher = teacher => dispatch => {
       type: ADD_TEACHER,
       payload: res.data
     });
+    alert("Teacher has been successfully added");
   });
 };
 
@@ -39,15 +40,17 @@ export const updateTeacher = (id, teacher) => dispatch => {
       type: UPDATE_TEACHER,
       payload: res.data
     });
+    alert("Teacher has been successfully updated");
   });
 };
 
 export const deleteTeacher = id => dispatch => {
   console.log("delete hit");
-  axios.delete(`/api/teachers/${id}`).then(res =>
+  axios.delete(`/api/teachers/${id}`).then(res => {
     dispatch({
       type: DELETE_TEACHER,
       payload: id
-    })
-  );
+    });
+    alert("Teacher has been successfully deleted");
+  });
 };

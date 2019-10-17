@@ -31,6 +31,7 @@ export const addCarouselSlide = slide => dispatch => {
       type: ADD_CAROUSEL_SLIDE,
       payload: res.data
     });
+    alert("Slide has been successfully added");
   });
 };
 
@@ -41,15 +42,17 @@ export const updateCarouselSlide = (id, slide) => dispatch => {
       type: UPDATE_CAROUSEL_SLIDE,
       payload: res.data
     });
+    alert("Slide has been successfully updated");
   });
 };
 
 // remove a program from mongodb
 export const deleteCarouselSlide = id => dispatch => {
-  axios.delete(`/api/carousel/${id}`).then(res =>
+  axios.delete(`/api/carousel/${id}`).then(res => {
     dispatch({
       type: DELETE_CAROUSEL_SLIDE,
       payload: id
-    })
-  );
+    });
+    alert("Slide has been successfully deleted");
+  });
 };
