@@ -25,31 +25,19 @@ class EditProgramIcons extends Component {
   };
 
   render() {
-    const {
-      program,
-      isLastProgram,
-      addProgram,
-      getPrograms,
-      updateProgram
-    } = this.props;
+    const { program, isLastProgram, addProgram, updateProgram } = this.props;
     const { mongoId } = program;
     const isFirstProgram = program.programIndex === 0;
 
     return (
       <div className='edit-icons rounded' style={{ zIndex: 2 }}>
         {/* Add upload form */}
-        <UploadProgramForm
-          className='add-icon'
-          program={program}
-          addProgram={addProgram}
-          getPrograms={getPrograms}
-        />
+        <UploadProgramForm addProgram={addProgram} />
         {/* Edit upload form */}
         <UploadProgramForm
           editMode={true}
           program={program}
           addProgram={addProgram}
-          getPrograms={getPrograms}
           updateProgram={updateProgram}
         />
         {/* Does not show up for the first program */}

@@ -6,9 +6,14 @@ import {
   DialogActions,
   DialogContent,
   DialogContentText,
-  DialogTitle
+  DialogTitle,
+  Slide
 } from "@material-ui/core";
 import { Edit, AddBox } from "@material-ui/icons";
+
+const Transition = React.forwardRef(function Transition(props, ref) {
+  return <Slide direction='up' ref={ref} {...props} />;
+});
 
 class UploadProgramForm extends Component {
   constructor(props) {
@@ -111,14 +116,8 @@ class UploadProgramForm extends Component {
   };
 
   render() {
-    const {
-      open,
-      header,
-      details,
-      link,
-      linkName,
-      editMode = false
-    } = this.state;
+    const { open, header, details, link, linkName, editMode } = this.state;
+    const { adminPage } = this.props;
 
     return (
       <div>
@@ -129,6 +128,14 @@ class UploadProgramForm extends Component {
             fontSize='large'
             onClick={this.handleClickOpen}
           />
+        ) : adminPage ? (
+          <Button
+            variant='outlined'
+            color='primary'
+            onClick={this.handleClickOpen}
+          >
+            Add Carousel Slide
+          </Button>
         ) : (
           <AddBox
             className='add-icon'
@@ -138,11 +145,12 @@ class UploadProgramForm extends Component {
         )}
         <Dialog
           open={open}
+          TransitionComponent={Transition}
           onClose={this.handleClose}
           aria-labelledby='form-dialog-title'
         >
           <DialogTitle id='form-dialog-title'>
-            Create New Carousel Slide
+            {editMode ? "Update" : "Create New"} Carousel Slide
           </DialogTitle>
           <form autoComplete='off'>
             <DialogContent>

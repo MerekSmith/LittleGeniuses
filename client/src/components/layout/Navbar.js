@@ -87,17 +87,24 @@ class Navbar extends Component {
                   Contact Us
                 </Link>
               </li>
-              {isAuthenticated ? (
-                <li className='nav-item'>
-                  <div
-                    className='nav-link'
-                    style={{ cursor: "pointer" }}
-                    onClick={this.onLogoutClick}
-                  >
-                    Logout
-                  </div>
-                </li>
-              ) : null}
+              {isAuthenticated && (
+                <React.Fragment>
+                  <li className='nav-item'>
+                    <Link className='nav-link' to='/admin'>
+                      Admin
+                    </Link>
+                  </li>
+                  <li className='nav-item'>
+                    <div
+                      className='nav-link'
+                      style={{ cursor: "pointer" }}
+                      onClick={this.onLogoutClick}
+                    >
+                      Logout
+                    </div>
+                  </li>
+                </React.Fragment>
+              )}
             </ul>
           </div>
           {screenWidth ? contactInfo : null}

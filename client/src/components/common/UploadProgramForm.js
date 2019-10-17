@@ -7,11 +7,14 @@ import {
   DialogContent,
   DialogContentText,
   DialogTitle,
-  Icon
+  Icon,
+  Slide
 } from "@material-ui/core";
 import { Edit, AddBox } from "@material-ui/icons";
 
-// import axios from "axios";
+const Transition = React.forwardRef(function Transition(props, ref) {
+  return <Slide direction='up' ref={ref} {...props} />;
+});
 
 class UploadProgramForm extends Component {
   constructor(props) {
@@ -151,6 +154,7 @@ class UploadProgramForm extends Component {
       textColor,
       editMode = false
     } = this.state;
+    const { adminPage } = this.props;
     const isMultiLineDesc = description.length > 1;
 
     return (
@@ -162,6 +166,14 @@ class UploadProgramForm extends Component {
             fontSize='large'
             onClick={this.handleClickOpen}
           />
+        ) : adminPage ? (
+          <Button
+            variant='outlined'
+            color='primary'
+            onClick={this.handleClickOpen}
+          >
+            Add Program
+          </Button>
         ) : (
           <AddBox
             className='add-icon'
@@ -171,6 +183,7 @@ class UploadProgramForm extends Component {
         )}
         <Dialog
           open={open}
+          TransitionComponent={Transition}
           onClose={this.handleClose}
           aria-labelledby='form-dialog-title'
         >
@@ -234,11 +247,14 @@ class UploadProgramForm extends Component {
                   />
                 );
               })}
-              <Icon color='primary' onClick={this.newDescLine}>
+              <Icon onClick={this.newDescLine} className='add-bio-line-icon'>
                 add_circle
               </Icon>
               {isMultiLineDesc && (
-                <Icon color='primary' onClick={this.removeDescLine}>
+                <Icon
+                  onClick={this.removeDescLine}
+                  className='remove-bio-line-icon'
+                >
                   remove_circle
                 </Icon>
               )}

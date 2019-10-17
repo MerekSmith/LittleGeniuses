@@ -25,30 +25,19 @@ class EditTeacherIcons extends Component {
   };
 
   render() {
-    const {
-      teacher,
-      isLastTeacher,
-      addTeacher,
-      getTeachers,
-      updateTeacher
-    } = this.props;
+    const { teacher, isLastTeacher, addTeacher, updateTeacher } = this.props;
     const { mongoId, teacherIndex } = teacher;
     const isFirstTeacher = teacherIndex === 0;
 
     return (
       <div className='edit-icons rounded' style={{ zIndex: 2 }}>
         {/* Add upload form */}
-        <UploadTeacherForm
-          teacher={teacher}
-          addTeacher={addTeacher}
-          getTeachers={getTeachers}
-        />
+        <UploadTeacherForm addTeacher={addTeacher} />
         {/* Edit upload form */}
         <UploadTeacherForm
           editMode={true}
           teacher={teacher}
           addTeacher={addTeacher}
-          getTeachers={getTeachers}
           updateTeacher={updateTeacher}
         />
         {/* Does not show up for the first teacher */}

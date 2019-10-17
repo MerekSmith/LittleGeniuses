@@ -7,9 +7,14 @@ import {
   DialogContent,
   DialogContentText,
   DialogTitle,
-  Icon
+  Icon,
+  Slide
 } from "@material-ui/core";
 import { Edit, AddBox } from "@material-ui/icons";
+
+const Transition = React.forwardRef(function Transition(props, ref) {
+  return <Slide direction='up' ref={ref} {...props} />;
+});
 
 class UploadTeacherForm extends Component {
   constructor(props) {
@@ -129,6 +134,7 @@ class UploadTeacherForm extends Component {
 
   render() {
     const { open, name, position, bio, editMode = false } = this.state;
+    const { adminPage } = this.props;
     const isMultiLineBio = bio.length > 1;
 
     return (
@@ -140,6 +146,14 @@ class UploadTeacherForm extends Component {
             fontSize='large'
             onClick={this.handleClickOpen}
           />
+        ) : adminPage ? (
+          <Button
+            variant='outlined'
+            color='primary'
+            onClick={this.handleClickOpen}
+          >
+            Add Teacher
+          </Button>
         ) : (
           <AddBox
             className='add-icon'
@@ -149,6 +163,7 @@ class UploadTeacherForm extends Component {
         )}
         <Dialog
           open={open}
+          TransitionComponent={Transition}
           onClose={this.handleClose}
           aria-labelledby='form-dialog-title'
         >

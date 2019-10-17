@@ -29,7 +29,6 @@ class EditCarouselIcons extends Component {
       slide,
       slideIndex,
       isLastSlide,
-      getCarouselSlides,
       addCarouselSlide,
       updateCarouselSlide
     } = this.props;
@@ -39,18 +38,12 @@ class EditCarouselIcons extends Component {
     return (
       <div className='edit-icons rounded' style={{ zIndex: 2 }}>
         {/* Add upload form */}
-        <UploadCarouselForm
-          className='add-icon'
-          slide={slide}
-          addCarouselSlide={addCarouselSlide}
-          getCarouselSlides={getCarouselSlides}
-        />
+        <UploadCarouselForm addCarouselSlide={addCarouselSlide} />
         {/* Edit upload form */}
         <UploadCarouselForm
           editMode={true}
           slide={slide}
           addCarouselSlide={addCarouselSlide}
-          getCarouselSlides={getCarouselSlides}
           updateCarouselSlide={updateCarouselSlide}
         />
         {/* Does not show up for the first slide */}

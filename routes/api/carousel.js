@@ -137,8 +137,7 @@ router.put(
         details,
         imagePath: path,
         link,
-        linkName,
-        order
+        linkName
       };
 
       Carousel.findOneAndUpdate(

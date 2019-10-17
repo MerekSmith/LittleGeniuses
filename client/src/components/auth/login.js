@@ -1,7 +1,9 @@
 import React, { Component } from "react";
-import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { loginUser } from "../../actions/authActions";
+import { addCarouselSlide } from "../../actions/carouselActions";
+import { addProgram } from "../../actions/programsActions";
+import { addTeacher } from "../../actions/teachersActions";
 import TextFieldGroup from "../common/TextFieldGroup";
 import UploadCarouselForm from "../common/UploadCarouselForm";
 import UploadProgramForm from "../common/UploadProgramForm";
@@ -46,12 +48,29 @@ class Login extends Component {
   render() {
     const { errors } = this.state;
     const { isAuthenticated } = this.props.auth;
+    const { addCarouselSlide, addProgram, addTeacher } = this.props;
 
     return (
       <div className='login'>
         <div className='container'>
           {isAuthenticated ? (
-            <div className='row'>Upload Forms Here</div>
+            <React.Fragment>
+              <h1 className='display-4 text-center'>Admin Controls</h1>
+              <div className='row justify-content-md-center'>
+                <div className='col-md-3 text-center'>
+                  <UploadCarouselForm
+                    addCarouselSlide={addCarouselSlide}
+                    adminPage={true}
+                  />
+                </div>
+                <div className='col-md-3 text-center'>
+                  <UploadProgramForm addProgram={addProgram} adminPage={true} />
+                </div>
+                <div className='col-md-3 text-center'>
+                  <UploadTeacherForm addTeacher={addTeacher} adminPage={true} />
+                </div>
+              </div>
+            </React.Fragment>
           ) : (
             <div className='row'>
               <div className='col-md-8 m-auto'>
@@ -90,12 +109,6 @@ class Login extends Component {
   }
 }
 
-Login.propTypes = {
-  loginUser: PropTypes.func.isRequired,
-  auth: PropTypes.object.isRequired,
-  errors: PropTypes.object.isRequired
-};
-
 const mapStateToProps = state => ({
   auth: state.auth,
   errors: state.errors
@@ -103,5 +116,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { loginUser }
+  { loginUser, addCarouselSlide, addProgram, addTeacher }
 )(Login);
