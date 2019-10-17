@@ -1,7 +1,12 @@
 import React, { Component } from "react";
 // import { Link } from "react-router-dom";
-import { PropTypes } from "prop-types";
 import { connect } from "react-redux";
+import {
+  getCarouselSlides,
+  addCarouselSlide,
+  updateCarouselSlide,
+  deleteCarouselSlide
+} from "../../../actions/carouselActions";
 import { Row, Col, Image } from "react-bootstrap";
 import ScrollableAnchor from "react-scrollable-anchor";
 
@@ -26,9 +31,25 @@ class Landing extends Component {
   }
 
   render() {
+    const {
+      carousel,
+      getCarouselSlides,
+      addCarouselSlide,
+      updateCarouselSlide,
+      deleteCarouselSlide
+    } = this.props;
+    const { isAuthenticated } = this.props.auth;
+
     return (
       <div className='landing'>
-        <CarouselSlides />
+        <CarouselSlides
+          carousel={carousel}
+          getCarouselSlides={getCarouselSlides}
+          addCarouselSlide={addCarouselSlide}
+          updateCarouselSlide={updateCarouselSlide}
+          deleteCarouselSlide={deleteCarouselSlide}
+          isAuthenticated={isAuthenticated}
+        />
         <div className='container'>
           <div className='content'>
             <h3>Every child is unique, like a finger print.</h3>
@@ -72,7 +93,7 @@ class Landing extends Component {
             </Col>
           </Row>
           <Row className='drop-in justify-content-md-center'>
-            <Col md={5} className='drop-in-img-container'>
+            <Col lg={6} sm={10} className='drop-in-img-container'>
               <Image
                 rounded
                 src={dropIn}
@@ -80,7 +101,7 @@ class Landing extends Component {
                 alt='Drop In'
               />
             </Col>
-            <Col md={5} className='drop-in-text'>
+            <Col lg={6} sm={10} className='drop-in-text'>
               <h1>DROP INS WELCOME</h1>
               <p>
                 We cater to parents who have flexible schedules and do not
@@ -125,12 +146,17 @@ class Landing extends Component {
   }
 }
 
-Landing.propTypes = {
-  auth: PropTypes.object.isRequired
-};
-
 const mapStateToProps = state => ({
-  auth: state.auth
+  auth: state.auth,
+  carousel: state.carousel
 });
 
-export default connect(mapStateToProps)(Landing);
+export default connect(
+  mapStateToProps,
+  {
+    getCarouselSlides,
+    addCarouselSlide,
+    updateCarouselSlide,
+    deleteCarouselSlide
+  }
+)(Landing);

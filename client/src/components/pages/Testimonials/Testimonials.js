@@ -28,7 +28,8 @@ class Testimonials extends Component {
               <Stars starPercentage={starPercentage} />
             </div>
             <h4>
-              {rating} average from {reviewCount} ratings
+              {Math.round(rating * 100) / 100} average from {reviewCount}{" "}
+              ratings
             </h4>
           </div>
         </div>

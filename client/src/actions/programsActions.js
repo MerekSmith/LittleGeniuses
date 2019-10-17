@@ -6,7 +6,7 @@ import {
   DELETE_PROGRAM
 } from "./types";
 
-// Get reviews from google places API via the server side
+// Get all programs from mongodb
 export const getPrograms = () => dispatch => {
   axios
     .get("/api/programs")
@@ -24,6 +24,7 @@ export const getPrograms = () => dispatch => {
     );
 };
 
+// add a new program into mongodb
 export const addProgram = program => dispatch => {
   axios.post("/api/programs", program).then(res => {
     dispatch({
@@ -33,6 +34,7 @@ export const addProgram = program => dispatch => {
   });
 };
 
+// update an existing program in mongodb
 export const updateProgram = (id, program) => dispatch => {
   axios.put(`/api/programs/${id}`, program).then(res => {
     dispatch({
@@ -42,8 +44,8 @@ export const updateProgram = (id, program) => dispatch => {
   });
 };
 
+// remove a program from mongodb
 export const deleteProgram = id => dispatch => {
-  console.log("delete hit");
   axios.delete(`/api/programs/${id}`).then(res =>
     dispatch({
       type: DELETE_PROGRAM,

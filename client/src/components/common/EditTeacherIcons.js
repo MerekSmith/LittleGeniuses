@@ -36,7 +36,7 @@ class EditTeacherIcons extends Component {
     const isFirstTeacher = teacherIndex === 0;
 
     return (
-      <div className='edit-icons rounded'>
+      <div className='edit-icons rounded' style={{ zIndex: 2 }}>
         {/* Add upload form */}
         <UploadTeacherForm
           teacher={teacher}

@@ -4,6 +4,8 @@ import jwt_decode from "jwt-decode";
 import setAuthToken from "./utils/setAuthToken";
 import { getReviews } from "./actions/reviewsActions";
 import { getPrograms } from "./actions/programsActions";
+import { getTeachers } from "./actions/teachersActions";
+import { getCarouselSlides } from "./actions/carouselActions";
 import { setCurrentUser, logoutUser } from "./actions/authActions";
 import { configureAnchors } from "react-scrollable-anchor";
 
@@ -37,11 +39,11 @@ import "./css/staff.css";
 import "./css/facility.css";
 import "./css/testimonials.css";
 import "./css/custom_calendar.css";
-import { getTeachers } from "./actions/teachersActions";
 
 AOS.init();
 
 // This calls the redux action which makes an API call to the server which makes an API call to Google Places ID to get review data. Once completed, this is passed back into the redux state under reviews.
+store.dispatch(getCarouselSlides());
 store.dispatch(getReviews());
 store.dispatch(getPrograms());
 store.dispatch(getTeachers());

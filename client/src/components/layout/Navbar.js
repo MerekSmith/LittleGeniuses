@@ -89,9 +89,13 @@ class Navbar extends Component {
               </li>
               {isAuthenticated ? (
                 <li className='nav-item'>
-                  <a href='#' className='nav-link' onClick={this.onLogoutClick}>
+                  <div
+                    className='nav-link'
+                    style={{ cursor: "pointer" }}
+                    onClick={this.onLogoutClick}
+                  >
                     Logout
-                  </a>
+                  </div>
                 </li>
               ) : null}
             </ul>

@@ -2,15 +2,28 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { Carousel } from "react-bootstrap";
 
+import EditCarouselIcons from "../../common/EditCarouselIcons";
+
 import kids from "../../../img/Carousel/kids.png";
 import girl from "../../../img/Carousel/girl.jpg";
 import toy from "../../../img/Carousel/toy.jpg";
-import laughingKids from "../../../img/Testimonials/happy-kids.jpg";
+import teaching from "../../../img/Carousel/teaching.jpg";
+import reading from "../../../img/Carousel/reading.jpg";
 
-function CarouselSlides() {
+function CarouselSlides(props) {
+  const { slides, originURL } = props.carousel;
+  const {
+    getCarouselSlides,
+    addCarouselSlide,
+    updateCarouselSlide,
+    deleteCarouselSlide,
+    isAuthenticated
+  } = props;
+  const pause = isAuthenticated;
+
   return (
     <div className='carousel-container'>
-      <Carousel interval={4000} pauseOnHover={false}>
+      <Carousel interval={4000} pauseOnHover={pause}>
         <Carousel.Item>
           <img className='d-block w-150' src={kids} alt='Third slide' />
 
@@ -31,7 +44,7 @@ function CarouselSlides() {
           </Carousel.Caption>
         </Carousel.Item>
         <Carousel.Item>
-          <img className='d-block w-150' src={girl} alt='Third slide' />
+          <img className='d-block w-150' src={teaching} alt='Third slide' />
 
           <Carousel.Caption>
             <h1>We care about your kid's success.</h1>
@@ -45,7 +58,7 @@ function CarouselSlides() {
           </Carousel.Caption>
         </Carousel.Item>
         <Carousel.Item className='dark-overlay'>
-          <img className='d-block w-150' src={laughingKids} alt='First slide' />
+          <img className='d-block w-150' src={girl} alt='First slide' />
           <Carousel.Caption>
             <h1>
               Are you looking for childcare with a safe and secure environment?
@@ -65,18 +78,57 @@ function CarouselSlides() {
           </Carousel.Caption>
         </Carousel.Item>
         <Carousel.Item>
-          <img className='d-block w-150' src={kids} alt='Third slide' />
+          <img className='d-block w-150' src={reading} alt='Third slide' />
 
           <Carousel.Caption>
             <h1>We offer before and after school care.</h1>
             <Link
-              to='/programs/#school'
+              to='/programs/#Before%20and%20After%20School%20Care'
               className='btn btn-light btn-lg caption-btn'
             >
               Learn More
             </Link>
           </Carousel.Caption>
         </Carousel.Item>
+
+        {slides &&
+          slides.map((slide, index) => {
+            const { imagePath, header, details, link, linkName } = slide;
+            const isLastSlide = index + 1 === slides.length;
+            return (
+              <Carousel.Item key={index}>
+                <img
+                  className='d-block w-150'
+                  src={imagePath}
+                  alt='Carousel slide'
+                />
+
+                <Carousel.Caption>
+                  <h1>{header}</h1>
+                  {details && <p>{details}</p>}
+                  {link && (
+                    <Link
+                      to={link}
+                      className='btn btn-light btn-lg caption-btn'
+                    >
+                      {linkName}
+                    </Link>
+                  )}
+                </Carousel.Caption>
+                {isAuthenticated && (
+                  <EditCarouselIcons
+                    slide={slide}
+                    slideIndex={index}
+                    isLastSlide={isLastSlide}
+                    getCarouselSlides={getCarouselSlides}
+                    addCarouselSlide={addCarouselSlide}
+                    updateCarouselSlide={updateCarouselSlide}
+                    deleteCarouselSlide={deleteCarouselSlide}
+                  />
+                )}
+              </Carousel.Item>
+            );
+          })}
       </Carousel>
     </div>
   );

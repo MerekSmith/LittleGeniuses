@@ -39,6 +39,12 @@ class Programs extends Component {
   render() {
     const { programs, originURL } = this.props.programs;
     const { isAuthenticated } = this.props.auth;
+    const {
+      getPrograms,
+      addProgram,
+      deleteProgram,
+      updateProgram
+    } = this.props;
 
     return (
       <div className='programs-container'>
@@ -72,10 +78,10 @@ class Programs extends Component {
                     key={index}
                     mongoId={_id}
                     isLastProgram={isLastProgram}
-                    getPrograms={this.props.getPrograms}
-                    addProgram={this.props.addProgram}
-                    deleteProgram={this.props.deleteProgram}
-                    updateProgram={this.props.updateProgram}
+                    getPrograms={getPrograms}
+                    addProgram={addProgram}
+                    deleteProgram={deleteProgram}
+                    updateProgram={updateProgram}
                     isAuthenticated={isAuthenticated}
                   />
                 );

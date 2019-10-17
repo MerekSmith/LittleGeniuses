@@ -36,7 +36,7 @@ class EditProgramIcons extends Component {
     const isFirstProgram = program.programIndex === 0;
 
     return (
-      <div className='edit-icons rounded'>
+      <div className='edit-icons rounded' style={{ zIndex: 2 }}>
         {/* Add upload form */}
         <UploadProgramForm
           className='add-icon'

@@ -3,6 +3,7 @@ const router = express.Router();
 const mongoose = require("mongoose");
 const passport = require("passport");
 const multer = require("multer");
+const fs = require("fs");
 
 const storage = multer.diskStorage({
   destination: function(req, file, cb) {
@@ -55,13 +56,10 @@ router.get("/", async (req, res) => {
     .then(programs => {
       programs.forEach(async (program, index) => {
         // runs through each program and update order to be the same as index to refresh order count. This is needed since a program is removed and causes a gap.
+        program.order = index;
         await Program.findOneAndUpdate({ _id: program._id }, { order: index });
       });
-      Program.find()
-        .sort({ order: 1 })
-        .then(programs => {
-          res.json(programs);
-        });
+      res.json(programs);
     })
     .catch(err =>
       res.status(404).json({ noprogramsfound: "No programs found" })
@@ -107,6 +105,12 @@ router.delete(
     Program.findByIdAndDelete(req.params.id)
       .then(program => {
         res.json({ success: true });
+
+        // Delete the image stored on the server.
+        // fs.unlink("./" + program.imagePath, function(err) {
+        //   if (err && err.code == "ENOENT") return console.log(err);
+        //   console.log("file deleted successfully");
+        // });
       })
       .catch(err => {
         res.status(404).json({ programnotfound: "this program doesn't exist" });
@@ -151,7 +155,7 @@ router.put(
   }
 );
 
-// @route 	PUT api/programs/move/:id
+// @route 	PUT api/programs/order/:id
 // @desc 		Update a program's order position
 // @access 	Private
 router.put(

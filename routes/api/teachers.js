@@ -60,11 +60,6 @@ router.get("/", async (req, res) => {
         await Teacher.findOneAndUpdate({ _id: teacher._id }, { order: index });
       });
       res.json(teacher);
-      // Teacher.find()
-      //   .sort({ order: 1 })
-      //   .then(teacher => {
-      //     res.json(teacher);
-      //   });
     })
     .catch(err => res.status(404).json({ noTeacherFound: "No teacher found" }));
 });
