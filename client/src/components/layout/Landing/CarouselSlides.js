@@ -99,7 +99,7 @@ function CarouselSlides(props) {
               <Carousel.Item key={index}>
                 <img
                   className='d-block w-150'
-                  src={imagePath}
+                  src={originURL + imagePath}
                   alt='Carousel slide'
                 />
 

@@ -71,7 +71,7 @@ class Programs extends Component {
                   <Program
                     programIndex={index}
                     screenWidth={this.state.screenWidth}
-                    image={imagePath}
+                    image={originURL + imagePath}
                     header={header}
                     description={description}
                     textColor={textColor}

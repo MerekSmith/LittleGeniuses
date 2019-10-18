@@ -97,7 +97,9 @@ class Login extends Component {
                   />
                   <input
                     type='submit'
-                    className='btn btn-info btn-block mt-4'
+                    className='btn btn-primary btn-block mt-4'
+                    style={{ backgroundColor: "#039be5" }}
+                    value='Submit'
                   />
                 </form>
               </div>

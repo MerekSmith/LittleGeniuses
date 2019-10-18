@@ -26,7 +26,7 @@ class Teachers extends Component {
                 const isLastTeacher = index + 1 === teachers.length;
                 return (
                   <Teacher
-                    image={imagePath}
+                    image={originURL + imagePath}
                     name={name}
                     position={position}
                     bio={bio}
