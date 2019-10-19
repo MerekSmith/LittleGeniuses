@@ -6,13 +6,15 @@ import {
   getPrograms,
   addProgram,
   deleteProgram,
-  updateProgram
+  updateProgram,
+  programSuccessAlertClose
 } from "../../../actions/programsActions";
 
 import Program from "../Programs/Program";
 import TryUs from "../../common/TryUs";
 import Contact from "../../common/Contact";
 import Loader from "../../common/Loader";
+import SuccessAlert from "../../common/SuccessAlert";
 
 import girlWithBear from "../../../img/Programs/girl with bear.jpg";
 
@@ -37,13 +39,19 @@ class Programs extends Component {
   };
 
   render() {
-    const { programs, originURL } = this.props.programs;
+    const {
+      programs,
+      originURL,
+      programSuccessOpen,
+      programSuccessMessage
+    } = this.props.programs;
     const { isAuthenticated } = this.props.auth;
     const {
       getPrograms,
       addProgram,
       deleteProgram,
-      updateProgram
+      updateProgram,
+      programSuccessAlertClose
     } = this.props;
 
     return (
@@ -96,6 +104,12 @@ class Programs extends Component {
             <Contact />
           </div>
         </ScrollableAnchor>
+        {/* Success alert, only shows when program is added, updated, or deleted */}
+        <SuccessAlert
+          successOpen={programSuccessOpen}
+          handleSuccessClose={programSuccessAlertClose}
+          message={programSuccessMessage}
+        />
       </div>
     );
   }
@@ -108,5 +122,11 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { getPrograms, addProgram, deleteProgram, updateProgram }
+  {
+    getPrograms,
+    addProgram,
+    deleteProgram,
+    updateProgram,
+    programSuccessAlertClose
+  }
 )(Programs);

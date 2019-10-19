@@ -1,13 +1,23 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { loginUser } from "../../actions/authActions";
-import { addCarouselSlide } from "../../actions/carouselActions";
-import { addProgram } from "../../actions/programsActions";
-import { addTeacher } from "../../actions/teachersActions";
+import {
+  addCarouselSlide,
+  carouselSuccessAlertClose
+} from "../../actions/carouselActions";
+import {
+  addProgram,
+  programSuccessAlertClose
+} from "../../actions/programsActions";
+import {
+  addTeacher,
+  teacherSuccessAlertClose
+} from "../../actions/teachersActions";
 import TextFieldGroup from "../common/TextFieldGroup";
 import UploadCarouselForm from "../common/UploadCarouselForm";
 import UploadProgramForm from "../common/UploadProgramForm";
 import UploadTeacherForm from "../common/UploadTeacherForm";
+import SuccessAlert from "../common/SuccessAlert";
 
 class Login extends Component {
   constructor() {
@@ -21,10 +31,6 @@ class Login extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    // if (nextProps.auth.isAuthenticated) {
-    //   this.props.history.push("/");
-    // }
-
     if (nextProps.errors) {
       this.setState({ errors: nextProps.errors });
     }
@@ -48,7 +54,17 @@ class Login extends Component {
   render() {
     const { errors } = this.state;
     const { isAuthenticated } = this.props.auth;
-    const { addCarouselSlide, addProgram, addTeacher } = this.props;
+    const {
+      carousel,
+      programs,
+      teachers,
+      addCarouselSlide,
+      carouselSuccessAlertClose,
+      addProgram,
+      programSuccessAlertClose,
+      addTeacher,
+      teacherSuccessAlertClose
+    } = this.props;
 
     return (
       <div className='login'>
@@ -69,6 +85,22 @@ class Login extends Component {
                 <div className='col-md-3 text-center'>
                   <UploadTeacherForm addTeacher={addTeacher} adminPage={true} />
                 </div>
+                {/* Success Alerts. Only show when successful upload is made. */}
+                <SuccessAlert
+                  successOpen={carousel.carouselSuccessOpen}
+                  handleSuccessClose={carouselSuccessAlertClose}
+                  message={carousel.carouselSuccessMessage}
+                />
+                <SuccessAlert
+                  successOpen={programs.programSuccessOpen}
+                  handleSuccessClose={programSuccessAlertClose}
+                  message={programs.programSuccessMessage}
+                />
+                <SuccessAlert
+                  successOpen={teachers.teacherSuccessOpen}
+                  handleSuccessClose={teacherSuccessAlertClose}
+                  message={teachers.teacherSuccessMessage}
+                />
               </div>
             </React.Fragment>
           ) : (
@@ -113,10 +145,21 @@ class Login extends Component {
 
 const mapStateToProps = state => ({
   auth: state.auth,
-  errors: state.errors
+  errors: state.errors,
+  carousel: state.carousel,
+  programs: state.programs,
+  teachers: state.teachers
 });
 
 export default connect(
   mapStateToProps,
-  { loginUser, addCarouselSlide, addProgram, addTeacher }
+  {
+    loginUser,
+    addCarouselSlide,
+    carouselSuccessAlertClose,
+    addProgram,
+    programSuccessAlertClose,
+    addTeacher,
+    teacherSuccessAlertClose
+  }
 )(Login);

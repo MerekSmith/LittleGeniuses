@@ -1,8 +1,9 @@
 import React, { Component } from "react";
-import { DeleteForever, ArrowUpward, ArrowDownward } from "@material-ui/icons";
+import { ArrowUpward, ArrowDownward } from "@material-ui/icons";
 import axios from "axios";
 
 import UploadTeacherForm from "./UploadTeacherForm";
+import DeleteAlert from "./DeleteAlert";
 
 class EditTeacherIcons extends Component {
   handleDeleteClick = id => {
@@ -56,11 +57,7 @@ class EditTeacherIcons extends Component {
             onClick={() => this.handleMoveDown(mongoId)}
           />
         )}
-        <DeleteForever
-          className='delete-icon'
-          fontSize='large'
-          onClick={() => this.handleDeleteClick(mongoId)}
-        />
+        <DeleteAlert confirmDelete={this.handleDeleteClick} mongoId={mongoId} />
       </div>
     );
   }

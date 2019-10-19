@@ -2,11 +2,14 @@ import {
   GET_CAROUSEL_SLIDES,
   ADD_CAROUSEL_SLIDE,
   UPDATE_CAROUSEL_SLIDE,
-  DELETE_CAROUSEL_SLIDE
+  DELETE_CAROUSEL_SLIDE,
+  CAROUSEL_SUCCESS_ALERT_CLOSE
 } from "../actions/types";
 
 const intitalState = {
   slides: null,
+  carouselSuccessOpen: false,
+  carouselSuccessMessage: "",
   originURL:
     process.env.NODE_ENV === "production"
       ? window.location.origin
@@ -23,7 +26,9 @@ export default function(state = intitalState, action) {
     case ADD_CAROUSEL_SLIDE:
       return {
         ...state,
-        slides: [...state.slides, action.payload]
+        slides: [...state.slides, action.payload],
+        carouselSuccessOpen: true,
+        carouselSuccessMessage: "The carousel slide has been sucessfully added!"
       };
     case UPDATE_CAROUSEL_SLIDE:
       let slides = [...state.slides];
@@ -33,12 +38,23 @@ export default function(state = intitalState, action) {
       slides[slideIndex] = action.payload;
       return {
         ...state,
-        slides
+        slides,
+        carouselSuccessOpen: true,
+        carouselSuccessMessage:
+          "The carousel slide has been sucessfully updated!"
       };
     case DELETE_CAROUSEL_SLIDE:
       return {
         ...state,
-        slides: state.slides.filter(slide => slide._id !== action.payload)
+        slides: state.slides.filter(slide => slide._id !== action.payload),
+        carouselSuccessOpen: true,
+        carouselSuccessMessage:
+          "The carousel slide has been sucessfully deleted!"
+      };
+    case CAROUSEL_SUCCESS_ALERT_CLOSE:
+      return {
+        ...state,
+        carouselSuccessOpen: false
       };
     default:
       return state;

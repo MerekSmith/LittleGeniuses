@@ -43,6 +43,46 @@ function CarouselSlides(props) {
             </div>
           </Carousel.Caption>
         </Carousel.Item>
+        {/* This is where the custom database slides are inserted into the Carousel. */}
+        {slides &&
+          slides.map((slide, index) => {
+            const { imagePath, header, details, link, linkName } = slide;
+            const isLastSlide = index + 1 === slides.length;
+            return (
+              <Carousel.Item key={index}>
+                <img
+                  className='d-block w-150'
+                  src={originURL + imagePath}
+                  alt='Carousel slide'
+                />
+
+                <Carousel.Caption>
+                  <h1>{header}</h1>
+                  {details && <p>{details}</p>}
+                  {link && (
+                    <Link
+                      to={link}
+                      className='btn btn-light btn-lg caption-btn'
+                    >
+                      {linkName}
+                    </Link>
+                  )}
+                </Carousel.Caption>
+                {isAuthenticated && (
+                  <EditCarouselIcons
+                    slide={slide}
+                    slideIndex={index}
+                    isLastSlide={isLastSlide}
+                    getCarouselSlides={getCarouselSlides}
+                    addCarouselSlide={addCarouselSlide}
+                    updateCarouselSlide={updateCarouselSlide}
+                    deleteCarouselSlide={deleteCarouselSlide}
+                  />
+                )}
+              </Carousel.Item>
+            );
+          })}
+
         <Carousel.Item>
           <img className='d-block w-150' src={teaching} alt='Third slide' />
 
@@ -90,45 +130,6 @@ function CarouselSlides(props) {
             </Link>
           </Carousel.Caption>
         </Carousel.Item>
-
-        {slides &&
-          slides.map((slide, index) => {
-            const { imagePath, header, details, link, linkName } = slide;
-            const isLastSlide = index + 1 === slides.length;
-            return (
-              <Carousel.Item key={index}>
-                <img
-                  className='d-block w-150'
-                  src={originURL + imagePath}
-                  alt='Carousel slide'
-                />
-
-                <Carousel.Caption>
-                  <h1>{header}</h1>
-                  {details && <p>{details}</p>}
-                  {link && (
-                    <Link
-                      to={link}
-                      className='btn btn-light btn-lg caption-btn'
-                    >
-                      {linkName}
-                    </Link>
-                  )}
-                </Carousel.Caption>
-                {isAuthenticated && (
-                  <EditCarouselIcons
-                    slide={slide}
-                    slideIndex={index}
-                    isLastSlide={isLastSlide}
-                    getCarouselSlides={getCarouselSlides}
-                    addCarouselSlide={addCarouselSlide}
-                    updateCarouselSlide={updateCarouselSlide}
-                    deleteCarouselSlide={deleteCarouselSlide}
-                  />
-                )}
-              </Carousel.Item>
-            );
-          })}
       </Carousel>
     </div>
   );

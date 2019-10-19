@@ -3,7 +3,8 @@ import {
   GET_CAROUSEL_SLIDES,
   ADD_CAROUSEL_SLIDE,
   UPDATE_CAROUSEL_SLIDE,
-  DELETE_CAROUSEL_SLIDE
+  DELETE_CAROUSEL_SLIDE,
+  CAROUSEL_SUCCESS_ALERT_CLOSE
 } from "./types";
 
 // Get all carousel slides from mongodb
@@ -31,7 +32,6 @@ export const addCarouselSlide = slide => dispatch => {
       type: ADD_CAROUSEL_SLIDE,
       payload: res.data
     });
-    alert("Slide has been successfully added");
   });
 };
 
@@ -42,7 +42,6 @@ export const updateCarouselSlide = (id, slide) => dispatch => {
       type: UPDATE_CAROUSEL_SLIDE,
       payload: res.data
     });
-    alert("Slide has been successfully updated");
   });
 };
 
@@ -53,6 +52,14 @@ export const deleteCarouselSlide = id => dispatch => {
       type: DELETE_CAROUSEL_SLIDE,
       payload: id
     });
-    alert("Slide has been successfully deleted");
+  });
+};
+
+export const carouselSuccessAlertClose = (event, reason) => dispatch => {
+  if (reason === "clickaway") {
+    return;
+  }
+  dispatch({
+    type: CAROUSEL_SUCCESS_ALERT_CLOSE
   });
 };

@@ -1,8 +1,9 @@
 import React, { Component } from "react";
-import { DeleteForever, ArrowUpward, ArrowDownward } from "@material-ui/icons";
+import { ArrowUpward, ArrowDownward } from "@material-ui/icons";
 import axios from "axios";
 
 import UploadCarouselForm from "./UploadCarouselForm";
+import DeleteAlert from "./DeleteAlert";
 
 class EditCarouselIcons extends Component {
   handleDeleteClick = id => {
@@ -62,11 +63,7 @@ class EditCarouselIcons extends Component {
             onClick={() => this.handleMoveDown(_id)}
           />
         )}
-        <DeleteForever
-          className='delete-icon'
-          fontSize='large'
-          onClick={() => this.handleDeleteClick(_id)}
-        />
+        <DeleteAlert confirmDelete={this.handleDeleteClick} mongoId={_id} />
       </div>
     );
   }

@@ -5,16 +5,30 @@ import {
   getTeachers,
   addTeacher,
   deleteTeacher,
-  updateTeacher
+  updateTeacher,
+  teacherSuccessAlertClose
 } from "../../../actions/teachersActions.js";
 
 import Teacher from "./Teacher";
 import Loader from "../../common/Loader";
+import SuccessAlert from "../../common/SuccessAlert";
 
 class Teachers extends Component {
   render() {
-    const { teachers, originURL } = this.props.teachers;
+    const {
+      teachers,
+      originURL,
+      teacherSuccessOpen,
+      teacherSuccessMessage
+    } = this.props.teachers;
     const { isAuthenticated } = this.props.auth;
+    const {
+      getTeachers,
+      addTeacher,
+      deleteTeacher,
+      updateTeacher,
+      teacherSuccessAlertClose
+    } = this.props;
 
     return (
       <div className='teachers-container'>
@@ -35,10 +49,10 @@ class Teachers extends Component {
                     teacherIndex={index}
                     key={index}
                     isLastTeacher={isLastTeacher}
-                    getTeachers={this.props.getTeachers}
-                    addTeacher={this.props.addTeacher}
-                    deleteTeacher={this.props.deleteTeacher}
-                    updateTeacher={this.props.updateTeacher}
+                    getTeachers={getTeachers}
+                    addTeacher={addTeacher}
+                    deleteTeacher={deleteTeacher}
+                    updateTeacher={updateTeacher}
                     isAuthenticated={isAuthenticated}
                   />
                 );
@@ -48,6 +62,11 @@ class Teachers extends Component {
         ) : (
           <Loader />
         )}
+        <SuccessAlert
+          successOpen={teacherSuccessOpen}
+          handleSuccessClose={teacherSuccessAlertClose}
+          message={teacherSuccessMessage}
+        />
       </div>
     );
   }
@@ -60,5 +79,11 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { getTeachers, addTeacher, deleteTeacher, updateTeacher }
+  {
+    getTeachers,
+    addTeacher,
+    deleteTeacher,
+    updateTeacher,
+    teacherSuccessAlertClose
+  }
 )(Teachers);

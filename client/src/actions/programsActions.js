@@ -3,7 +3,8 @@ import {
   GET_PROGRAMS,
   ADD_PROGRAM,
   UPDATE_PROGRAM,
-  DELETE_PROGRAM
+  DELETE_PROGRAM,
+  PROGRAM_SUCCESS_ALERT_CLOSE
 } from "./types";
 
 // Get all programs from mongodb
@@ -31,7 +32,6 @@ export const addProgram = program => dispatch => {
       type: ADD_PROGRAM,
       payload: res.data
     });
-    alert("Program has been successfully added");
   });
 };
 
@@ -42,7 +42,6 @@ export const updateProgram = (id, program) => dispatch => {
       type: UPDATE_PROGRAM,
       payload: res.data
     });
-    alert("Program has been successfully updated");
   });
 };
 
@@ -53,6 +52,15 @@ export const deleteProgram = id => dispatch => {
       type: DELETE_PROGRAM,
       payload: id
     });
-    alert("Program has been successfully deleted");
+  });
+};
+
+export const programSuccessAlertClose = (event, reason) => dispatch => {
+  if (reason === "clickaway") {
+    return;
+  }
+  console.log("program alert close");
+  dispatch({
+    type: PROGRAM_SUCCESS_ALERT_CLOSE
   });
 };

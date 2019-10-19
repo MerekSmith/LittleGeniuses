@@ -1,11 +1,11 @@
 import React, { Component } from "react";
-// import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import {
   getCarouselSlides,
   addCarouselSlide,
   updateCarouselSlide,
-  deleteCarouselSlide
+  deleteCarouselSlide,
+  carouselSuccessAlertClose
 } from "../../../actions/carouselActions";
 import { Row, Col, Image } from "react-bootstrap";
 import ScrollableAnchor from "react-scrollable-anchor";
@@ -14,6 +14,7 @@ import CarouselSlides from "./CarouselSlides";
 import Balloon from "../../common/Balloon";
 import TryUs from "../../common/TryUs";
 import Contact from "../../common/Contact";
+import SuccessAlert from "../../common/SuccessAlert";
 
 import orangeBalloon from "../../../img/Round Balloons/balloon_round_orange.png";
 import redBalloon from "../../../img/Round Balloons/balloon_round_red.png";
@@ -36,8 +37,10 @@ class Landing extends Component {
       getCarouselSlides,
       addCarouselSlide,
       updateCarouselSlide,
-      deleteCarouselSlide
+      deleteCarouselSlide,
+      carouselSuccessAlertClose
     } = this.props;
+    const { carouselSuccessOpen, carouselSuccessMessage } = carousel;
     const { isAuthenticated } = this.props.auth;
 
     return (
@@ -141,6 +144,11 @@ class Landing extends Component {
             </div>
           </ScrollableAnchor>
         </div>
+        <SuccessAlert
+          successOpen={carouselSuccessOpen}
+          handleSuccessClose={carouselSuccessAlertClose}
+          message={carouselSuccessMessage}
+        />
       </div>
     );
   }
@@ -157,6 +165,7 @@ export default connect(
     getCarouselSlides,
     addCarouselSlide,
     updateCarouselSlide,
-    deleteCarouselSlide
+    deleteCarouselSlide,
+    carouselSuccessAlertClose
   }
 )(Landing);
