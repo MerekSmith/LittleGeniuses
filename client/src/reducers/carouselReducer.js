@@ -54,7 +54,8 @@ export default function(state = intitalState, action) {
     case CAROUSEL_SUCCESS_ALERT_CLOSE:
       return {
         ...state,
-        carouselSuccessOpen: false
+        carouselSuccessOpen: false,
+        carouselSuccessMessage: ""
       };
     default:
       return state;

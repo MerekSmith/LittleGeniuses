@@ -59,7 +59,6 @@ export const programSuccessAlertClose = (event, reason) => dispatch => {
   if (reason === "clickaway") {
     return;
   }
-  console.log("program alert close");
   dispatch({
     type: PROGRAM_SUCCESS_ALERT_CLOSE
   });

@@ -73,16 +73,25 @@ class Login extends Component {
             <React.Fragment>
               <h1 className='display-4 text-center'>Admin Controls</h1>
               <div className='row justify-content-md-center'>
-                <div className='col-md-3 text-center'>
+                <div
+                  className='col-md-3 text-center'
+                  style={{ marginTop: "50px" }}
+                >
                   <UploadCarouselForm
                     addCarouselSlide={addCarouselSlide}
                     adminPage={true}
                   />
                 </div>
-                <div className='col-md-3 text-center'>
+                <div
+                  className='col-md-3 text-center'
+                  style={{ marginTop: "50px" }}
+                >
                   <UploadProgramForm addProgram={addProgram} adminPage={true} />
                 </div>
-                <div className='col-md-3 text-center'>
+                <div
+                  className='col-md-3 text-center'
+                  style={{ marginTop: "50px" }}
+                >
                   <UploadTeacherForm addTeacher={addTeacher} adminPage={true} />
                 </div>
                 {/* Success Alerts. Only show when successful upload is made. */}

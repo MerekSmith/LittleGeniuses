@@ -20,8 +20,7 @@ const ProgramSchema = new Schema({
     default: Date.now
   },
   textColor: {
-    type: String,
-    required: true
+    type: String
   },
   order: {
     type: Number,

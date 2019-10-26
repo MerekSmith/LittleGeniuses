@@ -12,6 +12,8 @@ import {
 } from "@material-ui/core";
 import { Edit, AddBox } from "@material-ui/icons";
 
+import isEmpty from "../../validation/is-empty";
+
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction='up' ref={ref} {...props} />;
 });
@@ -27,7 +29,8 @@ class UploadProgramForm extends Component {
       image: null,
       textColor: "",
       editMode: false,
-      mongoId: ""
+      mongoId: "",
+      errors: {}
     };
   }
 
@@ -77,7 +80,8 @@ class UploadProgramForm extends Component {
         description: [""],
         image: null,
         textColor: "",
-        mongoId: ""
+        mongoId: "",
+        errors: {}
       });
     }
   };
@@ -94,7 +98,32 @@ class UploadProgramForm extends Component {
   };
 
   handleFileChange = e => {
-    this.setState({ image: e.target.files[0] });
+    console.log(e.target.files[0]);
+    let image = e.target.files[0] || {};
+    // if (!image) {
+    //   image.type = null;
+    // }
+    if (
+      image.type === "image/jpeg" ||
+      image.type === "image/png" ||
+      image.type === "image/svg"
+    ) {
+      this.setState(({ errors }) => ({
+        image,
+        errors: {
+          ...errors,
+          image: undefined
+        }
+      }));
+    } else {
+      this.setState(({ errors }) => ({
+        image: null,
+        errors: {
+          ...errors,
+          image: "The image must be in jpg, svg, or png format"
+        }
+      }));
+    }
   };
 
   newDescLine = () => {
@@ -121,9 +150,37 @@ class UploadProgramForm extends Component {
       image,
       textColor,
       editMode,
-      mongoId
+      mongoId,
+      errors
     } = this.state;
     const { addProgram, updateProgram } = this.props;
+
+    if (!image && !editMode) {
+      this.setState(({ errors }) => ({
+        errors: { ...errors, image: "An image is required" }
+      }));
+    }
+
+    if (isEmpty(header)) {
+      this.setState(({ errors }) => ({
+        errors: { ...errors, header: "Header field is required" }
+      }));
+    }
+
+    if (isEmpty(description)) {
+      this.setState(({ errors }) => ({
+        errors: {
+          ...errors,
+          description: "The first description field is required"
+        }
+      }));
+    }
+
+    // Check if all errors are clear then move on to submitting form. Otherwise, do not submit.
+    if (!isEmpty(errors)) {
+      // TODO: add error snackbar that tells to deal with errors?
+      return;
+    }
 
     // Create formData to send over with post request. Needs to be in this format due to image.
     let program = new FormData();
@@ -152,7 +209,8 @@ class UploadProgramForm extends Component {
       header,
       description,
       textColor,
-      editMode = false
+      editMode = false,
+      errors
     } = this.state;
     const { adminPage } = this.props;
     const isMultiLineDesc = description.length > 1;
@@ -194,9 +252,13 @@ class UploadProgramForm extends Component {
                 To create a new program, please provide an image, Header,
                 Description, and a color for the Header text.
               </DialogContentText>
+              <DialogContentText>
+                Image must be jpeg, png, or svg format.
+              </DialogContentText>
               <TextField
                 autoFocus
                 required
+                error={errors.image}
                 margin='dense'
                 id='image'
                 label='Choose Image'
@@ -205,8 +267,12 @@ class UploadProgramForm extends Component {
                 fullWidth
                 onChange={this.handleFileChange}
               />
+              {errors.image && (
+                <h6 style={{ color: "red", margin: 0 }}>{errors.image}</h6>
+              )}
               <TextField
                 required
+                error={errors.header}
                 margin='dense'
                 id='header'
                 label='Header'
@@ -216,11 +282,13 @@ class UploadProgramForm extends Component {
                 fullWidth
                 onChange={this.handleChange}
               />
+              {errors.header && (
+                <h6 style={{ color: "red", margin: 0 }}>{errors.header}</h6>
+              )}
               <TextField
-                required
                 margin='dense'
                 id='textColor'
-                label='Header Text Color'
+                label='Header Text Color, *defaults to black'
                 name='textColor'
                 type='text'
                 value={textColor}
@@ -229,22 +297,29 @@ class UploadProgramForm extends Component {
               />
               {description.map((desc, index) => {
                 return (
-                  <TextField
-                    required
-                    margin='dense'
-                    id='description'
-                    data-index={index}
-                    label='Description'
-                    name='description'
-                    type='text'
-                    value={desc}
-                    fullWidth
-                    multiline
-                    rows='2'
-                    rowsMax='4'
-                    onChange={this.handleChange}
-                    key={index}
-                  />
+                  <React.Fragment key={index}>
+                    <TextField
+                      required
+                      error={errors.description && index === 0}
+                      margin='dense'
+                      id='description'
+                      data-index={index}
+                      label='Description'
+                      name='description'
+                      type='text'
+                      value={desc}
+                      fullWidth
+                      multiline
+                      rows='2'
+                      rowsMax='4'
+                      onChange={this.handleChange}
+                    />
+                    {errors.description && index === 0 && (
+                      <h6 style={{ color: "red", margin: 0 }}>
+                        {errors.description}
+                      </h6>
+                    )}
+                  </React.Fragment>
                 );
               })}
               <Icon onClick={this.newDescLine} className='add-bio-line-icon'>

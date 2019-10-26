@@ -2,42 +2,8 @@ const express = require("express");
 const router = express.Router();
 const mongoose = require("mongoose");
 const passport = require("passport");
-const multer = require("multer");
 const fs = require("fs");
-
-const storage = multer.diskStorage({
-  destination: function(req, file, cb) {
-    cb(null, "./uploads/");
-  },
-  filename: function(req, file, cb) {
-    // Can define what the file name will be. Currently just leaving it as uploaded, original name
-    cb(null, file.originalname);
-  }
-});
-
-const fileFilter = (req, file, cb) => {
-  // Check that image is a file.
-  if (
-    file.mimetype === "image/jpeg" ||
-    file.mimetype === "image/png" ||
-    file.mimetype === "image/svg"
-  ) {
-    cb(null, true);
-  } else {
-    // reject a file, need to add error message. The commented one below crashes the server.
-    cb(null, false);
-    // cb(new Error("file is not jpeg or png"), false);
-  }
-};
-
-const upload = multer({
-  storage,
-  // limit size to 6mb
-  limits: {
-    fileSize: 1024 * 1024 * 6
-  },
-  fileFilter
-});
+const upload = require("../../services/multerSettings");
 
 // Load Programs Model
 const Program = require("../../models/Program");
@@ -104,13 +70,12 @@ router.delete(
   (req, res) => {
     Program.findByIdAndDelete(req.params.id)
       .then(program => {
-        res.json({ success: true });
-
         // Delete the image stored on the server.
-        // fs.unlink("./" + program.imagePath, function(err) {
-        //   if (err && err.code == "ENOENT") return console.log(err);
-        //   console.log("file deleted successfully");
-        // });
+        fs.unlink("./" + program.imagePath, function(err) {
+          if (err && err.code == "ENOENT") return console.log(err);
+          console.log("file deleted successfully");
+        });
+        res.json({ success: true });
       })
       .catch(err => {
         res.status(404).json({ programnotfound: "this program doesn't exist" });
@@ -133,7 +98,14 @@ router.put(
       let path;
       if (typeof req.file !== "undefined") {
         path = "/" + req.file.path;
+        // New picture was chosen. Delete the old one.
+        // Delete the image stored on the server.
+        fs.unlink("./" + program.imagePath, function(err) {
+          if (err && err.code == "ENOENT") return console.log(err);
+          console.log("file deleted successfully");
+        });
       } else {
+        // Original picture was kept. Just keep the current imagePath.
         path = imagePath;
       }
 

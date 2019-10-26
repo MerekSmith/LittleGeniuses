@@ -2,41 +2,8 @@ const express = require("express");
 const router = express.Router();
 const mongoose = require("mongoose");
 const passport = require("passport");
-const multer = require("multer");
-
-const storage = multer.diskStorage({
-  destination: function(req, file, cb) {
-    cb(null, "./uploads/");
-  },
-  filename: function(req, file, cb) {
-    // Can define what the file name will be. Currently just leaving it as uploaded, original name
-    cb(null, file.originalname);
-  }
-});
-
-const fileFilter = (req, file, cb) => {
-  // Check that image is a file.
-  if (
-    file.mimetype === "image/jpeg" ||
-    file.mimetype === "image/png" ||
-    file.mimetype === "image/svg"
-  ) {
-    cb(null, true);
-  } else {
-    // reject a file, need to add error message. The commented one below crashes the server.
-    cb(null, false);
-    // cb(new Error("file is not jpeg or png"), false);
-  }
-};
-
-const upload = multer({
-  storage,
-  // limit size to 6mb
-  limits: {
-    fileSize: 1024 * 1024 * 6
-  },
-  fileFilter
-});
+const fs = require("fs");
+const upload = require("../../services/multerSettings");
 
 // Load Carousel Model
 const Carousel = require("../../models/Carousel");
@@ -73,7 +40,7 @@ router.get("/", async (req, res) => {
 // @access 	Private
 router.post(
   "/",
-  // passport.authenticate("jwt", { session: false }),
+  passport.authenticate("jwt", { session: false }),
   upload.single("image"),
   async (req, res) => {
     // details, link, and linkName are not required and could change based on what slide the daycare director chooses to add. In the majority of the time, it will at least either have details or the link and linkName.
@@ -103,6 +70,11 @@ router.delete(
   (req, res) => {
     Carousel.findByIdAndDelete(req.params.id)
       .then(carouselSlide => {
+        // Delete the image stored on the server.
+        fs.unlink("./" + carouselSlide.imagePath, function(err) {
+          if (err && err.code == "ENOENT") return console.log(err);
+          console.log("file deleted successfully");
+        });
         res.json({ success: true });
       })
       .catch(err => {
@@ -128,7 +100,14 @@ router.put(
       let path;
       if (typeof req.file !== "undefined") {
         path = "/" + req.file.path;
+        // New picture was chosen. Delete the old one.
+        // Delete the image stored on the server.
+        fs.unlink("./" + carouselSlide.imagePath, function(err) {
+          if (err && err.code == "ENOENT") return console.log(err);
+          console.log("file deleted successfully");
+        });
       } else {
+        // Original picture was kept. Just keep the current imagePath.
         path = imagePath;
       }
 
@@ -154,7 +133,7 @@ router.put(
 // @access 	Private
 router.put(
   "/order/:id",
-  // passport.authenticate("jwt", { session: false }),
+  passport.authenticate("jwt", { session: false }),
   (req, res) => {
     const { orderMove } = req.body;
     Carousel.findById(req.params.id).then(async carousel => {

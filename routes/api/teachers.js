@@ -3,41 +3,7 @@ const router = express.Router();
 const mongoose = require("mongoose");
 const passport = require("passport");
 const fs = require("fs");
-const multer = require("multer");
-
-const storage = multer.diskStorage({
-  destination: function(req, file, cb) {
-    cb(null, "./uploads/");
-  },
-  filename: function(req, file, cb) {
-    // Can define what the file name will be. Currently just leaving it as uploaded, original name
-    cb(null, file.originalname);
-  }
-});
-
-const fileFilter = (req, file, cb) => {
-  // Check that image is a file.
-  if (
-    file.mimetype === "image/jpeg" ||
-    file.mimetype === "image/png" ||
-    file.mimetype === "image/svg"
-  ) {
-    cb(null, true);
-  } else {
-    // reject a file, need to add error message. The commented one below crashes the server.
-    cb(null, false);
-    // cb(new Error("file is not jpeg or png"), false);
-  }
-};
-
-const upload = multer({
-  storage,
-  // limit size to 6mb
-  limits: {
-    fileSize: 1024 * 1024 * 6
-  },
-  fileFilter
-});
+const upload = require("../../services/multerSettings");
 
 // Load Teacher Model
 const Teacher = require("../../models/Teacher");
@@ -69,7 +35,7 @@ router.get("/", async (req, res) => {
 // @access 	Private
 router.post(
   "/",
-  // passport.authenticate("jwt", { session: false }),
+  passport.authenticate("jwt", { session: false }),
   upload.single("image"),
   async (req, res) => {
     const { name, position, bio } = req.body;
@@ -97,6 +63,11 @@ router.delete(
   (req, res) => {
     Teacher.findByIdAndDelete(req.params.id)
       .then(teacher => {
+        // Delete the image stored on the server.
+        fs.unlink("./" + teacher.imagePath, function(err) {
+          if (err && err.code == "ENOENT") return console.log(err);
+          console.log("file deleted successfully");
+        });
         res.json({ success: true });
       })
       .catch(err => {
@@ -122,7 +93,14 @@ router.put(
       let path;
       if (typeof req.file !== "undefined") {
         path = "/" + req.file.path;
+        // New picture was chosen. Delete the old one.
+        // Delete the image stored on the server.
+        fs.unlink("./" + teacher.imagePath, function(err) {
+          if (err && err.code == "ENOENT") return console.log(err);
+          console.log("file deleted successfully");
+        });
       } else {
+        // Original picture was kept. Just keep the current imagePath.
         path = imagePath;
       }
 
