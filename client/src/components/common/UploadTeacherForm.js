@@ -215,7 +215,7 @@ class UploadTeacherForm extends Component {
               </DialogContentText>
               <TextField
                 autoFocus
-                required
+                required={!editMode}
                 error={errors.image}
                 margin='dense'
                 id='image'
