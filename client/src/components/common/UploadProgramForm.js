@@ -98,35 +98,29 @@ class UploadProgramForm extends Component {
   };
 
   handleFileChange = e => {
-    console.log(e.target.files[0]);
     let image = e.target.files[0] || {};
-    // if (!image) {
-    //   image.type = null;
-    // }
     if (
       image.type === "image/jpeg" ||
       image.type === "image/png" ||
       image.type === "image/svg"
     ) {
-      this.setState(({ errors }) => ({
+      this.setState({
         image,
-        errors: {
-          ...errors,
-          image: undefined
-        }
-      }));
+        errors: {}
+      });
     } else {
       this.setState(({ errors }) => ({
         image: null,
         errors: {
           ...errors,
-          image: "The image must be in jpg, svg, or png format"
+          image: true
         }
       }));
     }
   };
 
   newDescLine = () => {
+    // adds new blank string into array which adds new field line.
     this.setState(({ description }) => ({
       description: [...description, ""]
     }));
@@ -143,7 +137,9 @@ class UploadProgramForm extends Component {
     }
   };
 
-  handleSubmit = () => {
+  handleSubmit = e => {
+    e.preventDefault();
+
     const {
       header,
       description,
@@ -155,28 +151,7 @@ class UploadProgramForm extends Component {
     } = this.state;
     const { addProgram, updateProgram } = this.props;
 
-    if (!image && !editMode) {
-      this.setState(({ errors }) => ({
-        errors: { ...errors, image: "An image is required" }
-      }));
-    }
-
-    if (isEmpty(header)) {
-      this.setState(({ errors }) => ({
-        errors: { ...errors, header: "Header field is required" }
-      }));
-    }
-
-    if (isEmpty(description)) {
-      this.setState(({ errors }) => ({
-        errors: {
-          ...errors,
-          description: "The first description field is required"
-        }
-      }));
-    }
-
-    // Check if all errors are clear then move on to submitting form. Otherwise, do not submit.
+    // Check if all errors are clear then move on to submitting form. Otherwise, do not submit. Mainly just checks if image is the correct format. The form checks if required fields are filled out or not.
     if (!isEmpty(errors)) {
       // TODO: add error snackbar that tells to deal with errors?
       return;
@@ -246,7 +221,7 @@ class UploadProgramForm extends Component {
           aria-labelledby='form-dialog-title'
         >
           <DialogTitle id='form-dialog-title'>Create New Program</DialogTitle>
-          <form autoComplete='off'>
+          <form autoComplete='off' onSubmit={e => this.handleSubmit(e)}>
             <DialogContent>
               <DialogContentText>
                 To create a new program, please provide an image, Header,
@@ -268,11 +243,12 @@ class UploadProgramForm extends Component {
                 onChange={this.handleFileChange}
               />
               {errors.image && (
-                <h6 style={{ color: "red", margin: 0 }}>{errors.image}</h6>
+                <h6 style={{ color: "red", margin: 0 }}>
+                  The image must be in jpg, svg, or png format
+                </h6>
               )}
               <TextField
                 required
-                error={errors.header}
                 margin='dense'
                 id='header'
                 label='Header'
@@ -297,29 +273,22 @@ class UploadProgramForm extends Component {
               />
               {description.map((desc, index) => {
                 return (
-                  <React.Fragment key={index}>
-                    <TextField
-                      required
-                      error={errors.description && index === 0}
-                      margin='dense'
-                      id='description'
-                      data-index={index}
-                      label='Description'
-                      name='description'
-                      type='text'
-                      value={desc}
-                      fullWidth
-                      multiline
-                      rows='2'
-                      rowsMax='4'
-                      onChange={this.handleChange}
-                    />
-                    {errors.description && index === 0 && (
-                      <h6 style={{ color: "red", margin: 0 }}>
-                        {errors.description}
-                      </h6>
-                    )}
-                  </React.Fragment>
+                  <TextField
+                    key={index}
+                    required
+                    margin='dense'
+                    id='description'
+                    data-index={index}
+                    label='Description'
+                    name='description'
+                    type='text'
+                    value={desc}
+                    fullWidth
+                    multiline
+                    rows='2'
+                    rowsMax='4'
+                    onChange={this.handleChange}
+                  />
                 );
               })}
               <Icon onClick={this.newDescLine} className='add-bio-line-icon'>
@@ -338,7 +307,7 @@ class UploadProgramForm extends Component {
               <Button onClick={this.handleCancel} color='primary'>
                 Cancel
               </Button>
-              <Button onClick={this.handleSubmit} color='primary'>
+              <Button type='submit' color='primary'>
                 Submit
               </Button>
             </DialogActions>

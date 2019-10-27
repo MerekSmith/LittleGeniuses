@@ -22,6 +22,11 @@ export default function deleteAlert(props) {
     setOpen(false);
   };
 
+  const handleClickDelete = () => {
+    confirmDelete(mongoId);
+    setOpen(false);
+  };
+
   return (
     <div>
       <DeleteForever
@@ -47,11 +52,7 @@ export default function deleteAlert(props) {
           <Button onClick={handleClose} color='primary'>
             Cancel
           </Button>
-          <Button
-            onClick={() => confirmDelete(mongoId)}
-            color='primary'
-            autoFocus
-          >
+          <Button onClick={handleClickDelete} color='primary' autoFocus>
             Yes
           </Button>
         </DialogActions>

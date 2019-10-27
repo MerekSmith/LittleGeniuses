@@ -12,6 +12,8 @@ import {
 } from "@material-ui/core";
 import { Edit, AddBox } from "@material-ui/icons";
 
+import isEmpty from "../../validation/is-empty";
+
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction='up' ref={ref} {...props} />;
 });
@@ -27,7 +29,8 @@ class UploadTeacherForm extends Component {
       bio: [""],
       image: null,
       editMode: false,
-      mongoId: ""
+      mongoId: "",
+      errors: {}
     };
   }
 
@@ -70,7 +73,8 @@ class UploadTeacherForm extends Component {
         position: "",
         bio: [""],
         image: null,
-        mongoId: ""
+        mongoId: "",
+        errors: {}
       });
     }
   };
@@ -87,10 +91,29 @@ class UploadTeacherForm extends Component {
   };
 
   handleFileChange = e => {
-    this.setState({ image: e.target.files[0] });
+    let image = e.target.files[0] || {};
+    if (
+      image.type === "image/jpeg" ||
+      image.type === "image/png" ||
+      image.type === "image/svg"
+    ) {
+      this.setState({
+        image,
+        errors: {}
+      });
+    } else {
+      this.setState(({ errors }) => ({
+        image: null,
+        errors: {
+          ...errors,
+          image: true
+        }
+      }));
+    }
   };
 
   newBioLine = () => {
+    // adds new blank string into array which adds new field line.
     this.setState(({ bio }) => ({
       bio: [...bio, ""]
     }));
@@ -107,9 +130,25 @@ class UploadTeacherForm extends Component {
     }
   };
 
-  handleSubmit = () => {
-    const { name, position, bio, image, editMode, mongoId } = this.state;
+  handleSubmit = e => {
+    e.preventDefault();
+
+    const {
+      name,
+      position,
+      bio,
+      image,
+      editMode,
+      mongoId,
+      errors
+    } = this.state;
     const { addTeacher, updateTeacher } = this.props;
+
+    // Check if all errors are clear then move on to submitting form. Otherwise, do not submit. Mainly just checks if image is the correct format. The form checks if required fields are filled out or not.
+    if (!isEmpty(errors)) {
+      // TODO: add error snackbar that tells to deal with errors?
+      return;
+    }
 
     // Create formData to send over with post request. Needs to be in this format due to image.
     let teacher = new FormData();
@@ -133,7 +172,7 @@ class UploadTeacherForm extends Component {
   };
 
   render() {
-    const { open, name, position, bio, editMode = false } = this.state;
+    const { open, name, position, bio, editMode = false, errors } = this.state;
     const { adminPage } = this.props;
     const isMultiLineBio = bio.length > 1;
 
@@ -168,7 +207,7 @@ class UploadTeacherForm extends Component {
           aria-labelledby='form-dialog-title'
         >
           <DialogTitle id='form-dialog-title'>Create New Teacher</DialogTitle>
-          <form autoComplete='off'>
+          <form autoComplete='off' onSubmit={e => this.handleSubmit(e)}>
             <DialogContent>
               <DialogContentText>
                 To create a new teacher bio, please provide an image, teacher
@@ -177,6 +216,7 @@ class UploadTeacherForm extends Component {
               <TextField
                 autoFocus
                 required
+                error={errors.image}
                 margin='dense'
                 id='image'
                 label='Choose Image'
@@ -185,6 +225,12 @@ class UploadTeacherForm extends Component {
                 fullWidth
                 onChange={this.handleFileChange}
               />
+              {/* Error which only displays in image selected is not correct format */}
+              {errors.image && (
+                <h6 style={{ color: "red", margin: 0 }}>
+                  The image must be in jpg, svg, or png format
+                </h6>
+              )}
               <TextField
                 required
                 margin='dense'
@@ -243,7 +289,7 @@ class UploadTeacherForm extends Component {
               <Button onClick={this.handleCancel} color='primary'>
                 Cancel
               </Button>
-              <Button onClick={this.handleSubmit} color='primary'>
+              <Button type='submit' color='primary'>
                 Submit
               </Button>
             </DialogActions>

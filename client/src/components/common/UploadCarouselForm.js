@@ -11,6 +11,8 @@ import {
 } from "@material-ui/core";
 import { Edit, AddBox } from "@material-ui/icons";
 
+import isEmpty from "../../validation/is-empty";
+
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction='up' ref={ref} {...props} />;
 });
@@ -27,7 +29,8 @@ class UploadProgramForm extends Component {
       link: "",
       linkName: "",
       editMode: false,
-      mongoId: ""
+      mongoId: "",
+      errors: {}
     };
   }
 
@@ -71,7 +74,8 @@ class UploadProgramForm extends Component {
         image: null,
         link: "",
         linkName: "",
-        mongoId: ""
+        mongoId: "",
+        errors: {}
       });
     }
   };
@@ -81,10 +85,30 @@ class UploadProgramForm extends Component {
   };
 
   handleFileChange = e => {
-    this.setState({ image: e.target.files[0] });
+    let image = e.target.files[0] || {};
+    if (
+      image.type === "image/jpeg" ||
+      image.type === "image/png" ||
+      image.type === "image/svg"
+    ) {
+      this.setState({
+        image,
+        errors: {}
+      });
+    } else {
+      this.setState(({ errors }) => ({
+        image: null,
+        errors: {
+          ...errors,
+          image: true
+        }
+      }));
+    }
   };
 
-  handleSubmit = () => {
+  handleSubmit = e => {
+    e.preventDefault();
+
     const {
       header,
       details,
@@ -92,9 +116,16 @@ class UploadProgramForm extends Component {
       link,
       linkName,
       editMode,
-      mongoId
+      mongoId,
+      errors
     } = this.state;
     const { addCarouselSlide, updateCarouselSlide } = this.props;
+
+    // Check if all errors are clear then move on to submitting form. Otherwise, do not submit. Mainly just checks if image is the correct format. The form checks if required fields are filled out or not.
+    if (!isEmpty(errors)) {
+      // TODO: add error snackbar that tells to deal with errors?
+      return;
+    }
 
     // Create formData to send over with post request. Needs to be in this format due to image.
     let slide = new FormData();
@@ -116,7 +147,15 @@ class UploadProgramForm extends Component {
   };
 
   render() {
-    const { open, header, details, link, linkName, editMode } = this.state;
+    const {
+      open,
+      header,
+      details,
+      link,
+      linkName,
+      editMode,
+      errors
+    } = this.state;
     const { adminPage } = this.props;
 
     return (
@@ -152,7 +191,7 @@ class UploadProgramForm extends Component {
           <DialogTitle id='form-dialog-title'>
             {editMode ? "Update" : "Create New"} Carousel Slide
           </DialogTitle>
-          <form autoComplete='off'>
+          <form autoComplete='off' onSubmit={e => this.handleSubmit(e)}>
             <DialogContent>
               <DialogContentText>
                 To create a new carousel slide, please provide an image and
@@ -162,6 +201,7 @@ class UploadProgramForm extends Component {
               <TextField
                 autoFocus
                 required
+                error={errors.image}
                 margin='dense'
                 id='image'
                 label='Choose Image'
@@ -170,6 +210,11 @@ class UploadProgramForm extends Component {
                 fullWidth
                 onChange={this.handleFileChange}
               />
+              {errors.image && (
+                <h6 style={{ color: "red", margin: 0 }}>
+                  The image must be in jpg, svg, or png format
+                </h6>
+              )}
               <TextField
                 required
                 margin='dense'
@@ -193,9 +238,10 @@ class UploadProgramForm extends Component {
                 onChange={this.handleChange}
               />
               <TextField
+                required={!isEmpty(linkName)}
                 margin='dense'
                 id='link'
-                label='Link'
+                label='Link, *Should be address part after the ".com"'
                 name='link'
                 type='text'
                 value={link}
@@ -203,6 +249,7 @@ class UploadProgramForm extends Component {
                 onChange={this.handleChange}
               />
               <TextField
+                required={!isEmpty(link)}
                 margin='dense'
                 id='linkName'
                 label='Link Name'
@@ -217,7 +264,7 @@ class UploadProgramForm extends Component {
               <Button onClick={this.handleCancel} color='primary'>
                 Cancel
               </Button>
-              <Button onClick={this.handleSubmit} color='primary'>
+              <Button type='submit' color='primary'>
                 Submit
               </Button>
             </DialogActions>
