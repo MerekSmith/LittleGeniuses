@@ -19,7 +19,7 @@
 }
 
 .d-block {
-  width: 100%;
+  height: 250px;
   filter: brightness(70%);
 }
 
@@ -209,13 +209,18 @@
   .carousel-caption p {
     font-size: 12px;
   }
+
+  .caption-btn {
+    font-size: 0.75rem;
+  }
 }
 
 @media only screen and (max-width: 450px) {
   /* Landing */
   .carousel-caption {
-    width: 70%;
+    width: 80%;
     top: 5%;
+    left: 10%;
   }
 
   .carousel-caption h1 {
@@ -242,10 +247,17 @@
 
 /* // Small devices (landscape phones, 576px and up) */
 @media (min-width: 576px) {
+  .d-block {
+    height: 450px;
+  }
 }
 
 /* // Medium devices (tablets, 768px and up) */
 @media (min-width: 768px) {
+  .d-block {
+    height: 550px;
+  }
+
   .text-container {
     margin: auto 0;
   }
@@ -270,6 +282,10 @@
 }
 
 @media (min-width: 1400px) {
+  .d-block {
+    height: 800px;
+  }
+
   .container {
     max-width: 1360px;
   }
