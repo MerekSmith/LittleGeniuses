@@ -210,8 +210,12 @@ class UploadTeacherForm extends Component {
           <form autoComplete='off' onSubmit={e => this.handleSubmit(e)}>
             <DialogContent>
               <DialogContentText>
-                To create a new teacher bio, please provide an image, teacher
-                name, teacher's position, and a bio.
+                {editMode
+                  ? "To edit a teacher bio, you can just change any field you need. The image is not neccessary unless you want it changed."
+                  : "To create a new teacher bio, please provide an image, teacher name, teacher's position, and a bio."}
+              </DialogContentText>
+              <DialogContentText>
+                Image must be jpeg, png, or svg format.
               </DialogContentText>
               <TextField
                 autoFocus

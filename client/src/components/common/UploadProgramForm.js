@@ -224,8 +224,23 @@ class UploadProgramForm extends Component {
           <form autoComplete='off' onSubmit={e => this.handleSubmit(e)}>
             <DialogContent>
               <DialogContentText>
-                To create a new program, please provide an image, Header,
-                Description, and a color for the Header text.
+                {editMode
+                  ? "To edit a program, you can just change any field you need. The image is not neccessary unless you want it changed."
+                  : "To create a new program, please provide an image, Header, Description, and a color for the Header text."}
+              </DialogContentText>
+              <DialogContentText>
+                If the Header text color is not provided or is typed
+                incorrectly, it will default to black. The color is best just
+                typed as the color name wanted, hex format(#FFFFFF = white), or
+                in RGB. If you need help selecting a color, you can use this{" "}
+                <a
+                  href='https://www.google.com/search?q=color+picker'
+                  target='_blank'
+                  rel='noopener noreferrer'
+                >
+                  Google color picker tool
+                </a>
+                .
               </DialogContentText>
               <DialogContentText>
                 Image must be jpeg, png, or svg format.

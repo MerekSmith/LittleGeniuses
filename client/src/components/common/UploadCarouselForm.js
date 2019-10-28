@@ -194,9 +194,14 @@ class UploadProgramForm extends Component {
           <form autoComplete='off' onSubmit={e => this.handleSubmit(e)}>
             <DialogContent>
               <DialogContentText>
-                To create a new carousel slide, please provide an image and
-                header. The detail text line, link, and linkName are optional.
-                If you provide a link, you must provide a linkName.
+                {editMode
+                  ? "To update a carousel slide, you can just change any field you need. The image is not neccessary unless you want it changed."
+                  : "To create a new carousel slide, please provide an image and header."}
+                The detail text line, link, and linkName are optional. However,
+                if you provide a link, you must provide a linkName.
+              </DialogContentText>
+              <DialogContentText>
+                Image must be jpeg, png, or svg format.
               </DialogContentText>
               <TextField
                 autoFocus
