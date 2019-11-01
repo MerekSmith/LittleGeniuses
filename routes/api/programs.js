@@ -41,7 +41,8 @@ router.post(
   upload.single("image"),
   async (req, res) => {
     const { header, description, textColor } = req.body;
-    const { path } = req.file;
+    // default path to empty object in case where image is somehow not uploaded. This will at least create the program with a bad image path rather than crash server. The front UI should not allow the form to be submitted with no image, however.
+    const { path = {} } = req.file;
     const order = await Program.find().countDocuments();
 
     const newProgram = new Program({

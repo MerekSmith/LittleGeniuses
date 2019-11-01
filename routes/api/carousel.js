@@ -45,7 +45,8 @@ router.post(
   async (req, res) => {
     // details, link, and linkName are not required and could change based on what slide the daycare director chooses to add. In the majority of the time, it will at least either have details or the link and linkName.
     const { header, details = null, link = null, linkName = null } = req.body;
-    const { path } = req.file;
+    // default path to empty object in case where image is somehow not uploaded. This will at least create the program with a bad image path rather than crash server. The front UI should not allow the form to be submitted with no image, however.
+    const { path = {} } = req.file;
     const order = await Carousel.find().countDocuments();
 
     const newCarouselSlide = new Carousel({
