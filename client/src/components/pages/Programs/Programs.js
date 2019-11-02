@@ -75,6 +75,7 @@ class Programs extends Component {
             programs.map(
               ({ imagePath, header, description, textColor, _id }, index) => {
                 const isLastProgram = index + 1 === programs.length;
+
                 return (
                   <Program
                     programIndex={index}

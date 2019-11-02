@@ -123,7 +123,7 @@ function CarouselSlides(props) {
           <Carousel.Caption>
             <h1>We offer before and after school care.</h1>
             <Link
-              to='/programs/#Before%20and%20After%20School%20Care'
+              to='/programs/#Before'
               className='btn btn-light btn-lg caption-btn'
             >
               Learn More
