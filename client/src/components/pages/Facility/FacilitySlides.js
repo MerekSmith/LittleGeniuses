@@ -76,7 +76,7 @@ function FacilitySlides() {
           src='http://lorempixel.com/output/cats-q-c-640-480-2.jpg'
           alt='image2'
         />
-        <p className='legend'>Legend 2</p>
+        <p className='legend'>Legend 3</p>
       </div>
 
       {/* Maps through hard coded images */}
