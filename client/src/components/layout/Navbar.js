@@ -40,6 +40,7 @@ class Navbar extends Component {
       <ul className='ml-auto'>
         <li className='navbar-text'>littlegeniusesmidvale@gmail.com</li>
         <li className='navbar-text'>385-275-7233</li>
+        <li className='navbar-text'>Daycare Hours M-F 6am-6pm</li>
       </ul>
     );
 

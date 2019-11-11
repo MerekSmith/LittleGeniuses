@@ -3,9 +3,10 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import jwt_decode from "jwt-decode";
 import setAuthToken from "./utils/setAuthToken";
 import { getReviews } from "./actions/reviewsActions";
+import { getCarouselSlides } from "./actions/carouselActions";
 import { getPrograms } from "./actions/programsActions";
 import { getTeachers } from "./actions/teachersActions";
-import { getCarouselSlides } from "./actions/carouselActions";
+import { getFacilitySlides } from "./actions/facilityActions";
 import { setCurrentUser, logoutUser } from "./actions/authActions";
 import { configureAnchors } from "react-scrollable-anchor";
 
@@ -47,6 +48,7 @@ store.dispatch(getCarouselSlides());
 store.dispatch(getReviews());
 store.dispatch(getPrograms());
 store.dispatch(getTeachers());
+store.dispatch(getFacilitySlides());
 
 configureAnchors({
   offset: -20,

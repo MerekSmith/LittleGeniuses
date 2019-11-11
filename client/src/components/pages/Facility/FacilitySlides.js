@@ -78,14 +78,13 @@ function FacilitySlides() {
         />
         <p className='legend'>Legend 3</p>
       </div>
-
       {/* Maps through hard coded images */}
-      {/* {facilitySlides.map(({ image, alt, legendName }, index) => (
+      {facilitySlides.map(({ image, alt, legendName }, index) => (
         <div key={index}>
           <img src={image} alt={alt} />
           <p className='legend'>{legendName}</p>
         </div>
-      ))}} */}
+      ))}
     </Carousel>
   );
 }

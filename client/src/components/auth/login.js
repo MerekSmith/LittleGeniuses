@@ -13,10 +13,15 @@ import {
   addTeacher,
   teacherSuccessAlertClose
 } from "../../actions/teachersActions";
+import {
+  addFacilitySlide,
+  facilitySuccessAlertClose
+} from "../../actions/facilityActions";
 import TextFieldGroup from "../common/TextFieldGroup";
 import UploadCarouselForm from "../common/UploadCarouselForm";
 import UploadProgramForm from "../common/UploadProgramForm";
 import UploadTeacherForm from "../common/UploadTeacherForm";
+import UploadFacilityForm from "../common/UploadFacilityForm";
 import SuccessAlert from "../common/SuccessAlert";
 
 class Login extends Component {
@@ -58,12 +63,15 @@ class Login extends Component {
       carousel,
       programs,
       teachers,
+      facility,
       addCarouselSlide,
       carouselSuccessAlertClose,
       addProgram,
       programSuccessAlertClose,
       addTeacher,
-      teacherSuccessAlertClose
+      teacherSuccessAlertClose,
+      addFacilitySlide,
+      facilitySuccessAlertClose
     } = this.props;
 
     return (
@@ -94,6 +102,15 @@ class Login extends Component {
                 >
                   <UploadTeacherForm addTeacher={addTeacher} adminPage={true} />
                 </div>
+                <div
+                  className='col-md-3 text-center'
+                  style={{ marginTop: "50px" }}
+                >
+                  <UploadFacilityForm
+                    addFacilitySlide={addFacilitySlide}
+                    adminPage={true}
+                  />
+                </div>
                 {/* Success Alerts. Only show when successful upload is made. */}
                 <SuccessAlert
                   successOpen={carousel.carouselSuccessOpen}
@@ -109,6 +126,11 @@ class Login extends Component {
                   successOpen={teachers.teacherSuccessOpen}
                   handleSuccessClose={teacherSuccessAlertClose}
                   message={teachers.teacherSuccessMessage}
+                />
+                <SuccessAlert
+                  successOpen={facility.facilitySuccessOpen}
+                  handleSuccessClose={facilitySuccessAlertClose}
+                  message={facility.facilitySuccessMessage}
                 />
               </div>
             </React.Fragment>
@@ -157,7 +179,8 @@ const mapStateToProps = state => ({
   errors: state.errors,
   carousel: state.carousel,
   programs: state.programs,
-  teachers: state.teachers
+  teachers: state.teachers,
+  facility: state.facility
 });
 
 export default connect(
@@ -169,6 +192,8 @@ export default connect(
     addProgram,
     programSuccessAlertClose,
     addTeacher,
-    teacherSuccessAlertClose
+    teacherSuccessAlertClose,
+    addFacilitySlide,
+    facilitySuccessAlertClose
   }
 )(Login);

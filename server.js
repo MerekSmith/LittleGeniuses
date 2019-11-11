@@ -11,6 +11,7 @@ const users = require("./routes/api/users");
 const programs = require("./routes/api/programs");
 const teachers = require("./routes/api/teachers");
 const carousel = require("./routes/api/carousel");
+const facility = require("./routes/api/facility");
 
 const app = express();
 
@@ -41,6 +42,7 @@ app.use("/api/reviews", reviews);
 app.use("/api/programs", programs);
 app.use("/api/teachers", teachers);
 app.use("/api/carousel", carousel);
+app.use("/api/facility", facility);
 
 app.use("/uploads", express.static("uploads"));
 // Serve static assets if in production

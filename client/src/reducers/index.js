@@ -5,6 +5,7 @@ import reviewsReducer from "./reviewsReducer";
 import programsReducer from "./programsReducer";
 import teachersReducer from "./teachersReducer";
 import carouselReducer from "./carouselReducer";
+import facilityReducer from "./facilityReducer";
 
 export default combineReducers({
   auth: authReducer,
@@ -12,5 +13,6 @@ export default combineReducers({
   reviews: reviewsReducer,
   programs: programsReducer,
   teachers: teachersReducer,
-  carousel: carouselReducer
+  carousel: carouselReducer,
+  facility: facilityReducer
 });
