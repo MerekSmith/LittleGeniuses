@@ -37,7 +37,7 @@ class EditFacilityIcons extends Component {
     const isFirstSlide = slideIndex === 0;
 
     return (
-      <div className='edit-icons rounded' style={{ zIndex: 2 }}>
+      <div className='edit-icons rounded' style={{ zIndex: 2, right: "32px" }}>
         {/* Add upload form */}
         <UploadFacilityForm addFacilitySlide={addFacilitySlide} />
         {/* Edit upload form */}
