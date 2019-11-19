@@ -11,15 +11,8 @@ class EditCarouselIcons extends Component {
     this.props.getCarouselSlides();
   };
 
-  handleMoveUp = id => {
-    let moveDirection = { orderMove: "up" };
-    axios.put(`/api/carousel/order/${id}`, moveDirection).then(res => {
-      this.props.getCarouselSlides();
-    });
-  };
-
-  handleMoveDown = id => {
-    let moveDirection = { orderMove: "down" };
+  handleMove = (id, direction) => {
+    let moveDirection = { orderMove: direction };
     axios.put(`/api/carousel/order/${id}`, moveDirection).then(res => {
       this.props.getCarouselSlides();
     });
@@ -52,7 +45,7 @@ class EditCarouselIcons extends Component {
           <ArrowUpward
             className='move-up-icon'
             fontSize='large'
-            onClick={() => this.handleMoveUp(_id)}
+            onClick={() => this.handleMove(_id, "up")}
           />
         )}
         {/* Does not show up for the last slide */}
@@ -60,7 +53,7 @@ class EditCarouselIcons extends Component {
           <ArrowDownward
             className='move-down-icon'
             fontSize='large'
-            onClick={() => this.handleMoveDown(_id)}
+            onClick={() => this.handleMove(_id, "down")}
           />
         )}
         <DeleteAlert confirmDelete={this.handleDeleteClick} mongoId={_id} />

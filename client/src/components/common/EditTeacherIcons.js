@@ -11,15 +11,8 @@ class EditTeacherIcons extends Component {
     this.props.getTeachers();
   };
 
-  handleMoveUp = id => {
-    let moveDirection = { orderMove: "up" };
-    axios.put(`/api/teachers/order/${id}`, moveDirection).then(res => {
-      this.props.getTeachers();
-    });
-  };
-
-  handleMoveDown = id => {
-    let moveDirection = { orderMove: "down" };
+  handleMove = (id, direction) => {
+    let moveDirection = { orderMove: direction };
     axios.put(`/api/teachers/order/${id}`, moveDirection).then(res => {
       this.props.getTeachers();
     });
@@ -46,7 +39,7 @@ class EditTeacherIcons extends Component {
           <ArrowUpward
             className='move-up-icon'
             fontSize='large'
-            onClick={() => this.handleMoveUp(mongoId)}
+            onClick={() => this.handleMoveUp(mongoId, "up")}
           />
         )}
         {/* Does not show up for the last teacher */}
@@ -54,7 +47,7 @@ class EditTeacherIcons extends Component {
           <ArrowDownward
             className='move-down-icon'
             fontSize='large'
-            onClick={() => this.handleMoveDown(mongoId)}
+            onClick={() => this.handleMoveDown(mongoId, "down")}
           />
         )}
         <DeleteAlert confirmDelete={this.handleDeleteClick} mongoId={mongoId} />

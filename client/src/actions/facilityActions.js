@@ -35,7 +35,7 @@ export const addFacilitySlide = slide => dispatch => {
   });
 };
 
-// update an existing program in mongodb
+// update an existing facility slide in mongodb
 export const updateFacilitySlide = (id, slide) => dispatch => {
   axios.put(`/api/facility/${id}`, slide).then(res => {
     dispatch({
@@ -45,7 +45,7 @@ export const updateFacilitySlide = (id, slide) => dispatch => {
   });
 };
 
-// remove a program from mongodb
+// remove a facility slide from mongodb
 export const deleteFacilitySlide = id => dispatch => {
   axios.delete(`/api/facility/${id}`).then(res => {
     dispatch({

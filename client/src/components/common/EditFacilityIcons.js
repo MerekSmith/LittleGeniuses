@@ -11,15 +11,8 @@ class EditFacilityIcons extends Component {
     this.props.getFacilitySlides();
   };
 
-  handleMoveUp = id => {
-    let moveDirection = { orderMove: "up" };
-    axios.put(`/api/facility/order/${id}`, moveDirection).then(res => {
-      this.props.getFacilitySlides();
-    });
-  };
-
-  handleMoveDown = id => {
-    let moveDirection = { orderMove: "down" };
+  handleMove = (id, direction) => {
+    let moveDirection = { orderMove: direction };
     axios.put(`/api/facility/order/${id}`, moveDirection).then(res => {
       this.props.getFacilitySlides();
     });
@@ -52,7 +45,7 @@ class EditFacilityIcons extends Component {
           <ArrowUpward
             className='move-up-icon'
             fontSize='large'
-            onClick={() => this.handleMoveUp(_id)}
+            onClick={() => this.handleMoveUp(_id, "up")}
           />
         )}
         {/* Does not show up for the last slide */}
@@ -60,7 +53,7 @@ class EditFacilityIcons extends Component {
           <ArrowDownward
             className='move-down-icon'
             fontSize='large'
-            onClick={() => this.handleMoveDown(_id)}
+            onClick={() => this.handleMoveDown(_id, "down")}
           />
         )}
         <DeleteAlert confirmDelete={this.handleDeleteClick} mongoId={_id} />

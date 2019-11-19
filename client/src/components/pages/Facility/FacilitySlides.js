@@ -32,12 +32,28 @@ function FacilitySlides(props) {
         <p className='legend'>Legend 3</p>
       </div>
       {/* Maps through hard coded images */}
-      {slides.map(({ imagePath, legend }, index) => (
-        <div key={index}>
-          <img src={originURL + imagePath} alt={legend} />
-          <p className='legend'>{legend}</p>
-        </div>
-      ))}
+      {slides.map((slide, index) => {
+        const { imagePath, legend } = slide;
+        const isLastSlide = index + 1 === slides.length;
+
+        return (
+          <div key={index}>
+            <img src={originURL + imagePath} alt={legend} />
+            <p className='legend'>{legend}</p>
+            {isAuthenticated && (
+              <EditFacilityIcons
+                slide={slide}
+                slideIndex={index}
+                isLastSlide={isLastSlide}
+                getFacilitySlides={getFacilitySlides}
+                addFacilitySlide={addFacilitySlide}
+                updateFacilitySlide={updateFacilitySlide}
+                deleteFacilitySlide={deleteFacilitySlide}
+              />
+            )}
+          </div>
+        );
+      })}
     </Carousel>
   );
 }
