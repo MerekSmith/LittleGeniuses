@@ -35,10 +35,15 @@ router.post("/register", (req, res) => {
     } else {
       const newUser = new User({
         email: req.body.email,
-        password: req.body.password
+        password: req.body.password,
+        secretQuestion: req.body.secretQuestion,
+        secretAnswer: req.body.secretAnswer
       });
-
       bcrypt.genSalt(10, (err, salt) => {
+        bcrypt.hash(newUser.secretAnswer, salt, (err, hash) => {
+          if (err) throw err;
+          newUser.secretAnswer = hash;
+        });
         bcrypt.hash(newUser.password, salt, (err, hash) => {
           if (err) throw err;
           newUser.password = hash;
@@ -117,5 +122,8 @@ router.get(
     });
   }
 );
+
+// retrieve admin's password
+router.get("/retrieve", (req, res) => {});
 
 module.exports = router;

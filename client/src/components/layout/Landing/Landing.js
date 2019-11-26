@@ -21,6 +21,7 @@ import orangeBalloon from "../../../img/Round Balloons/balloon_round_orange.png"
 import redBalloon from "../../../img/Round Balloons/balloon_round_red.png";
 import greenBalloon from "../../../img/Round Balloons/balloon_round_green.png";
 import purpleBalloon from "../../../img/Round Balloons/balloon_round_purple.png";
+import blueBalloon from "../../../img/Round Balloons/balloon_round_blue.png";
 import dressup from "../../../img/Landing/dressup.jpg";
 
 import dropIn from "../../../img/Landing/dropin.jpg";
@@ -93,6 +94,13 @@ class Landing extends Component {
                 balloon={purpleBalloon}
                 delay='700'
                 btnText='Special Programs'
+              />
+            </Col>
+            <Col>
+              <Balloon
+                balloon={blueBalloon}
+                delay='900'
+                btnText='Before & After School'
               />
             </Col>
           </Row>

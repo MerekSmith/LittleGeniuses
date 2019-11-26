@@ -13,6 +13,8 @@ class Register extends Component {
       email: "",
       password: "",
       password2: "",
+      secretQuestion: "",
+      secretAnswer: "",
       errors: {}
     };
   }
@@ -36,10 +38,20 @@ class Register extends Component {
   onSubmit = e => {
     e.preventDefault();
 
+    const {
+      email,
+      password,
+      password2,
+      secretQuestion,
+      secretAnswer
+    } = this.state;
+
     const newUser = {
-      email: this.state.email,
-      password: this.state.password,
-      password2: this.state.password2
+      email,
+      password,
+      password2,
+      secretQuestion,
+      secretAnswer
     };
 
     this.props.registerUser(newUser, this.props.history);
@@ -47,6 +59,13 @@ class Register extends Component {
 
   render() {
     const { errors } = this.state;
+    const {
+      email,
+      password,
+      password2,
+      secretQuestion,
+      secretAnswer
+    } = this.state;
 
     return (
       <div className='register'>
@@ -61,7 +80,7 @@ class Register extends Component {
                   placeholder='Email Address'
                   name='email'
                   type='email'
-                  value={this.state.email}
+                  value={email}
                   onChange={this.onChange}
                   error={errors.email}
                 />
@@ -69,7 +88,7 @@ class Register extends Component {
                   placeholder='Password'
                   name='password'
                   type='password'
-                  value={this.state.password}
+                  value={password}
                   onChange={this.onChange}
                   error={errors.password}
                 />
@@ -77,11 +96,26 @@ class Register extends Component {
                   placeholder='Confirm Password'
                   name='password2'
                   type='password'
-                  value={this.state.password2}
+                  value={password2}
                   onChange={this.onChange}
                   error={errors.password2}
                 />
-
+                <TextFieldGroup
+                  placeholder='Secret Question'
+                  name='secretQuestion'
+                  type='text'
+                  value={secretQuestion}
+                  onChange={this.onChange}
+                  error={errors.secretQuestion}
+                />
+                <TextFieldGroup
+                  placeholder='Secret Answer'
+                  name='secretAnswer'
+                  type='text'
+                  value={secretAnswer}
+                  onChange={this.onChange}
+                  error={errors.secretAnswer}
+                />
                 <input type='submit' className='btn btn-info btn-block mt-4' />
               </form>
             </div>

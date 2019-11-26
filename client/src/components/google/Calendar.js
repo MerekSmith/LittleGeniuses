@@ -17,7 +17,13 @@ class Calendar extends React.Component {
           header={{
             left: "prev,next, today",
             center: "title",
-            right: "dayGridMonth,listWeek, listYear"
+            right: "dayGridMonth,listMonth, listWeek, listYear"
+          }}
+          views={{
+            dayGridMonth: { buttonText: "Month" },
+            listMonth: { buttonText: "List" },
+            listWeek: { buttonText: "Week List" },
+            listYear: { buttonText: "Year List" }
           }}
           plugins={[
             dayGridPlugin,
@@ -26,7 +32,7 @@ class Calendar extends React.Component {
             googleCalendarPlugin
           ]}
           weekends={false}
-          googleCalendarApiKey='AIzaSyA_UMSFWJbiTaMScNMbNvTk7I5ti4EuXHE'
+          googleCalendarApiKey='AIzaSyDrJ2jYTcTV4CXCEDAOtshmpwuEZaKixo4'
           eventSources={[
             {
               googleCalendarId: "littlegeniusesmidvale@gmail.com",

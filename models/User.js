@@ -14,6 +14,14 @@ const UserSchema = new Schema({
   date: {
     type: Date,
     default: Date.now
+  },
+  secretQuestion: {
+    type: String,
+    required: true
+  },
+  secretAnswer: {
+    type: String,
+    required: true
   }
 });
 
