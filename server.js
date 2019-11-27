@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const passport = require("passport");
 const path = require("path");
+const keys = require("./config/keys");
 
 const sendContactEmail = require("./services/email");
 
@@ -20,7 +21,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 // DB Config
-const db = require("./config/keys").mongoURI;
+const db = keys.mongoURI;
 
 // Connect to MongoDB
 mongoose

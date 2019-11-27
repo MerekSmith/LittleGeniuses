@@ -10,6 +10,8 @@ import "../../css/main.scss"; // webpack must be configured to do this
 
 class Calendar extends React.Component {
   render() {
+    console.log(process.env);
+    console.log(process.env.GOOGLE_API_KEY);
     return (
       <div className='calendar'>
         <FullCalendar
@@ -32,7 +34,7 @@ class Calendar extends React.Component {
             googleCalendarPlugin
           ]}
           weekends={false}
-          googleCalendarApiKey='AIzaSyDrJ2jYTcTV4CXCEDAOtshmpwuEZaKixo4'
+          googleCalendarApiKey='AIzaSyB-GZuGP7qRfhdv_73-vQ7K4mGgKfeCU3o'
           eventSources={[
             {
               googleCalendarId: "littlegeniusesmidvale@gmail.com",
