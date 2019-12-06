@@ -3,7 +3,7 @@ const router = express.Router();
 const axios = require("axios");
 const keys = require("../../config/keys");
 
-const apiKey = keys.googlePlacesApiKey;
+const apiKey = keys.googleApiKey;
 const placeID = "ChIJC9CH0myJUocRQSSLj5EUZtk";
 const fields = "reviews,rating,user_ratings_total";
 const url = `https://maps.googleapis.com/maps/api/place/details/json?place_id=${placeID}&language=en&fields=${fields}&key=${apiKey}`;
