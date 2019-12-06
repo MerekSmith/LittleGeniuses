@@ -2,11 +2,14 @@ import axios from "axios";
 import setAuthToken from "../utils/setAuthToken";
 import jwt_decode from "jwt-decode";
 
-import { GET_ERRORS, SET_CURRENT_USER } from "./types";
+import {
+  GET_ERRORS,
+  SET_CURRENT_USER,
+  PASSWORD_RESET_SUCCESS_ALERT_CLOSE
+} from "./types";
 
 // Register User
 export const registerUser = (userData, history) => dispatch => {
-  console.log("register hit", userData);
   axios
     .post("/api/users/register", userData)
     .then(res => history.push("/admin"))
@@ -58,4 +61,13 @@ export const logoutUser = () => dispatch => {
   setAuthToken(false);
   // Set the current user to {} which will set isAuthenticated to false
   dispatch(setCurrentUser({}));
+};
+
+export const carouselSuccessAlertClose = (event, reason) => dispatch => {
+  if (reason === "clickaway") {
+    return;
+  }
+  dispatch({
+    type: PASSWORD_RESET_SUCCESS_ALERT_CLOSE
+  });
 };

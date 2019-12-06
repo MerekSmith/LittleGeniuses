@@ -14,6 +14,7 @@ class Calendar extends React.Component {
       <div className='calendar'>
         <FullCalendar
           defaultView='dayGridMonth'
+          timeZone='MTC'
           header={{
             left: "prev,next, today",
             center: "title",
