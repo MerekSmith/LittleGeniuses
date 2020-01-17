@@ -24,7 +24,6 @@ export default function(state = intitalState, action) {
         slides: action.payload
       };
     case ADD_FACILITY_SLIDE:
-      debugger;
       return {
         ...state,
         slides: [...state.slides, action.payload],

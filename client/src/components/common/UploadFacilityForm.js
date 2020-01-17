@@ -190,7 +190,6 @@ class UploadFacilityForm extends Component {
                 </h6>
               )}
               <TextField
-                required
                 margin='dense'
                 id='legend'
                 label='legend'

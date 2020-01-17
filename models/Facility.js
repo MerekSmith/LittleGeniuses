@@ -8,8 +8,7 @@ const FacilitySchema = new Schema({
     required: true
   },
   legend: {
-    type: String,
-    required: true
+    type: String
   },
   order: {
     type: Number,
