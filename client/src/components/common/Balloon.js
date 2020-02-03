@@ -1,7 +1,7 @@
 import React from "react";
 
 function Balloon(props) {
-  const { balloon, delay, btnText } = props;
+  const { balloon, delay, btnText, link } = props;
 
   return (
     <div
@@ -12,7 +12,7 @@ function Balloon(props) {
     >
       <img src={balloon} className='balloon' alt='balloon' />
       <div className='balloon-content'>
-        <a className='btn btn-secondary btn-lg balloon-btn' href='#contact'>
+        <a className='btn btn-secondary btn-lg balloon-btn' href={link}>
           {btnText}
         </a>
       </div>

@@ -26,7 +26,7 @@
 /* the right is set to 0 to remove the default bootstrap css */
 .carousel-caption {
   width: 50%;
-  top: 25%;
+  top: 15%;
   text-align: left;
 }
 
@@ -126,7 +126,7 @@
 
 .landing-bg {
   /* The image used for parallax */
-  background-image: url("../img/Landing/mom-with-daycare-children.jpg");
+  background-image: url("../img/Final_Stock_Pics/landingBottom.jpeg");
 
   /* Set a specific height */
   min-height: 500px;

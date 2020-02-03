@@ -73,6 +73,7 @@ class Landing extends Component {
                 balloon={redBalloon}
                 delay='100'
                 btnText='Infant & Toddler Class'
+                link='/programs/#Infant'
               />
             </Col>
             <Col>
@@ -80,6 +81,7 @@ class Landing extends Component {
                 balloon={orangeBalloon}
                 delay='300'
                 btnText='2-Year Old Class'
+                link='/programs/#2-Year'
               />
             </Col>
             <Col>
@@ -87,6 +89,7 @@ class Landing extends Component {
                 balloon={greenBalloon}
                 delay='500'
                 btnText='Preschool Class'
+                link='/programs/#Preschool'
               />
             </Col>
             <Col>
@@ -94,6 +97,7 @@ class Landing extends Component {
                 balloon={purpleBalloon}
                 delay='700'
                 btnText='Special Programs'
+                link='/programs/#Special'
               />
             </Col>
             <Col>
@@ -101,6 +105,7 @@ class Landing extends Component {
                 balloon={blueBalloon}
                 delay='900'
                 btnText='Before & After School'
+                link='/programs/#Before'
               />
             </Col>
           </Row>
