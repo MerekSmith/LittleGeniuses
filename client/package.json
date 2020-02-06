@@ -15,6 +15,7 @@
     "aos": "^2.3.4",
     "axios": "^0.18.0",
     "bootstrap": "^4.4.1",
+    "caniuse-lite": "^1.0.30001025",
     "classnames": "^2.2.6",
     "jwt-decode": "^2.2.0",
     "notistack": "^0.9.7",
