@@ -29,9 +29,9 @@ function CarouselSlides(props) {
           />
 
           <Carousel.Caption>
-            <div style={{ textAlign: "center" }}>
-              <h1>LITTLE GENIUSES</h1>
-              <h4>A nurturing and caring environment</h4>
+            <div style={{ textAlign: "center" }} className='main-carousel-text'>
+              <h2>LITTLE GENIUSES</h2>
+              <h6>A nurturing and caring environment</h6>
               <p style={{ marginBottom: "0px" }}>
                 Welcome to Little Geniuses Learning Center, a daycare in
                 Midvale, Utah where the essence of a child is nurtured in our

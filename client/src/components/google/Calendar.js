@@ -9,11 +9,33 @@ import googleCalendarPlugin from "@fullcalendar/google-calendar";
 import "../../css/main.scss"; // webpack must be configured to do this
 
 class Calendar extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      screenWidth: window.innerWidth > 765
+    };
+  }
+
+  // When the landing page component is loaded, the sizing event listener starts.
+  componentDidMount() {
+    window.addEventListener("resize", this.setscreenWidth);
+  }
+
+  setscreenWidth = () => {
+    if (window.innerWidth > 765) {
+      this.setState({ screenWidth: true });
+    } else {
+      this.setState({ screenWidth: false });
+    }
+  };
+
   render() {
+    const calendarView = this.state.screenWidth ? "dayGridMonth" : "listWeek";
+
     return (
       <div className='calendar'>
         <FullCalendar
-          defaultView='dayGridMonth'
+          defaultView={calendarView}
           timeZone='MTC'
           header={{
             left: "prev,next, today",

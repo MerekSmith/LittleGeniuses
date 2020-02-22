@@ -167,6 +167,10 @@
 
 @media only screen and (max-width: 640px) {
   /* Landing */
+  .main-carousel-text {
+    font-size: x-small !important;
+  }
+
   .carousel-caption {
     width: 50%;
     top: 15%;

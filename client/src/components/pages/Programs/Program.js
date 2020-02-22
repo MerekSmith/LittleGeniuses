@@ -31,11 +31,12 @@ function Program(props) {
     textOrder = 12;
     imgOrder = 1;
   }
+  const fadeType = screenWidth ? "fade-left" : "fade-up";
 
   return (
     <div className='program-container'>
       <ScrollableAnchor id={anchor}>
-        <Row data-aos='fade-left' data-aos-duration='1500'>
+        <Row data-aos={fadeType} data-aos-duration='1500'>
           <Col md={{ order: imgOrder }}>
             <Image rounded src={image} className='program-img' alt='program' />
           </Col>
