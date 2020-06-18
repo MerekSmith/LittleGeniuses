@@ -52,7 +52,7 @@ class EditProgramIcons extends Component {
           <ArrowUpward
             className='move-up-icon'
             fontSize='large'
-            onClick={() => this.handleMoveUp(mongoId, "up")}
+            onClick={() => this.handleMove(mongoId, "up")}
           />
         )}
         {/* Does not show up for the last program */}
@@ -60,7 +60,7 @@ class EditProgramIcons extends Component {
           <ArrowDownward
             className='move-down-icon'
             fontSize='large'
-            onClick={() => this.handleMoveDown(mongoId, "down")}
+            onClick={() => this.handleMove(mongoId, "down")}
           />
         )}
         <DeleteAlert confirmDelete={this.handleDeleteClick} mongoId={mongoId} />

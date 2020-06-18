@@ -62,7 +62,7 @@ class EditFacilityIcons extends Component {
           <ArrowUpward
             className='move-up-icon'
             fontSize='large'
-            onClick={() => this.handleMoveUp(_id, "up")}
+            onClick={() => this.handleMove(_id, "up")}
           />
         )}
         {/* Does not show up for the last slide */}
@@ -70,7 +70,7 @@ class EditFacilityIcons extends Component {
           <ArrowDownward
             className='move-down-icon'
             fontSize='large'
-            onClick={() => this.handleMoveDown(_id, "down")}
+            onClick={() => this.handleMove(_id, "down")}
           />
         )}
         <DeleteAlert confirmDelete={this.handleDeleteClick} mongoId={_id} />
