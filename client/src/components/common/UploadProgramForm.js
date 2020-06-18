@@ -11,7 +11,7 @@ import {
   Slide
 } from "@material-ui/core";
 import { Edit, AddBox } from "@material-ui/icons";
-
+import BackdropLoader from "./BackdropLoader";
 import isEmpty from "../../validation/is-empty";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
@@ -30,7 +30,8 @@ class UploadProgramForm extends Component {
       textColor: "",
       editMode: false,
       mongoId: "",
-      errors: {}
+      errors: {},
+      isLoading: false
     };
   }
 
@@ -65,7 +66,16 @@ class UploadProgramForm extends Component {
   };
 
   handleClose = () => {
-    this.setState({ open: false });
+    this.setState({
+      open: false,
+      header: "",
+      description: [""],
+      image: null,
+      textColor: "",
+      mongoId: "",
+      errors: {},
+      isLoading: false
+    });
   };
 
   handleCancel = () => {
@@ -81,7 +91,8 @@ class UploadProgramForm extends Component {
         image: null,
         textColor: "",
         mongoId: "",
-        errors: {}
+        errors: {},
+        isLoading: false
       });
     }
   };
@@ -167,14 +178,21 @@ class UploadProgramForm extends Component {
       program.append("description", description[i]);
     }
 
+    this.setState({ isLoading: true, open: false });
     if (editMode) {
       // update program action request
-      updateProgram(mongoId, program);
-      this.handleClose();
+      updateProgram(mongoId, program)
+        .then(() => {
+          this.handleClose();
+        })
+        .catch(() => this.setState({ isLoading: false, open: true }));
     } else {
       // post program action request.
-      addProgram(program);
-      this.handleCancel();
+      addProgram(program)
+        .then(() => {
+          this.handleClose();
+        })
+        .catch(() => this.setState({ isLoading: false, open: true }));
     }
   };
 
@@ -185,7 +203,8 @@ class UploadProgramForm extends Component {
       description,
       textColor,
       editMode = false,
-      errors
+      errors,
+      isLoading
     } = this.state;
     const { adminPage } = this.props;
     const isMultiLineDesc = description.length > 1;
@@ -201,7 +220,7 @@ class UploadProgramForm extends Component {
           />
         ) : adminPage ? (
           <Button
-            variant='outlined'
+            variant='contained'
             color='primary'
             onClick={this.handleClickOpen}
           >
@@ -247,6 +266,7 @@ class UploadProgramForm extends Component {
               </DialogContentText>
               <TextField
                 autoFocus
+                disabled={isLoading}
                 required={!editMode}
                 error={errors.image}
                 margin='dense'
@@ -269,6 +289,7 @@ class UploadProgramForm extends Component {
                 label='Header'
                 name='header'
                 type='text'
+                disabled={isLoading}
                 value={header}
                 fullWidth
                 onChange={this.handleChange}
@@ -282,6 +303,7 @@ class UploadProgramForm extends Component {
                 label='Header Text Color, *defaults to black'
                 name='textColor'
                 type='text'
+                disabled={isLoading}
                 value={textColor}
                 fullWidth
                 onChange={this.handleChange}
@@ -290,6 +312,7 @@ class UploadProgramForm extends Component {
                 return (
                   <TextField
                     key={index}
+                    disabled={isLoading}
                     required
                     margin='dense'
                     id='description'
@@ -319,15 +342,25 @@ class UploadProgramForm extends Component {
               )}
             </DialogContent>
             <DialogActions>
-              <Button onClick={this.handleCancel} color='primary'>
+              <Button
+                onClick={this.handleCancel}
+                color='primary'
+                disabled={isLoading}
+              >
                 Cancel
               </Button>
-              <Button type='submit' color='primary'>
+              <Button
+                type='submit'
+                color='primary'
+                variant='contained'
+                disabled={isLoading}
+              >
                 Submit
               </Button>
             </DialogActions>
           </form>
         </Dialog>
+        <BackdropLoader open={isLoading} />
       </div>
     );
   }

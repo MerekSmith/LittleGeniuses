@@ -44,13 +44,20 @@ router.post(
   upload.single("image"),
   async (req, res) => {
     const { legend } = req.body;
-    // default path to empty object in case where image is somehow not uploaded. This will at least create the facility slide with a bad image path rather than crash server. The front UI should not allow the form to be submitted with no image, however.
+
+    // read the img file from tmp in-memory location
+    var newImg = fs.readFileSync(req.file.path);
+    const imageType = req.file.mimetype;
+
     const { path = {} } = req.file;
     const order = await Facility.find().countDocuments();
 
     const newFacilitySlide = new Facility({
       legend,
-      imagePath: "/" + path,
+      image: {
+        data: newImg,
+        contentType: imageType
+      },
       order
     });
 
@@ -92,11 +99,14 @@ router.put(
   (req, res) => {
     Facility.findById(req.params.id).then(facilitySlide => {
       const { legend } = req.body;
-      const { imagePath } = facilitySlide;
+      const { image } = facilitySlide;
 
-      let path;
+      // read the img file from tmp in-memory location
+      let newImg;
+      let imageType;
       if (typeof req.file !== "undefined") {
-        path = "/" + req.file.path;
+        newImg = fs.readFileSync(req.file.path);
+        imageType = req.file.mimetype;
         // New picture was chosen. Delete the old one.
         // Delete the image stored on the server.
         fs.unlink("./" + facilitySlide.imagePath, function(err) {
@@ -104,13 +114,17 @@ router.put(
           console.log("file deleted successfully");
         });
       } else {
-        // Original picture was kept. Just keep the current imagePath.
-        path = imagePath;
+        // Original picture was kept. Just keep the current image data.
+        newImg = image.data;
+        imageType = image.contentType;
       }
 
       facilitySlide = {
         legend,
-        imagePath: path
+        image: {
+          data: newImg,
+          contentType: imageType
+        }
       };
 
       Facility.findOneAndUpdate(

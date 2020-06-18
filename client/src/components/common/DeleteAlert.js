@@ -52,7 +52,11 @@ export default function deleteAlert(props) {
           <Button onClick={handleClose} color='primary'>
             Cancel
           </Button>
-          <Button onClick={handleClickDelete} color='primary' autoFocus>
+          <Button
+            onClick={handleClickDelete}
+            color='primary'
+            variant='contained'
+          >
             Yes
           </Button>
         </DialogActions>

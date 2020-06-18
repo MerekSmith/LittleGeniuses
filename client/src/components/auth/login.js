@@ -205,21 +205,25 @@ class Login extends Component {
           {/* Success Alerts. Only show when successful upload is made. */}
           <SuccessAlert
             successOpen={carousel.carouselSuccessOpen}
+            errorOpen={carousel.carouselErrorOpen}
             handleSuccessClose={carouselSuccessAlertClose}
-            message={carousel.carouselSuccessMessage}
+            message={carousel.carouselAlertMessage}
           />
           <SuccessAlert
             successOpen={programs.programSuccessOpen}
+            errorOpen={programs.programErrorOpen}
             handleSuccessClose={programSuccessAlertClose}
             message={programs.programSuccessMessage}
           />
           <SuccessAlert
             successOpen={teachers.teacherSuccessOpen}
+            errorOpen={teachers.teacherErrorOpen}
             handleSuccessClose={teacherSuccessAlertClose}
             message={teachers.teacherSuccessMessage}
           />
           <SuccessAlert
             successOpen={facility.facilitySuccessOpen}
+            errorOpen={facility.facilityErrorOpen}
             handleSuccessClose={facilitySuccessAlertClose}
             message={facility.facilitySuccessMessage}
           />

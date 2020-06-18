@@ -4,17 +4,33 @@ import axios from "axios";
 
 import UploadCarouselForm from "./UploadCarouselForm";
 import DeleteAlert from "./DeleteAlert";
+import BackdropLoader from "./BackdropLoader";
 
 class EditCarouselIcons extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      isLoading: false
+    };
+  }
+
   handleDeleteClick = id => {
-    this.props.deleteCarouselSlide(id);
-    this.props.getCarouselSlides();
+    this.setState({ isLoading: true });
+    this.props.deleteCarouselSlide(id).then(() => {
+      this.props
+        .getCarouselSlides()
+        .then(() => this.setState({ isLoading: false }));
+    });
   };
 
   handleMove = (id, direction) => {
+    this.setState({ isLoading: true });
     let moveDirection = { orderMove: direction };
     axios.put(`/api/carousel/order/${id}`, moveDirection).then(res => {
-      this.props.getCarouselSlides();
+      this.props
+        .getCarouselSlides()
+        .then(() => this.setState({ isLoading: false }));
     });
   };
 
@@ -26,6 +42,7 @@ class EditCarouselIcons extends Component {
       addCarouselSlide,
       updateCarouselSlide
     } = this.props;
+    const { isLoading } = this.state;
     const { _id } = slide;
     const isFirstSlide = slideIndex === 0;
 
@@ -57,6 +74,7 @@ class EditCarouselIcons extends Component {
           />
         )}
         <DeleteAlert confirmDelete={this.handleDeleteClick} mongoId={_id} />
+        <BackdropLoader open={isLoading} />
       </div>
     );
   }

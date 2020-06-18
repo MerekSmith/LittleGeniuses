@@ -41,8 +41,10 @@ router.post(
   upload.single("image"),
   async (req, res) => {
     const { header, description, textColor } = req.body;
-    // default path to empty object in case where image is somehow not uploaded. This will at least create the program with a bad image path rather than crash server. The front UI should not allow the form to be submitted with no image, however.
-    const { path = {} } = req.file;
+
+    const newImg = fs.readFileSync(req.file.path);
+    const imageType = req.file.mimetype;
+
     const order = await Program.find().countDocuments();
 
     const newProgram = new Program({
@@ -50,15 +52,20 @@ router.post(
       description: Array.isArray(description)
         ? description
         : description.split(" ; "),
-      imagePath: "/" + path,
+      image: {
+        data: newImg,
+        contentType: imageType
+      },
       textColor,
       order
     });
 
-    // newProgram.image.data = fs.readFileSync(path);
-    // newProgram.image.contentType = mimetype;
-
-    newProgram.save().then(program => res.json(program));
+    newProgram
+      .save()
+      .then(program => res.json(program))
+      .catch(err => {
+        res.status(404).json({ err });
+      });
   }
 );
 
@@ -94,20 +101,24 @@ router.put(
   (req, res) => {
     Program.findById(req.params.id).then(program => {
       const { header, description, textColor } = req.body;
-      const { imagePath } = program;
+      const { image } = program;
 
-      let path;
+      // read the img file from tmp in-memory location
+      let newImg;
+      let imageType;
       if (typeof req.file !== "undefined") {
-        path = "/" + req.file.path;
+        newImg = fs.readFileSync(req.file.path);
+        imageType = req.file.mimetype;
         // New picture was chosen. Delete the old one.
         // Delete the image stored on the server.
-        fs.unlink("./" + program.imagePath, function(err) {
+        fs.unlink("./" + carouselSlide.imagePath, function(err) {
           if (err && err.code == "ENOENT") return console.log(err);
           console.log("file deleted successfully");
         });
       } else {
-        // Original picture was kept. Just keep the current imagePath.
-        path = imagePath;
+        // Original picture was kept. Just keep the current image data.
+        newImg = image.data;
+        imageType = image.contentType;
       }
 
       program = {
@@ -115,7 +126,10 @@ router.put(
         description: Array.isArray(description)
           ? description
           : description.split(" ; "),
-        imagePath: path,
+        image: {
+          data: newImg,
+          contentType: imageType
+        },
         textColor
       };
 
@@ -123,7 +137,11 @@ router.put(
         { _id: req.params.id },
         { $set: program },
         { new: true }
-      ).then(program => res.json(program));
+      )
+        .then(program => res.json(program))
+        .catch(err => {
+          res.status(404).json({ err });
+        });
     });
   }
 );

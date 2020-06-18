@@ -10,7 +10,7 @@ import {
   Slide
 } from "@material-ui/core";
 import { Edit, AddBox } from "@material-ui/icons";
-
+import BackdropLoader from "./BackdropLoader";
 import isEmpty from "../../validation/is-empty";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
@@ -27,7 +27,8 @@ class UploadFacilityForm extends Component {
       image: null,
       editMode: false,
       mongoId: "",
-      errors: {}
+      errors: {},
+      isLoading: false
     };
   }
 
@@ -40,7 +41,7 @@ class UploadFacilityForm extends Component {
 
       this.setState({
         legend,
-        imagePath: image,
+        image,
         editMode,
         mongoId: _id
       });
@@ -52,7 +53,14 @@ class UploadFacilityForm extends Component {
   };
 
   handleClose = () => {
-    this.setState({ open: false });
+    this.setState({
+      open: false,
+      legend: "",
+      image: null,
+      mongoId: "",
+      errors: {},
+      isLoading: false
+    });
   };
 
   handleCancel = () => {
@@ -114,19 +122,26 @@ class UploadFacilityForm extends Component {
     slide.append("image", image);
     slide.append("legend", legend);
 
+    this.setState({ isLoading: true, open: false });
     if (editMode) {
       // update slide action request
-      updateFacilitySlide(mongoId, slide);
-      this.handleClose();
+      updateFacilitySlide(mongoId, slide)
+        .then(() => {
+          this.handleClose();
+        })
+        .catch(() => this.setState({ isLoading: false, open: true }));
     } else {
       // post slide action request.
-      addFacilitySlide(slide);
-      this.handleCancel();
+      addFacilitySlide(slide)
+        .then(() => {
+          this.handleClose();
+        })
+        .catch(() => this.setState({ isLoading: false, open: true }));
     }
   };
 
   render() {
-    const { open, legend, editMode, errors } = this.state;
+    const { open, legend, editMode, errors, isLoading } = this.state;
     const { adminPage } = this.props;
 
     return (
@@ -140,7 +155,7 @@ class UploadFacilityForm extends Component {
           />
         ) : adminPage ? (
           <Button
-            variant='outlined'
+            variant='contained'
             color='primary'
             onClick={this.handleClickOpen}
           >
@@ -174,6 +189,7 @@ class UploadFacilityForm extends Component {
               </DialogContentText>
               <TextField
                 autoFocus
+                disabled={isLoading}
                 required={!editMode}
                 error={errors.image}
                 margin='dense'
@@ -195,21 +211,32 @@ class UploadFacilityForm extends Component {
                 label='legend'
                 name='legend'
                 type='text'
+                disabled={isLoading}
                 value={legend}
                 fullWidth
                 onChange={this.handleChange}
               />
             </DialogContent>
             <DialogActions>
-              <Button onClick={this.handleCancel} color='primary'>
+              <Button
+                onClick={this.handleCancel}
+                color='primary'
+                disabled={isLoading}
+              >
                 Cancel
               </Button>
-              <Button type='submit' color='primary'>
+              <Button
+                type='submit'
+                color='primary'
+                variant='contained'
+                disabled={isLoading}
+              >
                 Submit
               </Button>
             </DialogActions>
           </form>
         </Dialog>
+        <BackdropLoader open={isLoading} />
       </div>
     );
   }

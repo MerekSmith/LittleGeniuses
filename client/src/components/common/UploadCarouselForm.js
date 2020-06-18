@@ -10,7 +10,7 @@ import {
   Slide
 } from "@material-ui/core";
 import { Edit, AddBox } from "@material-ui/icons";
-
+import BackdropLoader from "./BackdropLoader";
 import isEmpty from "../../validation/is-empty";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
@@ -30,7 +30,8 @@ class UploadProgramForm extends Component {
       linkName: "",
       editMode: false,
       mongoId: "",
-      errors: {}
+      errors: {},
+      isLoading: false
     };
   }
 
@@ -46,7 +47,7 @@ class UploadProgramForm extends Component {
         details,
         link,
         linkName,
-        imagePath: image,
+        image,
         editMode,
         mongoId: _id
       });
@@ -58,7 +59,17 @@ class UploadProgramForm extends Component {
   };
 
   handleClose = () => {
-    this.setState({ open: false });
+    this.setState({
+      open: false,
+      isLoading: false,
+      header: "",
+      details: "",
+      image: null,
+      link: "",
+      linkName: "",
+      mongoId: "",
+      errors: {}
+    });
   };
 
   handleCancel = () => {
@@ -129,20 +140,27 @@ class UploadProgramForm extends Component {
 
     // Create formData to send over with post request. Needs to be in this format due to image.
     let slide = new FormData();
-    slide.append("image", image);
     slide.append("header", header);
     slide.append("details", details);
     slide.append("link", link);
     slide.append("linkName", linkName);
+    slide.append("image", image);
 
+    this.setState({ isLoading: true, open: false });
     if (editMode) {
       // update slide action request
-      updateCarouselSlide(mongoId, slide);
-      this.handleClose();
+      updateCarouselSlide(mongoId, slide)
+        .then(() => {
+          this.handleClose();
+        })
+        .catch(() => this.setState({ isLoading: false, open: true }));
     } else {
       // post slide action request.
-      addCarouselSlide(slide);
-      this.handleCancel();
+      addCarouselSlide(slide)
+        .then(() => {
+          this.handleClose();
+        })
+        .catch(() => this.setState({ isLoading: false, open: true }));
     }
   };
 
@@ -154,7 +172,8 @@ class UploadProgramForm extends Component {
       link,
       linkName,
       editMode,
-      errors
+      errors,
+      isLoading
     } = this.state;
     const { adminPage } = this.props;
 
@@ -169,7 +188,7 @@ class UploadProgramForm extends Component {
           />
         ) : adminPage ? (
           <Button
-            variant='outlined'
+            variant='contained'
             color='primary'
             onClick={this.handleClickOpen}
           >
@@ -205,6 +224,7 @@ class UploadProgramForm extends Component {
               </DialogContentText>
               <TextField
                 autoFocus
+                disabled={isLoading}
                 required={!editMode}
                 error={errors.image}
                 margin='dense'
@@ -222,6 +242,7 @@ class UploadProgramForm extends Component {
               )}
               <TextField
                 required
+                disabled={isLoading}
                 margin='dense'
                 id='header'
                 label='Header'
@@ -232,6 +253,7 @@ class UploadProgramForm extends Component {
                 onChange={this.handleChange}
               />
               <TextField
+                disabled={isLoading}
                 margin='dense'
                 id='details'
                 label='Details'
@@ -244,6 +266,7 @@ class UploadProgramForm extends Component {
               />
               <TextField
                 required={!isEmpty(linkName)}
+                disabled={isLoading}
                 margin='dense'
                 id='link'
                 label='Link, *Should be address part after the ".com"'
@@ -255,6 +278,7 @@ class UploadProgramForm extends Component {
               />
               <TextField
                 required={!isEmpty(link)}
+                disabled={isLoading}
                 margin='dense'
                 id='linkName'
                 label='Link Name'
@@ -266,15 +290,25 @@ class UploadProgramForm extends Component {
               />
             </DialogContent>
             <DialogActions>
-              <Button onClick={this.handleCancel} color='primary'>
+              <Button
+                onClick={this.handleCancel}
+                color='primary'
+                disabled={isLoading}
+              >
                 Cancel
               </Button>
-              <Button type='submit' color='primary'>
+              <Button
+                type='submit'
+                color='primary'
+                variant='contained'
+                disabled={isLoading}
+              >
                 Submit
               </Button>
             </DialogActions>
           </form>
         </Dialog>
+        <BackdropLoader open={isLoading} />
       </div>
     );
   }

@@ -17,7 +17,6 @@ class Teachers extends Component {
   render() {
     const {
       teachers,
-      originURL,
       teacherSuccessOpen,
       teacherSuccessMessage
     } = this.props.teachers;
@@ -33,14 +32,14 @@ class Teachers extends Component {
     return (
       <div className='teachers-container'>
         <h1 className='page-header'>Meet Our Teachers</h1>
-        {teachers ? (
+        {Boolean(teachers.length !== 0) ? (
           <Row className='teachers'>
             {teachers.map(
-              ({ name, position, bio, imagePath, order, _id }, index) => {
+              ({ name, position, bio, imageUrl, order, _id }, index) => {
                 const isLastTeacher = index + 1 === teachers.length;
                 return (
                   <Teacher
-                    image={originURL + imagePath}
+                    image={imageUrl}
                     name={name}
                     position={position}
                     bio={bio}

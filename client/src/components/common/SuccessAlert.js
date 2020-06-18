@@ -82,7 +82,7 @@ MySnackbarContentWrapper.propTypes = {
 };
 
 export default function CustomizedSnackbars(props) {
-  const { successOpen, handleSuccessClose, message } = props;
+  const { successOpen, errorOpen, handleSuccessClose, message } = props;
 
   return (
     <div>
@@ -98,6 +98,25 @@ export default function CustomizedSnackbars(props) {
         <MySnackbarContentWrapper
           onClose={handleSuccessClose}
           variant='success'
+          TransitionComponent={SlideTransition}
+          ContentProps={{
+            "aria-describedby": "message-id"
+          }}
+          message={<span id='message-id'>{message}</span>}
+        />
+      </Snackbar>
+      <Snackbar
+        anchorOrigin={{
+          vertical: "bottom",
+          horizontal: "left"
+        }}
+        open={errorOpen}
+        autoHideDuration={8000}
+        onClose={handleSuccessClose}
+      >
+        <MySnackbarContentWrapper
+          onClose={handleSuccessClose}
+          variant='error'
           TransitionComponent={SlideTransition}
           ContentProps={{
             "aria-describedby": "message-id"

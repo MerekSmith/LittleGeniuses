@@ -4,12 +4,13 @@ import {
   ADD_CAROUSEL_SLIDE,
   UPDATE_CAROUSEL_SLIDE,
   DELETE_CAROUSEL_SLIDE,
-  CAROUSEL_SUCCESS_ALERT_CLOSE
+  CAROUSEL_SUCCESS_ALERT_CLOSE,
+  ERROR
 } from "./types";
 
 // Get all carousel slides from mongodb
 export const getCarouselSlides = () => dispatch => {
-  axios
+  return axios
     .get("/api/carousel")
     .then(res => {
       dispatch({
@@ -17,42 +18,66 @@ export const getCarouselSlides = () => dispatch => {
         payload: res.data
       });
     })
-    .catch(err =>
+    .catch(err => {
       dispatch({
         type: GET_CAROUSEL_SLIDES,
         payload: {}
-      })
-    );
+      });
+    });
 };
 
 // add a new carousel slide into mongodb
 export const addCarouselSlide = slide => dispatch => {
-  axios.post("/api/carousel", slide).then(res => {
-    dispatch({
-      type: ADD_CAROUSEL_SLIDE,
-      payload: res.data
+  return axios
+    .post("/api/carousel", slide)
+    .then(res => {
+      dispatch({
+        type: ADD_CAROUSEL_SLIDE,
+        payload: res.data
+      });
+    })
+    .catch(err => {
+      dispatch({
+        type: ERROR,
+        message: "There was an error adding a carousel slide."
+      });
     });
-  });
 };
 
-// update an existing program in mongodb
+// update an existing carousel slide in mongodb
 export const updateCarouselSlide = (id, slide) => dispatch => {
-  axios.put(`/api/carousel/${id}`, slide).then(res => {
-    dispatch({
-      type: UPDATE_CAROUSEL_SLIDE,
-      payload: res.data
+  return axios
+    .put(`/api/carousel/${id}`, slide)
+    .then(res => {
+      dispatch({
+        type: UPDATE_CAROUSEL_SLIDE,
+        payload: res.data
+      });
+    })
+    .catch(err => {
+      dispatch({
+        type: ERROR,
+        message: "There was an error updating the carousel slide."
+      });
     });
-  });
 };
 
-// remove a program from mongodb
+// remove a carousel slide from mongodb
 export const deleteCarouselSlide = id => dispatch => {
-  axios.delete(`/api/carousel/${id}`).then(res => {
-    dispatch({
-      type: DELETE_CAROUSEL_SLIDE,
-      payload: id
+  return axios
+    .delete(`/api/carousel/${id}`)
+    .then(res => {
+      dispatch({
+        type: DELETE_CAROUSEL_SLIDE,
+        payload: id
+      });
+    })
+    .catch(err => {
+      dispatch({
+        type: ERROR,
+        message: "There was an error deleting the carousel slide."
+      });
     });
-  });
 };
 
 export const carouselSuccessAlertClose = (event, reason) => dispatch => {

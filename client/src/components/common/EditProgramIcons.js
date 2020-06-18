@@ -4,22 +4,35 @@ import axios from "axios";
 
 import UploadProgramForm from "./UploadProgramForm";
 import DeleteAlert from "./DeleteAlert";
+import BackdropLoader from "./BackdropLoader";
 
 class EditProgramIcons extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      isLoading: false
+    };
+  }
+
   handleDeleteClick = id => {
-    this.props.deleteProgram(id);
-    this.props.getPrograms();
+    this.setState({ isLoading: true });
+    this.props.deleteProgram(id).then(() => {
+      this.props.getPrograms().then(() => this.setState({ isLoading: false }));
+    });
   };
 
   handleMove = (id, direction) => {
+    this.setState({ isLoading: true });
     let moveDirection = { orderMove: direction };
     axios.put(`/api/programs/order/${id}`, moveDirection).then(res => {
-      this.props.getPrograms();
+      this.props.getPrograms().then(() => this.setState({ isLoading: false }));
     });
   };
 
   render() {
     const { program, isLastProgram, addProgram, updateProgram } = this.props;
+    const { isLoading } = this.state;
     const { mongoId } = program;
     const isFirstProgram = program.programIndex === 0;
 
@@ -51,6 +64,7 @@ class EditProgramIcons extends Component {
           />
         )}
         <DeleteAlert confirmDelete={this.handleDeleteClick} mongoId={mongoId} />
+        <BackdropLoader open={isLoading} />
       </div>
     );
   }

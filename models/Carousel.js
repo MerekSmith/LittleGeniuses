@@ -3,9 +3,9 @@ const Schema = mongoose.Schema;
 
 // Create Schema
 const CarouselSchema = new Schema({
-  imagePath: {
-    type: String,
-    required: true
+  image: {
+    data: Buffer,
+    contentType: String
   },
   header: {
     type: String,

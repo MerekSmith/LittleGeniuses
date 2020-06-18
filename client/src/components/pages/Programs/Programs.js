@@ -41,7 +41,6 @@ class Programs extends Component {
   render() {
     const {
       programs,
-      originURL,
       programSuccessOpen,
       programSuccessMessage
     } = this.props.programs;
@@ -71,16 +70,16 @@ class Programs extends Component {
         </Row>
         <h1 className='page-header'>Our Programs</h1>
         <div className='programs'>
-          {programs ? (
+          {Boolean(programs.length !== 0) ? (
             programs.map(
-              ({ imagePath, header, description, textColor, _id }, index) => {
+              ({ imageUrl, header, description, textColor, _id }, index) => {
                 const isLastProgram = index + 1 === programs.length;
 
                 return (
                   <Program
                     programIndex={index}
                     screenWidth={this.state.screenWidth}
-                    image={originURL + imagePath}
+                    image={imageUrl}
                     header={header}
                     description={description}
                     textColor={textColor}

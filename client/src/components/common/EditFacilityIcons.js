@@ -4,17 +4,33 @@ import axios from "axios";
 
 import UploadFacilityForm from "./UploadFacilityForm";
 import DeleteAlert from "./DeleteAlert";
+import BackdropLoader from "./BackdropLoader";
 
 class EditFacilityIcons extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      isLoading: false
+    };
+  }
+
   handleDeleteClick = id => {
-    this.props.deleteFacilitySlide(id);
-    this.props.getFacilitySlides();
+    this.setState({ isLoading: true });
+    this.props.deleteFacilitySlide(id).then(() => {
+      this.props
+        .getFacilitySlides()
+        .then(() => this.setState({ isLoading: false }));
+    });
   };
 
   handleMove = (id, direction) => {
+    this.setState({ isLoading: true });
     let moveDirection = { orderMove: direction };
     axios.put(`/api/facility/order/${id}`, moveDirection).then(res => {
-      this.props.getFacilitySlides();
+      this.props
+        .getFacilitySlides()
+        .then(() => this.setState({ isLoading: false }));
     });
   };
 
@@ -26,6 +42,7 @@ class EditFacilityIcons extends Component {
       addFacilitySlide,
       updateFacilitySlide
     } = this.props;
+    const { isLoading } = this.state;
     const { _id } = slide;
     const isFirstSlide = slideIndex === 0;
 
@@ -57,6 +74,7 @@ class EditFacilityIcons extends Component {
           />
         )}
         <DeleteAlert confirmDelete={this.handleDeleteClick} mongoId={_id} />
+        <BackdropLoader open={isLoading} />
       </div>
     );
   }

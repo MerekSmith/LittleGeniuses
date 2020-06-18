@@ -42,12 +42,17 @@ class Landing extends Component {
       deleteCarouselSlide,
       carouselSuccessAlertClose
     } = this.props;
-    const { carouselSuccessOpen, carouselSuccessMessage } = carousel;
+    const {
+      carouselSuccessOpen,
+      carouselErrorOpen,
+      carouselAlertMessage
+    } = carousel;
     const { isAuthenticated } = this.props.auth;
 
     return (
       <div className='landing'>
         <CarouselSlides
+          key={carousel.slides.length}
           carousel={carousel}
           getCarouselSlides={getCarouselSlides}
           addCarouselSlide={addCarouselSlide}
@@ -160,8 +165,9 @@ class Landing extends Component {
         </div>
         <SuccessAlert
           successOpen={carouselSuccessOpen}
+          errorOpen={carouselErrorOpen}
           handleSuccessClose={carouselSuccessAlertClose}
-          message={carouselSuccessMessage}
+          message={carouselAlertMessage}
         />
       </div>
     );

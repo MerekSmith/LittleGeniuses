@@ -15,9 +15,9 @@ const TeacherSchema = new Schema({
     type: Array,
     required: true
   },
-  imagePath: {
-    type: String,
-    required: true
+  image: {
+    data: Buffer,
+    ContentType: String
   },
   date: {
     type: Date,

@@ -4,12 +4,13 @@ import {
   ADD_FACILITY_SLIDE,
   UPDATE_FACILITY_SLIDE,
   DELETE_FACILITY_SLIDE,
-  FACILITY_SUCCESS_ALERT_CLOSE
+  FACILITY_SUCCESS_ALERT_CLOSE,
+  ERROR
 } from "./types";
 
 // Get all facility slides from mongodb
 export const getFacilitySlides = () => dispatch => {
-  axios
+  return axios
     .get("/api/facility")
     .then(res => {
       dispatch({
@@ -27,32 +28,56 @@ export const getFacilitySlides = () => dispatch => {
 
 // add a new facility slide into mongodb
 export const addFacilitySlide = slide => dispatch => {
-  axios.post("/api/facility", slide).then(res => {
-    dispatch({
-      type: ADD_FACILITY_SLIDE,
-      payload: res.data
+  return axios
+    .post("/api/facility", slide)
+    .then(res => {
+      dispatch({
+        type: ADD_FACILITY_SLIDE,
+        payload: res.data
+      });
+    })
+    .catch(err => {
+      dispatch({
+        type: ERROR,
+        message: "There was an error adding a facility slide."
+      });
     });
-  });
 };
 
 // update an existing facility slide in mongodb
 export const updateFacilitySlide = (id, slide) => dispatch => {
-  axios.put(`/api/facility/${id}`, slide).then(res => {
-    dispatch({
-      type: UPDATE_FACILITY_SLIDE,
-      payload: res.data
+  return axios
+    .put(`/api/facility/${id}`, slide)
+    .then(res => {
+      dispatch({
+        type: UPDATE_FACILITY_SLIDE,
+        payload: res.data
+      });
+    })
+    .catch(err => {
+      dispatch({
+        type: ERROR,
+        message: "There was an error updating the facility slide."
+      });
     });
-  });
 };
 
 // remove a facility slide from mongodb
 export const deleteFacilitySlide = id => dispatch => {
-  axios.delete(`/api/facility/${id}`).then(res => {
-    dispatch({
-      type: DELETE_FACILITY_SLIDE,
-      payload: id
+  return axios
+    .delete(`/api/facility/${id}`)
+    .then(res => {
+      dispatch({
+        type: DELETE_FACILITY_SLIDE,
+        payload: id
+      });
+    })
+    .catch(err => {
+      dispatch({
+        type: ERROR,
+        message: "There was an error deleting the facility slide."
+      });
     });
-  });
 };
 
 export const facilitySuccessAlertClose = (event, reason) => dispatch => {

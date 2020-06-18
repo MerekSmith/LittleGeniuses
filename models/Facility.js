@@ -3,9 +3,13 @@ const Schema = mongoose.Schema;
 
 // Create Schema
 const FacilitySchema = new Schema({
-  imagePath: {
-    type: String,
-    required: true
+  image: {
+    data: Buffer,
+    contentType: String
+  },
+  image: {
+    data: Buffer,
+    ContentType: String
   },
   legend: {
     type: String

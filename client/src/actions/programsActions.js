@@ -4,12 +4,13 @@ import {
   ADD_PROGRAM,
   UPDATE_PROGRAM,
   DELETE_PROGRAM,
-  PROGRAM_SUCCESS_ALERT_CLOSE
+  PROGRAM_SUCCESS_ALERT_CLOSE,
+  ERROR
 } from "./types";
 
 // Get all programs from mongodb
 export const getPrograms = () => dispatch => {
-  axios
+  return axios
     .get("/api/programs")
     .then(res => {
       dispatch({
@@ -27,32 +28,53 @@ export const getPrograms = () => dispatch => {
 
 // add a new program into mongodb
 export const addProgram = program => dispatch => {
-  axios.post("/api/programs", program).then(res => {
+  return axios.post("/api/programs", program).then(res => {
     dispatch({
       type: ADD_PROGRAM,
       payload: res.data
+    }).catch(err => {
+      dispatch({
+        type: ERROR,
+        message: "There was an error adding a program."
+      });
     });
   });
 };
 
 // update an existing program in mongodb
 export const updateProgram = (id, program) => dispatch => {
-  axios.put(`/api/programs/${id}`, program).then(res => {
-    dispatch({
-      type: UPDATE_PROGRAM,
-      payload: res.data
+  return axios
+    .put(`/api/programs/${id}`, program)
+    .then(res => {
+      dispatch({
+        type: UPDATE_PROGRAM,
+        payload: res.data
+      });
+    })
+    .catch(err => {
+      dispatch({
+        type: ERROR,
+        message: "There was an error updating a program."
+      });
     });
-  });
 };
 
 // remove a program from mongodb
 export const deleteProgram = id => dispatch => {
-  axios.delete(`/api/programs/${id}`).then(res => {
-    dispatch({
-      type: DELETE_PROGRAM,
-      payload: id
+  return axios
+    .delete(`/api/programs/${id}`)
+    .then(res => {
+      dispatch({
+        type: DELETE_PROGRAM,
+        payload: id
+      });
+    })
+    .catch(err => {
+      dispatch({
+        type: ERROR,
+        message: "There was an error deleting a program."
+      });
     });
-  });
 };
 
 export const programSuccessAlertClose = (event, reason) => dispatch => {

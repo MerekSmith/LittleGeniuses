@@ -4,12 +4,13 @@ import {
   ADD_TEACHER,
   UPDATE_TEACHER,
   DELETE_TEACHER,
-  TEACHER_SUCCESS_ALERT_CLOSE
+  TEACHER_SUCCESS_ALERT_CLOSE,
+  ERROR
 } from "./types";
 
 // Get reviews from google places API via the server side
 export const getTeachers = () => dispatch => {
-  axios
+  return axios
     .get("/api/teachers")
     .then(res => {
       dispatch({
@@ -26,30 +27,54 @@ export const getTeachers = () => dispatch => {
 };
 
 export const addTeacher = teacher => dispatch => {
-  axios.post("/api/teachers", teacher).then(res => {
-    dispatch({
-      type: ADD_TEACHER,
-      payload: res.data
+  return axios
+    .post("/api/teachers", teacher)
+    .then(res => {
+      dispatch({
+        type: ADD_TEACHER,
+        payload: res.data
+      });
+    })
+    .catch(err => {
+      dispatch({
+        type: ERROR,
+        message: "There was an error adding a teacher."
+      });
     });
-  });
 };
 
 export const updateTeacher = (id, teacher) => dispatch => {
-  axios.put(`/api/teachers/${id}`, teacher).then(res => {
-    dispatch({
-      type: UPDATE_TEACHER,
-      payload: res.data
+  return axios
+    .put(`/api/teachers/${id}`, teacher)
+    .then(res => {
+      dispatch({
+        type: UPDATE_TEACHER,
+        payload: res.data
+      });
+    })
+    .catch(err => {
+      dispatch({
+        type: ERROR,
+        message: "There was an error updating a teacher."
+      });
     });
-  });
 };
 
 export const deleteTeacher = id => dispatch => {
-  axios.delete(`/api/teachers/${id}`).then(res => {
-    dispatch({
-      type: DELETE_TEACHER,
-      payload: id
+  return axios
+    .delete(`/api/teachers/${id}`)
+    .then(res => {
+      dispatch({
+        type: DELETE_TEACHER,
+        payload: id
+      });
+    })
+    .catch(err => {
+      dispatch({
+        type: ERROR,
+        message: "There was an error deleting a teacher."
+      });
     });
-  });
 };
 
 export const teacherSuccessAlertClose = (event, reason) => dispatch => {

@@ -9,7 +9,7 @@ import facility2 from "../../../img/Facility/facility_2.jpg";
 import facility3 from "../../../img/Facility/facility_3.jpg";
 
 function FacilitySlides(props) {
-  const { slides, originURL } = props.facility;
+  const { slides } = props.facility;
   const {
     getFacilitySlides,
     addFacilitySlide,
@@ -34,12 +34,12 @@ function FacilitySlides(props) {
       </div>
       {/* Maps through hard coded images */}
       {slides.map((slide, index) => {
-        const { imagePath, legend } = slide;
+        const { imageUrl, legend } = slide;
         const isLastSlide = index + 1 === slides.length;
 
         return (
           <div key={index}>
-            <img src={originURL + imagePath} alt={legend} />
+            <img src={imageUrl} alt={legend} />
             {legend && <p className='legend'>{legend}</p>}
             {isAuthenticated && (
               <EditFacilityIcons

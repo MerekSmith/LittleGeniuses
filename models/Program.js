@@ -11,9 +11,9 @@ const ProgramSchema = new Schema({
     type: Array,
     required: true
   },
-  imagePath: {
-    type: String,
-    required: true
+  image: {
+    data: Buffer,
+    contentType: String
   },
   date: {
     type: Date,
@@ -26,10 +26,6 @@ const ProgramSchema = new Schema({
     type: Number,
     required: true
   }
-  // image: {
-  //   data: Buffer,
-  //   ContentType: String
-  // }
 });
 
 module.exports = Program = mongoose.model("program", ProgramSchema);

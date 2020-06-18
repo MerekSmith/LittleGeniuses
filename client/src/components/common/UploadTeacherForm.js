@@ -11,7 +11,7 @@ import {
   Slide
 } from "@material-ui/core";
 import { Edit, AddBox } from "@material-ui/icons";
-
+import BackdropLoader from "./BackdropLoader";
 import isEmpty from "../../validation/is-empty";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
@@ -30,7 +30,8 @@ class UploadTeacherForm extends Component {
       image: null,
       editMode: false,
       mongoId: "",
-      errors: {}
+      errors: {},
+      isLoading: false
     };
   }
 
@@ -45,7 +46,7 @@ class UploadTeacherForm extends Component {
         name,
         bio,
         position,
-        imagePath: image,
+        image,
         teacherIndex,
         editMode,
         mongoId
@@ -58,7 +59,16 @@ class UploadTeacherForm extends Component {
   };
 
   handleClose = () => {
-    this.setState({ open: false });
+    this.setState({
+      open: false,
+      name: "",
+      position: "",
+      bio: [""],
+      image: null,
+      mongoId: "",
+      errors: {},
+      isLoading: false
+    });
   };
 
   handleCancel = () => {
@@ -160,19 +170,34 @@ class UploadTeacherForm extends Component {
       teacher.append("bio", bio[i]);
     }
 
+    this.setState({ isLoading: true, open: false });
     if (editMode) {
       // update teacher action request
-      updateTeacher(mongoId, teacher);
-      this.handleClose();
+      updateTeacher(mongoId, teacher)
+        .then(() => {
+          this.handleClose();
+        })
+        .catch(() => this.setState({ isLoading: false, open: true }));
     } else {
       // post teacher action request.
-      addTeacher(teacher);
-      this.handleCancel();
+      addTeacher(teacher)
+        .then(() => {
+          this.handleClose();
+        })
+        .catch(() => this.setState({ isLoading: false, open: true }));
     }
   };
 
   render() {
-    const { open, name, position, bio, editMode = false, errors } = this.state;
+    const {
+      open,
+      name,
+      position,
+      bio,
+      editMode = false,
+      errors,
+      isLoading
+    } = this.state;
     const { adminPage } = this.props;
     const isMultiLineBio = bio.length > 1;
 
@@ -187,7 +212,7 @@ class UploadTeacherForm extends Component {
           />
         ) : adminPage ? (
           <Button
-            variant='outlined'
+            variant='contained'
             color='primary'
             onClick={this.handleClickOpen}
           >
@@ -219,6 +244,7 @@ class UploadTeacherForm extends Component {
               </DialogContentText>
               <TextField
                 autoFocus
+                disabled={isLoading}
                 required={!editMode}
                 error={errors.image}
                 margin='dense'
@@ -237,6 +263,7 @@ class UploadTeacherForm extends Component {
               )}
               <TextField
                 required
+                disabled={isLoading}
                 margin='dense'
                 id='name'
                 label="Teacher's Name"
@@ -248,6 +275,7 @@ class UploadTeacherForm extends Component {
               />
               <TextField
                 required
+                disabled={isLoading}
                 margin='dense'
                 id='position'
                 label="Teacher's Position"
@@ -261,6 +289,7 @@ class UploadTeacherForm extends Component {
                 return (
                   <TextField
                     required
+                    disabled={isLoading}
                     margin='dense'
                     id='bio'
                     data-index={index}
@@ -293,12 +322,13 @@ class UploadTeacherForm extends Component {
               <Button onClick={this.handleCancel} color='primary'>
                 Cancel
               </Button>
-              <Button type='submit' color='primary'>
+              <Button type='submit' color='primary' variant='contained'>
                 Submit
               </Button>
             </DialogActions>
           </form>
         </Dialog>
+        <BackdropLoader open={isLoading} />
       </div>
     );
   }

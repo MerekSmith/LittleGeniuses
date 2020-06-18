@@ -8,8 +8,8 @@ import girlWithGlobe from "../../../img/Final_Stock_Pics/girlWithGlobe.jpeg";
 import safeEnvironment from "../../../img/Final_Stock_Pics/safeEnvironment.jpeg";
 
 function CarouselSlides(props) {
-  const { slides, originURL } = props.carousel;
   const {
+    carousel: { slides },
     getCarouselSlides,
     addCarouselSlide,
     updateCarouselSlide,
@@ -50,13 +50,23 @@ function CarouselSlides(props) {
         {/* This is where the custom database slides are inserted into the Carousel. */}
         {slides &&
           slides.map((slide, index) => {
-            const { imagePath, header, details, link, linkName } = slide;
+            const { imageUrl, header, details, link, linkName } = slide;
             const isLastSlide = index + 1 === slides.length;
+
+            // const blob = new Blob([image.data.data], {type: 'image/gif'});
+            // let imageUrl = URL.createObjectURL(blob);
+
+            // const base64Flag = `data:${slide.image.contentType};base64,`;
+            // const imgString = helpers.arrayBufferToBase64(
+            //   slide.image.data.data
+            // );
+            // const imageUrl = base64Flag + imgString;
+
             return (
               <Carousel.Item key={index}>
                 <img
                   className='d-block w-150'
-                  src={originURL + imagePath}
+                  src={imageUrl}
                   alt='Carousel slide'
                 />
 
