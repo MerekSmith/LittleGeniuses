@@ -72,7 +72,9 @@ export default function(state = intitalState, action) {
     case PROGRAM_SUCCESS_ALERT_CLOSE:
       return {
         ...state,
-        programSuccessOpen: false
+        programSuccessOpen: false,
+        programErrorOpen: false,
+        programSuccessMessage: ""
       };
     case ERROR:
       return {

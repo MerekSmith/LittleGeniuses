@@ -105,6 +105,7 @@ export default function CustomizedSnackbars(props) {
           message={<span id='message-id'>{message}</span>}
         />
       </Snackbar>
+
       <Snackbar
         anchorOrigin={{
           vertical: "bottom",

@@ -227,6 +227,7 @@ class UploadTeacherForm extends Component {
         )}
         <Dialog
           open={open}
+          fullScreen={Boolean(window.innerWidth < 800)}
           TransitionComponent={Transition}
           onClose={this.handleClose}
           aria-labelledby='form-dialog-title'

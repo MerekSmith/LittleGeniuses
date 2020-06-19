@@ -73,6 +73,7 @@ export default function(state = intitalState, action) {
       return {
         ...state,
         facilitySuccessOpen: false,
+        facilityErrorOpen: false,
         facilitySuccessMessage: ""
       };
     case ERROR:

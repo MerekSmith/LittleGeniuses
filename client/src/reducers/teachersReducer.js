@@ -72,7 +72,9 @@ export default function(state = intitalState, action) {
     case TEACHER_SUCCESS_ALERT_CLOSE:
       return {
         ...state,
-        teacherSuccessOpen: false
+        teacherSuccessOpen: false,
+        teacherErrorOpen: false,
+        teacherSuccessMessage: ""
       };
     case ERROR:
       return {

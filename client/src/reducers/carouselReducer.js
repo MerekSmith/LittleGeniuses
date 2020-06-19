@@ -71,6 +71,7 @@ export default function(state = intitalState, action) {
       return {
         ...state,
         carouselSuccessOpen: false,
+        carouselErrorOpen: false,
         carouselAlertMessage: ""
       };
     case ERROR:
