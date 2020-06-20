@@ -96,16 +96,28 @@ class UploadProgramForm extends Component {
   };
 
   handleFileChange = e => {
-    let image = e.target.files[0] || {};
+    const file = e.target.files[0] || {};
+    let image = {};
+    console.log("file", file);
     if (
-      image.type === "image/jpeg" ||
-      image.type === "image/png" ||
-      image.type === "image/svg"
+      file.type === "image/jpeg" ||
+      file.type === "image/png" ||
+      file.type === "image/svg"
     ) {
-      this.setState({
-        image,
-        errors: {}
-      });
+      image.contentType = file.type;
+      const reader = new FileReader();
+      reader.readAsArrayBuffer(file);
+      reader.onload = () => {
+        const arrayBuffer = reader.result;
+        image.data = [...new Uint8Array(arrayBuffer)];
+        // console.log("RESULT", data);
+        // return data;
+      };
+      this.setState({ image, errors: {} }, () =>
+        console.log("state image", this.state.image)
+      );
+      console.log("image", image);
+      // console.log("result", reader.readAsDataURL(file));
     } else {
       this.setState(({ errors }) => ({
         image: null,
@@ -139,12 +151,18 @@ class UploadProgramForm extends Component {
     }
 
     // Create formData to send over with post request. Needs to be in this format due to image.
-    let slide = new FormData();
-    slide.append("header", header);
-    slide.append("details", details);
-    slide.append("link", link);
-    slide.append("linkName", linkName);
-    slide.append("image", image);
+    // let slide = new FormData();
+    // slide.append("header", header);
+    // slide.append("details", details);
+    // slide.append("link", link);
+    // slide.append("linkName", linkName);
+    // slide.append("image", image);
+    let slide = {};
+    slide.header = header;
+    slide.details = details;
+    slide.link = link;
+    slide.linkName = linkName;
+    slide.image = image;
 
     this.setState({ isLoading: true, open: false });
     if (editMode) {

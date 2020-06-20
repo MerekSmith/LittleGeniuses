@@ -17,8 +17,8 @@ const facility = require("./routes/api/facility");
 const app = express();
 
 // Body Parser middleware
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
+app.use(bodyParser.json({ limit: "10mb", extended: true }));
+app.use(bodyParser.urlencoded({ limit: "10mb", extended: true }));
 
 // DB Config
 const db = keys.mongoURI;
