@@ -2,8 +2,6 @@ const express = require("express");
 const router = express.Router();
 const mongoose = require("mongoose");
 const passport = require("passport");
-const fs = require("fs");
-const upload = require("../../services/multerSettings");
 
 // Load Teacher Model
 const Teacher = require("../../models/Teacher");
@@ -36,24 +34,16 @@ router.get("/", async (req, res) => {
 router.post(
   "/",
   passport.authenticate("jwt", { session: false }),
-  upload.single("image"),
   async (req, res) => {
-    const { name, position, bio } = req.body;
-
-    // read the img file from tmp in-memory location
-    const newImg = fs.readFileSync(req.file.path);
-    const imageType = req.file.mimetype;
-
+    const { image, name, position, bio } = req.body;
+    console.log("body", req.body);
     const order = await Program.find().countDocuments();
 
     const newTeacher = new Teacher({
       name,
       position,
       bio: Array.isArray(bio) ? bio : bio.split(" ; "),
-      image: {
-        data: newImg,
-        contentType: imageType
-      },
+      image,
       order
     });
 
@@ -75,11 +65,6 @@ router.delete(
   (req, res) => {
     Teacher.findByIdAndDelete(req.params.id)
       .then(teacher => {
-        // Delete the image stored on the server.
-        fs.unlink("./" + teacher.imagePath, function(err) {
-          if (err && err.code == "ENOENT") return console.log(err);
-          console.log("file deleted successfully");
-        });
         res.json({ success: true });
       })
       .catch(err => {
@@ -96,28 +81,22 @@ router.delete(
 router.put(
   "/:id",
   passport.authenticate("jwt", { session: false }),
-  upload.single("image"),
   (req, res) => {
     Teacher.findById(req.params.id).then(teacher => {
-      const { name, position, bio } = req.body;
-      const { image } = teacher;
+      const { image, name, position, bio } = req.body;
+      const currentImage = teacher.image;
 
-      // read the img file from tmp in-memory location
       let newImg;
-      let imageType;
-      if (typeof req.file !== "undefined") {
-        newImg = fs.readFileSync(req.file.path);
-        imageType = req.file.mimetype;
-        // New picture was chosen. Delete the old one.
-        // Delete the image stored on the server.
-        fs.unlink("./" + carouselSlide.imagePath, function(err) {
-          if (err && err.code == "ENOENT") return console.log(err);
-          console.log("file deleted successfully");
-        });
-      } else {
-        // Original picture was kept. Just keep the current image data.
+      let contentType;
+      // check if new image has been uploaded.
+      if (image.data) {
+        // new image has been uploaded. Load in the new image.
         newImg = image.data;
-        imageType = image.contentType;
+        contentType = image.contentType;
+      } else {
+        // no new image was uploaded, keep existing one.
+        newImg = currentImage.data;
+        contentType = currentImage.contentType;
       }
 
       teacher = {
@@ -126,7 +105,7 @@ router.put(
         bio: Array.isArray(bio) ? bio : bio.split(" ; "),
         image: {
           data: newImg,
-          contentType: imageType
+          contentType: contentType
         }
       };
 

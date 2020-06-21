@@ -101,16 +101,22 @@ class UploadTeacherForm extends Component {
   };
 
   handleFileChange = e => {
-    let image = e.target.files[0] || {};
+    const file = e.target.files[0] || {};
+    let image = {};
+
     if (
-      image.type === "image/jpeg" ||
-      image.type === "image/png" ||
-      image.type === "image/svg"
+      file.type === "image/jpeg" ||
+      file.type === "image/png" ||
+      file.type === "image/svg"
     ) {
-      this.setState({
-        image,
-        errors: {}
-      });
+      image.contentType = file.type;
+      const reader = new FileReader();
+      reader.readAsArrayBuffer(file);
+      reader.onload = () => {
+        const arrayBuffer = reader.result;
+        image.data = [...new Uint8Array(arrayBuffer)];
+      };
+      this.setState({ image, errors: {} });
     } else {
       this.setState(({ errors }) => ({
         image: null,
@@ -161,14 +167,11 @@ class UploadTeacherForm extends Component {
     }
 
     // Create formData to send over with post request. Needs to be in this format due to image.
-    let teacher = new FormData();
-    teacher.append("image", image);
-    teacher.append("name", name);
-    teacher.append("position", position);
-    // Loop through bio array and append each index element.
-    for (let i = 0; i < bio.length; i++) {
-      teacher.append("bio", bio[i]);
-    }
+    let teacher = {};
+    teacher.image = image;
+    teacher.name = name;
+    teacher.position = position;
+    teacher.bio = bio;
 
     this.setState({ isLoading: true, open: false });
     if (editMode) {

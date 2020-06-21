@@ -2,8 +2,6 @@ const express = require("express");
 const router = express.Router();
 const mongoose = require("mongoose");
 const passport = require("passport");
-const fs = require("fs");
-const upload = require("../../services/multerSettings");
 
 // Load Facility Model
 const Facility = require("../../models/Facility");
@@ -41,23 +39,14 @@ router.get("/", async (req, res) => {
 router.post(
   "/",
   passport.authenticate("jwt", { session: false }),
-  upload.single("image"),
   async (req, res) => {
-    const { legend } = req.body;
+    const { image, legend } = req.body;
 
-    // read the img file from tmp in-memory location
-    var newImg = fs.readFileSync(req.file.path);
-    const imageType = req.file.mimetype;
-
-    const { path = {} } = req.file;
     const order = await Facility.find().countDocuments();
 
     const newFacilitySlide = new Facility({
       legend,
-      image: {
-        data: newImg,
-        contentType: imageType
-      },
+      image,
       order
     });
 
@@ -74,11 +63,6 @@ router.delete(
   (req, res) => {
     Facility.findByIdAndDelete(req.params.id)
       .then(facilitySlide => {
-        // Delete the image stored on the server.
-        fs.unlink("./" + facilitySlide.imagePath, function(err) {
-          if (err && err.code == "ENOENT") return console.log(err);
-          console.log("file deleted successfully");
-        });
         res.json({ success: true });
       })
       .catch(err => {
@@ -95,35 +79,29 @@ router.delete(
 router.put(
   "/:id",
   passport.authenticate("jwt", { session: false }),
-  upload.single("image"),
   (req, res) => {
     Facility.findById(req.params.id).then(facilitySlide => {
-      const { legend } = req.body;
-      const { image } = facilitySlide;
+      const { image, legend } = req.body;
+      const currentImage = facilitySlide.image;
 
-      // read the img file from tmp in-memory location
       let newImg;
-      let imageType;
-      if (typeof req.file !== "undefined") {
-        newImg = fs.readFileSync(req.file.path);
-        imageType = req.file.mimetype;
-        // New picture was chosen. Delete the old one.
-        // Delete the image stored on the server.
-        fs.unlink("./" + facilitySlide.imagePath, function(err) {
-          if (err && err.code == "ENOENT") return console.log(err);
-          console.log("file deleted successfully");
-        });
-      } else {
-        // Original picture was kept. Just keep the current image data.
+      let contentType;
+      // check if new image has been uploaded.
+      if (image) {
+        // new image has been uploaded. Load in the new image.
         newImg = image.data;
-        imageType = image.contentType;
+        contentType = image.contentType;
+      } else {
+        // no new image was uploaded, keep existing one.
+        newImg = currentImage.data;
+        contentType = currentImage.contentType;
       }
 
       facilitySlide = {
         legend,
         image: {
           data: newImg,
-          contentType: imageType
+          contentType: contentType
         }
       };
 

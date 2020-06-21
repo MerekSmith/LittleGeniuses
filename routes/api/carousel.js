@@ -2,8 +2,6 @@ const express = require("express");
 const router = express.Router();
 const mongoose = require("mongoose");
 const passport = require("passport");
-// const fs = require("fs");
-// const upload = require("../../services/multerSettings");
 
 // Load Carousel Model
 const Carousel = require("../../models/Carousel");
@@ -41,7 +39,6 @@ router.get("/", async (req, res) => {
 router.post(
   "/",
   passport.authenticate("jwt", { session: false }),
-  // upload.single("image"),
   async (req, res) => {
     // details, link, and linkName are not required and could change based on what slide the daycare director chooses to add. In the majority of the time, it will at least either have details or the link and linkName.
     const {
@@ -79,11 +76,6 @@ router.delete(
   (req, res) => {
     Carousel.findByIdAndDelete(req.params.id)
       .then(carouselSlide => {
-        // Delete the image stored on the server. (Not currently using this anymore)
-        // fs.unlink("./" + carouselSlide.imagePath, function(err) {
-        //   if (err && err.code == "ENOENT") return console.log(err);
-        //   console.log("file deleted successfully");
-        // });
         res.json({ success: true });
       })
       .catch(err => {
@@ -100,7 +92,6 @@ router.delete(
 router.put(
   "/:id",
   passport.authenticate("jwt", { session: false }),
-  // upload.single("image"),
   (req, res) => {
     Carousel.findById(req.params.id).then(carouselSlide => {
       const {
@@ -110,26 +101,11 @@ router.put(
         link = null,
         linkName = null
       } = req.body;
-      const currentImage = carouselSlide;
+      const currentImage = carouselSlide.image;
 
-      // check if new image has been uploaded.
       let newImg;
       let contentType;
-      // if (typeof req.file !== "undefined") {
-      //   newImg = fs.readFileSync(req.file.path);
-      //   contentType = req.file.mimetype;
-      //   // New picture was chosen. Delete the old one.
-      //   // Delete the image stored on the server.
-      //   fs.unlink("./" + carouselSlide.imagePath, function(err) {
-      //     if (err && err.code == "ENOENT") return console.log(err);
-      //     console.log("file deleted successfully");
-      //   });
-      // } else {
-      //   // Original picture was kept. Just keep the current image data.
-      //   newImg = image.data;
-      //   contentType = image.contentType;
-      // }
-
+      // check if new image has been uploaded.
       if (image) {
         // new image has been uploaded. Load in the new image.
         newImg = image.data;

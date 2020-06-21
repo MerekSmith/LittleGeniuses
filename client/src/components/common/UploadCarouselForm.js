@@ -98,7 +98,7 @@ class UploadProgramForm extends Component {
   handleFileChange = e => {
     const file = e.target.files[0] || {};
     let image = {};
-    console.log("file", file);
+
     if (
       file.type === "image/jpeg" ||
       file.type === "image/png" ||
@@ -110,14 +110,8 @@ class UploadProgramForm extends Component {
       reader.onload = () => {
         const arrayBuffer = reader.result;
         image.data = [...new Uint8Array(arrayBuffer)];
-        // console.log("RESULT", data);
-        // return data;
       };
-      this.setState({ image, errors: {} }, () =>
-        console.log("state image", this.state.image)
-      );
-      console.log("image", image);
-      // console.log("result", reader.readAsDataURL(file));
+      this.setState({ image, errors: {} });
     } else {
       this.setState(({ errors }) => ({
         image: null,
@@ -150,13 +144,6 @@ class UploadProgramForm extends Component {
       return;
     }
 
-    // Create formData to send over with post request. Needs to be in this format due to image.
-    // let slide = new FormData();
-    // slide.append("header", header);
-    // slide.append("details", details);
-    // slide.append("link", link);
-    // slide.append("linkName", linkName);
-    // slide.append("image", image);
     let slide = {};
     slide.header = header;
     slide.details = details;
