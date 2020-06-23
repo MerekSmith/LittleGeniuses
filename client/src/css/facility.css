@@ -23,7 +23,7 @@
   .tourVideo {
     width: 360px;
     height: 200px;
-    margin: 50px auto;
+    margin: 40px auto;
   }
 }
 
@@ -31,6 +31,6 @@
   .tourVideo {
     width: 260px;
     height: 160px;
-    margin: 50px auto;
+    margin: 20px auto;
   }
 }

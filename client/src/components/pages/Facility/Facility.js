@@ -31,8 +31,7 @@ class Facility extends Component {
         <h3>Take A Tour</h3>
         <iframe
           className='tourVideo'
-          // width='560'
-          // height='315'
+          title='tourVideo'
           src='https://www.youtube.com/embed/LkBoABKzIJY'
           frameborder='0'
           allow='accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture'
