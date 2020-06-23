@@ -2,6 +2,12 @@
   text-align: center;
 }
 
+.tourVideo {
+  width: 660px;
+  height: 370px;
+  margin: 50px auto;
+}
+
 .facility-slides {
   max-width: 80%;
   margin: 50px auto;
@@ -10,5 +16,21 @@
 @media only screen and (max-width: 992px) {
   .facility-slides {
     max-width: 100%;
+  }
+}
+
+@media only screen and (max-width: 780px) {
+  .tourVideo {
+    width: 360px;
+    height: 200px;
+    margin: 50px auto;
+  }
+}
+
+@media only screen and (max-width: 400px) {
+  .tourVideo {
+    width: 260px;
+    height: 160px;
+    margin: 50px auto;
   }
 }

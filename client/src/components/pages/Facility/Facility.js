@@ -28,6 +28,17 @@ class Facility extends Component {
     return (
       <div className='facility-container'>
         <h1 className='page-header'>Our Facility</h1>
+        <h3>Take A Tour</h3>
+        <iframe
+          className='tourVideo'
+          // width='560'
+          // height='315'
+          src='https://www.youtube.com/embed/LkBoABKzIJY'
+          frameborder='0'
+          allow='accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture'
+          allowfullscreen
+        ></iframe>
+
         <div className='facility-slides'>
           {facility.slides ? (
             <FacilitySlides
