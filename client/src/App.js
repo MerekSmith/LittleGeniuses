@@ -13,6 +13,16 @@ import { configureAnchors } from "react-scrollable-anchor";
 import { Provider } from "react-redux";
 import store from "./store";
 
+import {
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+  Slide
+} from "@material-ui/core";
+
 import Navbar from "./components/layout/Navbar";
 import Landing from "./components/layout/Landing/Landing";
 import Register from "./components/auth/register";
@@ -75,7 +85,49 @@ if (localStorage.jwtToken) {
   }
 }
 
+const Transition = React.forwardRef(function Transition(props, ref) {
+  return <Slide direction='up' ref={ref} {...props} />;
+});
+
 class App extends Component {
+  state = {
+    openAlertModal: window.location.pathname !== "/admin"
+  };
+
+  alertModal = () => {
+    return (
+      <Dialog
+        open={this.state.openAlertModal}
+        fullScreen={Boolean(window.innerWidth < 800)}
+        TransitionComponent={Transition}
+        aria-labelledby='form-dialog-title'
+      >
+        <DialogTitle id='form-dialog-title'>Covid Alert</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            Alert about Covid text goes here.
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button
+            type='submit'
+            color='primary'
+            variant='contained'
+            onClick={() => this.setState({ openAlertModal: false })}
+          >
+            OK
+          </Button>
+        </DialogActions>
+      </Dialog>
+    );
+  };
+
+  // componentDidMount() {
+  //   if (window.location.pathname !== "/admin") {
+  // 		this.setState({ openAlertModal: true });
+  // 	}
+  // }
+
   render() {
     return (
       <Provider store={store}>
@@ -98,6 +150,7 @@ class App extends Component {
                 </Switch>
               </div>
             </Switch>
+            {this.alertModal()}
           </div>
         </Router>
       </Provider>

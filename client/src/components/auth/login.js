@@ -181,7 +181,7 @@ class Login extends Component {
     } = this.props;
 
     return (
-      <React.Fragment style={{ marginBottom: "30px" }}>
+      <div style={{ marginBottom: "30px" }}>
         <h1 className='display-4 text-center'>Admin Controls</h1>
         <div className='row justify-content-md-center'>
           <div className='col-md-3 text-center' style={{ marginTop: "50px" }}>
@@ -228,7 +228,7 @@ class Login extends Component {
             message={facility.facilitySuccessMessage}
           />
         </div>
-      </React.Fragment>
+      </div>
     );
   }
 
