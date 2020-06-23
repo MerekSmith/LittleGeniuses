@@ -28,17 +28,20 @@ export const getPrograms = () => dispatch => {
 
 // add a new program into mongodb
 export const addProgram = program => dispatch => {
-  return axios.post("/api/programs", program).then(res => {
-    dispatch({
-      type: ADD_PROGRAM,
-      payload: res.data
-    }).catch(err => {
+  return axios
+    .post("/api/programs", program)
+    .then(res => {
+      dispatch({
+        type: ADD_PROGRAM,
+        payload: res.data
+      });
+    })
+    .catch(err => {
       dispatch({
         type: ERROR,
         message: "There was an error adding a program."
       });
     });
-  });
 };
 
 // update an existing program in mongodb

@@ -91,7 +91,7 @@ router.put(
       let newImg;
       let contentType;
       // check if new image has been uploaded.
-      if (image) {
+      if (image.data) {
         // new image has been uploaded. Load in the new image.
         newImg = image.data;
         contentType = image.contentType;
