@@ -84,45 +84,26 @@ router.put(
   "/:id",
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
-    Program.findById(req.params.id).then(program => {
-      const { image, header, description, textColor } = req.body;
-      const currentImage = program.image;
+    const { image, header, description, textColor } = req.body;
 
-      let newImg;
-      let contentType;
-      // check if new image has been uploaded.
-      if (image.data) {
-        // new image has been uploaded. Load in the new image.
-        newImg = image.data;
-        contentType = image.contentType;
-      } else {
-        // no new image was uploaded, keep existing one.
-        newImg = currentImage.data;
-        contentType = currentImage.contentType;
-      }
+    program = {
+      header,
+      description: Array.isArray(description)
+        ? description
+        : description.split(" ; "),
+      image,
+      textColor
+    };
 
-      program = {
-        header,
-        description: Array.isArray(description)
-          ? description
-          : description.split(" ; "),
-        image: {
-          data: newImg,
-          contentType: contentType
-        },
-        textColor
-      };
-
-      Program.findOneAndUpdate(
-        { _id: req.params.id },
-        { $set: program },
-        { new: true }
-      )
-        .then(program => res.json(program))
-        .catch(err => {
-          res.status(404).json({ err });
-        });
-    });
+    Program.findOneAndUpdate(
+      { _id: req.params.id },
+      { $set: program },
+      { new: true }
+    )
+      .then(program => res.json(program))
+      .catch(err => {
+        res.status(404).json({ err });
+      });
   }
 );
 

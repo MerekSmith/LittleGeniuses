@@ -80,37 +80,18 @@ router.put(
   "/:id",
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
-    Facility.findById(req.params.id).then(facilitySlide => {
-      const { image, legend } = req.body;
-      const currentImage = facilitySlide.image;
+    const { image, legend } = req.body;
 
-      let newImg;
-      let contentType;
-      // check if new image has been uploaded.
-      if (image) {
-        // new image has been uploaded. Load in the new image.
-        newImg = image.data;
-        contentType = image.contentType;
-      } else {
-        // no new image was uploaded, keep existing one.
-        newImg = currentImage.data;
-        contentType = currentImage.contentType;
-      }
+    facilitySlide = {
+      legend,
+      image
+    };
 
-      facilitySlide = {
-        legend,
-        image: {
-          data: newImg,
-          contentType: contentType
-        }
-      };
-
-      Facility.findOneAndUpdate(
-        { _id: req.params.id },
-        { $set: facilitySlide },
-        { new: true }
-      ).then(facilitySlide => res.json(facilitySlide));
-    });
+    Facility.findOneAndUpdate(
+      { _id: req.params.id },
+      { $set: facilitySlide },
+      { new: true }
+    ).then(facilitySlide => res.json(facilitySlide));
   }
 );
 

@@ -144,7 +144,7 @@ class UploadProgramForm extends Component {
       return;
     }
 
-    let slide = {};
+    const slide = {};
     slide.header = header;
     slide.details = details;
     slide.link = link;

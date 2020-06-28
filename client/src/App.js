@@ -101,6 +101,8 @@ class App extends Component {
         fullScreen={Boolean(window.innerWidth < 800)}
         TransitionComponent={Transition}
         aria-labelledby='form-dialog-title'
+        fullWidth={true}
+        maxWidth='sm'
       >
         <DialogTitle id='form-dialog-title'>Covid Alert</DialogTitle>
         <DialogContent>

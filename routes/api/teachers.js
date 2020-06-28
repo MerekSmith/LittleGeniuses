@@ -82,43 +82,24 @@ router.put(
   "/:id",
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
-    Teacher.findById(req.params.id).then(teacher => {
-      const { image, name, position, bio } = req.body;
-      const currentImage = teacher.image;
+    const { image, name, position, bio } = req.body;
 
-      let newImg;
-      let contentType;
-      // check if new image has been uploaded.
-      if (image.data) {
-        // new image has been uploaded. Load in the new image.
-        newImg = image.data;
-        contentType = image.contentType;
-      } else {
-        // no new image was uploaded, keep existing one.
-        newImg = currentImage.data;
-        contentType = currentImage.contentType;
-      }
+    teacher = {
+      name,
+      position,
+      bio: Array.isArray(bio) ? bio : bio.split(" ; "),
+      image
+    };
 
-      teacher = {
-        name,
-        position,
-        bio: Array.isArray(bio) ? bio : bio.split(" ; "),
-        image: {
-          data: newImg,
-          contentType: contentType
-        }
-      };
-
-      Teacher.findOneAndUpdate(
-        { _id: req.params.id },
-        { $set: teacher },
-        { new: true }
-      )
-        .then(teacher => res.json(teacher))
-        .catch(err => {
-          res.status(404).json({ err });
-        });
-    });
+    Teacher.findOneAndUpdate(
+      { _id: req.params.id },
+      { $set: teacher },
+      { new: true }
+    )
+      .then(teacher => res.json(teacher))
+      .catch(err => {
+        res.status(404).json({ err });
+      });
   }
 );
 

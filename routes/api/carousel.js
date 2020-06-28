@@ -93,46 +93,27 @@ router.put(
   "/:id",
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
-    Carousel.findById(req.params.id).then(carouselSlide => {
-      const {
-        header,
-        image,
-        details = null,
-        link = null,
-        linkName = null
-      } = req.body;
-      const currentImage = carouselSlide.image;
+    const {
+      header,
+      image,
+      details = null,
+      link = null,
+      linkName = null
+    } = req.body;
 
-      let newImg;
-      let contentType;
-      // check if new image has been uploaded.
-      if (image) {
-        // new image has been uploaded. Load in the new image.
-        newImg = image.data;
-        contentType = image.contentType;
-      } else {
-        // no new image was uploaded, keep existing one.
-        newImg = currentImage.data;
-        contentType = currentImage.contentType;
-      }
+    carouselSlide = {
+      header,
+      details,
+      image,
+      link,
+      linkName
+    };
 
-      carouselSlide = {
-        header,
-        details,
-        image: {
-          data: newImg,
-          contentType: contentType
-        },
-        link,
-        linkName
-      };
-
-      Carousel.findOneAndUpdate(
-        { _id: req.params.id },
-        { $set: carouselSlide },
-        { new: true }
-      ).then(carouselSlide => res.json(carouselSlide));
-    });
+    Carousel.findOneAndUpdate(
+      { _id: req.params.id },
+      { $set: carouselSlide },
+      { new: true }
+    ).then(carouselSlide => res.json(carouselSlide));
   }
 );
 
