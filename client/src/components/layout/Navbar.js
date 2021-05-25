@@ -39,7 +39,7 @@ class Navbar extends Component {
     const contactInfo = (
       <ul className='ml-auto' style={{ margin: 'auto 0' }}>
         <li className='navbar-text'>littlegeniusesmidvale@gmail.com</li>
-        <li className='navbar-text'>Daycare Hours M-F 6am-6pm</li>
+        <li className='navbar-text'>Daycare Hours M-F 6am-5:30pm</li>
       </ul>
     );
 
