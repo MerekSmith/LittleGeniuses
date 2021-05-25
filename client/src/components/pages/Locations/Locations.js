@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { Row, Col } from "react-bootstrap";
 import {
   getFacilitySlides,
   addFacilitySlide,
@@ -9,6 +10,7 @@ import {
 } from "../../../actions/facilityActions";
 
 import FacilitySlides from "./FacilitySlides";
+import Map from "../../google/Map";
 import Loader from "../../common/Loader";
 import SuccessAlert from "../../common/SuccessAlert";
 
@@ -26,9 +28,10 @@ class Facility extends Component {
     const { isAuthenticated } = this.props.auth;
 
     return (
-      <div className='facility-container'>
-        <h1 className='page-header'>Our Facility</h1>
-        <h3>Take A Tour</h3>
+      <div className='locations-container'>
+        <h1 className='page-header'>Locations</h1>
+
+        {/* <h3>Take A Tour</h3>
         <iframe
           className='tourVideo'
           title='tourVideo'
@@ -36,7 +39,37 @@ class Facility extends Component {
           frameborder='0'
           allow='accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture'
           allowfullscreen
-        ></iframe>
+        ></iframe> */}
+
+        <div className='locations-details'>
+          <Row>
+          <Col lg={6}>
+            <div className='locations-info-container'>
+              <h1>Midvale</h1>
+              <div className='locations-address-container'>
+                <p className='contact-address'>7351 S 900 E</p>
+                <p className='contact-address'>Midvale, UT 84047</p>
+                <p className='contact-address'><strong>Phone</strong>: <span className='contact-info'>385-275-7233</span></p>
+                <p className='contact-address'><strong>Email</strong>: <span className='contact-info'>littlegeniusesmidvale@gmail.com</span></p>
+              </div>
+              <Map location='midvale' />
+            </div>
+          </Col>
+
+          <Col lg={6}>
+            <div className='locations-info-container'>
+              <h1>Pleasant Grove</h1>
+              <div className='locations-address-container'>
+                <p className='contact-address'>352 E State Rd</p>
+                <p className='contact-address'>Pleasant Grove, UT 84062</p>
+                <p className='contact-address'><strong>Phone</strong>: <span className='contact-info'>801-899-2098</span></p>
+                <p className='contact-address'><strong>Email</strong>: <span className='contact-info'>littlegeniusesmidvale@gmail.com</span></p>
+              </div>
+              <Map location='pleasantGrove' />
+            </div>
+          </Col>
+          </Row>
+        </div>
 
         <div className='facility-slides'>
           {facility.slides ? (

@@ -6,6 +6,11 @@
   margin-bottom: 100px;
 }
 
+.contact-info-container {
+  width: 80%;
+  margin: auto;
+}
+
 .contact-address,
 .contact-info {
   margin: 0px;

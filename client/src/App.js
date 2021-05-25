@@ -31,7 +31,7 @@ import Programs from "./components/pages/Programs/Programs";
 import Events from "./components/pages/Events";
 import Testimonials from "./components/pages/Testimonials/Testimonials";
 import Staff from "./components/pages/Staff/Staff";
-import Facility from "./components/pages/Facility/Facility";
+import Locations from "./components/pages/Locations/Locations";
 import ContactUs from "./components/pages/ContactUs";
 import NotFound from "./components/not-found/NotFound";
 
@@ -47,7 +47,7 @@ import "./css/tryus.css";
 import "./css/programs.css";
 import "./css/editIcons.css";
 import "./css/staff.css";
-import "./css/facility.css";
+import "./css/locations.css";
 import "./css/testimonials.css";
 import "./css/custom_calendar.css";
 
@@ -146,7 +146,7 @@ class App extends Component {
                   <Route exact path='/events' component={Events} />
                   <Route exact path='/testimonials' component={Testimonials} />
                   <Route exact path='/staff' component={Staff} />
-                  <Route exact path='/facility' component={Facility} />
+                  <Route exact path='/locations' component={Locations} />
                   <Route exact path='/contact' component={ContactUs} />
                   <Route component={NotFound} />
                 </Switch>

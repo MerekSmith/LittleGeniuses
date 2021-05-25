@@ -37,9 +37,8 @@ class Navbar extends Component {
     const { screenWidth } = this.state;
 
     const contactInfo = (
-      <ul className='ml-auto'>
+      <ul className='ml-auto' style={{ margin: 'auto 0' }}>
         <li className='navbar-text'>littlegeniusesmidvale@gmail.com</li>
-        <li className='navbar-text'>385-275-7233</li>
         <li className='navbar-text'>Daycare Hours M-F 6am-6pm</li>
       </ul>
     );
@@ -79,8 +78,8 @@ class Navbar extends Component {
                 </Link>
               </li>
               <li className='nav-item'>
-                <Link className='nav-link' to='/facility'>
-                  Our Facility
+                <Link className='nav-link' to='/locations'>
+                  Locations
                 </Link>
               </li>
               <li className='nav-item'>
