@@ -1,4 +1,4 @@
-.facility-container {
+.locations-container {
   text-align: center;
 }
 
@@ -6,6 +6,15 @@
   width: 660px;
   height: 370px;
   margin: 50px auto;
+}
+
+.locations-info-container {
+  width: 80%;
+  margin: 40px auto;
+}
+
+.locations-address-container {
+  margin-bottom: 25px;
 }
 
 .facility-slides {
