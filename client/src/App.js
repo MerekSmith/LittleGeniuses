@@ -54,8 +54,8 @@ import "./css/custom_calendar.css";
 AOS.init();
 
 // This calls the redux action which makes an API call to the server which makes an API call to Google Places ID to get review data. Once completed, this is passed back into the redux state under reviews.
-store.dispatch(getCarouselSlides());
 store.dispatch(getReviews());
+store.dispatch(getCarouselSlides());
 store.dispatch(getPrograms());
 store.dispatch(getTeachers());
 store.dispatch(getFacilitySlides());
@@ -97,12 +97,11 @@ class App extends Component {
   alertModal = () => {
     return (
       <Dialog
-        open={this.state.openAlertModal}
-        fullScreen={Boolean(window.innerWidth < 800)}
+        open={this.state.openAlertModal && false}
         TransitionComponent={Transition}
         aria-labelledby='form-dialog-title'
-        fullWidth={true}
-        maxWidth='sm'
+        // fullWidth={true}
+        maxWidth='md'
       >
         <DialogTitle id='form-dialog-title'>Covid Alert</DialogTitle>
         <DialogContent>
