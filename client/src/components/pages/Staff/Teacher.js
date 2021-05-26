@@ -9,6 +9,7 @@ function Teacher(props) {
     position,
     bio,
     image,
+    imageUrl,
     order,
     mongoId,
     teacherIndex,
@@ -28,7 +29,7 @@ function Teacher(props) {
       data-aos='zoom-in-up'
       data-aos-duration='1500'
     >
-      <Image rounded src={image} alt={name} className='teacher-img' />
+      <Image rounded src={imageUrl} alt={name} className='teacher-img' />
       <h2 className='teacher-name'>{name}</h2>
       <h5 className='teacher-position'>{position}</h5>
       {bio.map((bioLine, index) => {

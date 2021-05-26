@@ -9,6 +9,7 @@ function Program(props) {
     programIndex,
     screenWidth,
     image,
+    imageUrl,
     header,
     description,
     textColor,
@@ -38,7 +39,7 @@ function Program(props) {
       <ScrollableAnchor id={anchor}>
         <Row data-aos={fadeType} data-aos-duration='1500'>
           <Col md={{ order: imgOrder }}>
-            <Image rounded src={image} className='program-img' alt='program' />
+            <Image rounded src={imageUrl} className='program-img' alt='program' />
           </Col>
           <Col md={{ order: textOrder }} className='program-text'>
             <h1 style={{ color: textColor }}>{header}</h1>

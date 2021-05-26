@@ -35,11 +35,12 @@ class Teachers extends Component {
         {Boolean(teachers.length !== 0) ? (
           <Row className='teachers'>
             {teachers.map(
-              ({ name, position, bio, imageUrl, order, _id }, index) => {
+              ({ name, position, bio, image, imageUrl, order, _id }, index) => {
                 const isLastTeacher = index + 1 === teachers.length;
                 return (
                   <Teacher
-                    image={imageUrl}
+                    image={image}
+                    imageUrl={imageUrl}
                     name={name}
                     position={position}
                     bio={bio}

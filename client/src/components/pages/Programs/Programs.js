@@ -72,14 +72,15 @@ class Programs extends Component {
         <div className='programs'>
           {Boolean(programs.length !== 0) ? (
             programs.map(
-              ({ imageUrl, header, description, textColor, _id }, index) => {
+              ({ image, imageUrl, header, description, textColor, _id }, index) => {
                 const isLastProgram = index + 1 === programs.length;
 
                 return (
                   <Program
                     programIndex={index}
                     screenWidth={this.state.screenWidth}
-                    image={imageUrl}
+                    imageUrl={imageUrl}
+                    image={image}
                     header={header}
                     description={description}
                     textColor={textColor}
