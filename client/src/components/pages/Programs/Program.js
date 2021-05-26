@@ -25,19 +25,21 @@ function Program(props) {
 
   // Pull the first part of the header and use as anchor for scrollingAnchor in Program component.
   const anchor = header.split(" ")[0];
+  let fadeDirection = "fade-right";
   // This provides the order that the columns should appear in the program row. The program index will take in the index from the array of programs. If the index is even, it will get the img on the left. If odd, image will be on the right.
   let textOrder = 1;
   let imgOrder = 12;
   if (programIndex % 2 === 0 || !screenWidth) {
+    fadeDirection = "fade-left"
     textOrder = 12;
     imgOrder = 1;
   }
-  const fadeType = screenWidth ? "fade-left" : "fade-up";
+  fadeDirection = screenWidth ? fadeDirection : "fade-up";
 
   return (
     <div className='program-container'>
       <ScrollableAnchor id={anchor}>
-        <Row data-aos={fadeType} data-aos-duration='1500'>
+        <Row data-aos={fadeDirection} data-aos-duration='1500'>
           <Col md={{ order: imgOrder }}>
             <Image rounded src={imageUrl} className='program-img' alt='program' />
           </Col>
