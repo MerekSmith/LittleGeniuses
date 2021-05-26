@@ -37,7 +37,12 @@ class Testimonials extends Component {
           <h1 className='page-header'>Testimonials</h1>
           <h4 className='leave-review'>
             Love Little Geniuses? Leave us a review{" "}
-            <a className='leave-review-link' href='https://goo.gl/izpgiC'>
+            <a 
+              className='leave-review-link' 
+              href='https://goo.gl/izpgiC'
+              target='_blank'
+              rel='noopener noreferrer'
+            >
               here
             </a>
             !
