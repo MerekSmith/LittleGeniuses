@@ -4,6 +4,7 @@ import { getReviews } from "../../../actions/reviewsActions";
 
 import Review from "./Review";
 import Stars from "./Stars";
+import poweredByGoogle from '../../../img/Google/powered_by_google_on_white_hdpi.png';
 
 class Testimonials extends Component {
   componentDidMount() {
@@ -28,7 +29,7 @@ class Testimonials extends Component {
               <Stars starPercentage={starPercentage} />
             </div>
             <h4>
-              {Math.round(rating * 100) / 100} average from {reviewCount}{" "}
+              {(Math.round(rating * 10) / 10).toFixed(1)} average from {reviewCount}{" "}
               ratings
             </h4>
           </div>
@@ -52,6 +53,7 @@ class Testimonials extends Component {
             reviews.map((review, index) => {
               return <Review key={index} review={review} />;
             })}
+          {reviews && <img src={poweredByGoogle} alt='poweredByGoogle'/>}
         </div>
       </div>
     );
