@@ -55,7 +55,7 @@ class Calendar extends React.Component {
             googleCalendarPlugin
           ]}
           weekends={false}
-          googleCalendarApiKey='AIzaSyB-GZuGP7qRfhdv_73-vQ7K4mGgKfeCU3o'
+          googleCalendarApiKey='AIzaSyCFtSUXcDGEJyNM16ymM_nNc5DU1bVz_YQ'
           eventSources={[
             {
               googleCalendarId: "littlegeniusesmidvale@gmail.com",
