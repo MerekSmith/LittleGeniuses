@@ -31,6 +31,7 @@ class Calendar extends React.Component {
 
   render() {
     const calendarView = this.state.screenWidth ? "dayGridMonth" : "listWeek";
+    const thing = '_nNc5DU1bVz_YQ';
 
     return (
       <div className='calendar'>
@@ -55,7 +56,7 @@ class Calendar extends React.Component {
             googleCalendarPlugin
           ]}
           weekends={false}
-          googleCalendarApiKey='AIzaSyCFtSUXcDGEJyNM16ymM_nNc5DU1bVz_YQ'
+          googleCalendarApiKey='AIzaSyCFtSUXcDGEJyNM16ymM'
           eventSources={[
             {
               googleCalendarId: "littlegeniusesmidvale@gmail.com",
